@@ -35,11 +35,14 @@ describe("maxProfit", () => {
     }
 
     const scenarios: IScenario[] = [
-        {prices: [7,1,5,3,6,4], expectedOutput: 5}
+        {prices: [7,1,5,3,6,4], expectedOutput: 5},
+        {prices: [5,9,4,1,2,8,4], expectedOutput: 7},
+        {prices: [4,8,2,4,6,8,7], expectedOutput: 6}
     ];
 
     it("Should return 0 if profit cannot be acheived.", () => {
         expect(arrays.maxProfit([7,6,4,3,1])).toEqual(0);
+        expect(arrays.maxProfit([8,4,3,1])).toEqual(0);
     });
 
     scenarios.forEach(scenario => {

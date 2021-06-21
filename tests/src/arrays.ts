@@ -3,6 +3,7 @@
  * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
  * You may assume that each input would have exactly one solution, and you may not use the same element twice.
  * You can return the answer in any order.
+ * 
  * Expected TC: O(n)
  * 
  * Example:
@@ -46,10 +47,23 @@ export function twoSum(nums: number[], target: number): number[] {
  * Return the maximum profit you can achieve from this transaction.
  * If you cannot achieve any profit, return 0.
  * 
+ * Expected TC: O(n)
+ * 
+ * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+ * 
  * @param prices An array of prices.
  * @returns The maximum profit acheivablem or 0 if profits are possible.
  */
 export function maxProfit (prices: number[]): number {
-    return 0;
+    
+    let biggestMargin = 0;
+    let low = prices[0];
+
+    prices.forEach((price: number, index: number) => {
+        if ((price - low) > biggestMargin) biggestMargin = price - low;
+        if (low > price) low = price;
+    });
+
+    return biggestMargin;
 }
 //---END---maxProfit
