@@ -86,3 +86,25 @@ describe("containsDuplicate", () => {
 
 });
 //---END---containsDuplicate
+
+//---START---productExceptSelf
+describe("productExceptSelf", () => {
+
+    interface IScenario {
+        nums: number[];
+        expectedOutput: number[];
+    }
+
+    const scenarios: IScenario[] = [
+        {nums: [1,2,3,4], expectedOutput: [24,12,8,6]},
+        {nums: [-1,1,0,-3,3], expectedOutput: [0,0,9,0,0]},
+        {nums: [1,-1], expectedOutput: [-1,1]}
+    ];
+
+    scenarios.forEach(scenario => {
+        it(`Should return an array containing the correct products.\n\tInput [${scenario.nums}]\n\tExpected: [${scenario.expectedOutput}]`, () => {
+            expect(arrays.productExceptSelf(scenario.nums)).toEqual(scenario.expectedOutput);
+        });
+    });
+});
+//---END---productExceptSelf
