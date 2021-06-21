@@ -53,3 +53,36 @@ describe("maxProfit", () => {
 
 });
 //---END---maxProfit
+
+//---START---containsDuplicate
+describe("containsDuplicate", () => {
+    
+    interface IScenario {
+        nums: number[];
+        expectedOutput: boolean;
+    }
+
+    const scenariosTrue: IScenario[] = [
+        {nums: [1,2,3,1], expectedOutput: true},
+        {nums: [1,1,1,3,3,4,3,2,4,2], expectedOutput: true}
+    ];
+
+    const scenariosFalse: IScenario[] = [
+        {nums: [1,2,3,4], expectedOutput: false},
+        {nums: [1,4,2,6,8,9], expectedOutput: false}
+    ];
+
+    scenariosTrue.forEach(scenario => {
+        it("Should return true if there are any duplicates.\n" + "\tInput: " + scenario.nums, () => {
+            expect(arrays.containsDuplicate(scenario.nums)).toBe(scenario.expectedOutput);
+        });
+    });
+
+    scenariosFalse.forEach(scenario => {
+        it("Should return false if there aren't any duplicates\n" + "\tInput: " + scenario.nums, () => {
+            expect(arrays.containsDuplicate(scenario.nums)).toBe(scenario.expectedOutput);
+        });
+    });
+
+});
+//---END---containsDuplicate

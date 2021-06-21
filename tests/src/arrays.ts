@@ -67,3 +67,30 @@ export function maxProfit (prices: number[]): number {
     return biggestMargin;
 }
 //---END---maxProfit
+
+//---START---containsDuplicate
+/**
+ * Given an integer array nums, return true if any value appears at least twice
+ * in the array, and return false if every element is distinct.
+ * 
+ * Expected TC: O(n)
+ * 
+ * https://leetcode.com/problems/contains-duplicate/
+ * 
+ * @param nums An array containing numbers.
+ * @returns True if the array contains a duplicate value, false if it doesn't.
+ */
+export function containsDuplicate(nums: number[]): boolean {
+    
+    const set = new Set<number>();
+
+    let current: number;
+    for (let i = 0; i < nums.length; i++) {
+        current = nums[i];
+        if (set.has(current)) return true;
+        set.add(current);
+    }
+
+    return false;
+}
+//---END---containsDuplicate
