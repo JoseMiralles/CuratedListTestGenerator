@@ -1,3 +1,4 @@
+//---START---twoSum
 /**
  * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
  * You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -32,3 +33,23 @@ export function twoSum(nums: number[], target: number): number[] {
 
     return [];
 };
+//---END---twoSum
+
+//---START---maxProfit
+/**
+ * You are given an array prices where prices[i] is the price of a given stock
+ * on the i'th day.
+ * 
+ * You want to maximize your profit by choosing a single day to buy one stock and
+ * choosing a different day in the future to sell that stock.
+ * 
+ * Return the maximum profit you can achieve from this transaction.
+ * If you cannot achieve any profit, return 0.
+ * 
+ * @param prices An array of prices.
+ * @returns The maximum profit acheivablem or 0 if profits are possible.
+ */
+export function maxProfit (prices: number[]): number {
+    return 0;
+}
+//---END---maxProfit
