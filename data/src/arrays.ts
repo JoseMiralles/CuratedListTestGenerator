@@ -34,7 +34,6 @@ export function twoSum(nums: number[], target: number): number[] {
 
     return [];
 };
-//---END---twoSum
 
 //---START---maxProfit
 /**
@@ -66,7 +65,6 @@ export function maxProfit (prices: number[]): number {
 
     return biggestMargin;
 }
-//---END---maxProfit
 
 //---START---containsDuplicate
 /**
@@ -93,7 +91,6 @@ export function containsDuplicate(nums: number[]): boolean {
 
     return false;
 }
-//---END---containsDuplicate
 
 //---START---productExceptSelf
 /**
@@ -128,4 +125,3 @@ export function productExceptSelf(nums: number[]): number[]{
 
     return res;
 }
-//---END---productExceptSelf

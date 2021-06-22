@@ -24,7 +24,6 @@ describe("twoSum", () => {
         })
     });
 });
-//---END---twoSum
 
 //---START---maxProfit
 describe("maxProfit", () => {
@@ -52,7 +51,6 @@ describe("maxProfit", () => {
     });
 
 });
-//---END---maxProfit
 
 //---START---containsDuplicate
 describe("containsDuplicate", () => {
@@ -85,7 +83,6 @@ describe("containsDuplicate", () => {
     });
 
 });
-//---END---containsDuplicate
 
 //---START---productExceptSelf
 describe("productExceptSelf", () => {
@@ -107,4 +104,3 @@ describe("productExceptSelf", () => {
         });
     });
 });
-//---END---productExceptSelf
