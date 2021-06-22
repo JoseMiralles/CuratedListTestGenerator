@@ -104,3 +104,24 @@ describe("productExceptSelf", () => {
         });
     });
 });
+
+//---START---maxSubArray
+describe("maxSubArray", () => {
+
+    interface IScenario {
+        nums: number[];
+        expectedOutput: number;
+    }
+
+    const scenarios: IScenario[] = [
+        {nums: [-2,1,-3,4,-1,2,1,-5,4], expectedOutput: 6},
+        {nums: [1], expectedOutput: 1},
+        {nums: [5,4,-1,7,8], expectedOutput: 23}
+    ];
+
+    scenarios.forEach(scenario => {
+        it(`Should return the sum of the sub array with the largest sum.\n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`, () => {
+            expect(arrays.maxSubArray(scenario.nums)).toBe(scenario.expectedOutput);
+        });
+    });
+});

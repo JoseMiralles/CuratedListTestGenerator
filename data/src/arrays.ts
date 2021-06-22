@@ -125,3 +125,27 @@ export function productExceptSelf(nums: number[]): number[]{
 
     return res;
 }
+
+//---START---maxSubArray
+/**
+ * Given an integer array nums, find the contiguous subarray
+ * (containing at least one number) which has the largest sum and return its sum.
+ * 
+ * Expected TC: O(n)
+ * 
+ * https://leetcode.com/problems/maximum-subarray/
+ * 
+ * @param nums An array of numbers.
+ * @returns Sum of the contiguous sub-array with the largest sum.
+ */
+export function maxSubArray(nums: number[]): number {
+    let maxSum = nums[0];
+    let maxTemp = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+        maxTemp = Math.max(maxTemp + nums[i], nums[i]);
+        maxSum = Math.max(maxSum, maxTemp);
+    }
+
+    return maxSum;
+}
