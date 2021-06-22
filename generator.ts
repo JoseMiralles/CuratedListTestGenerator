@@ -21,7 +21,11 @@ interface IFiles {
 class Generator {
 
     private problems: {[Index: string]: IProblem[]} = {};
-    private files: IFiles = {tests: "", solutions: "", emptyMethods: ""};
+    private files: IFiles = {
+        tests: "",
+        solutions: "",
+        emptyMethods: "",
+    };
 
     public constructor(private types: string[] = ["arrays"], private total: number = 3){
         this.generateProblemsDictionary();
@@ -33,7 +37,17 @@ class Generator {
      * Creates the "Test" folder, with all required files.
      */
     createFoldersAndProject() {
-        
+        if (!fs.existsSync("Test")) fs.mkdirSync("Test");
+        if (!fs.existsSync("Test/spec")) fs.mkdirSync("Test/spec");
+        if (!fs.existsSync("Test/spec/support")) fs.mkdirSync("Test/spec/support");
+        if (!fs.existsSync("Test/src")) fs.mkdirSync("Test/src");
+        if (!fs.existsSync("Test/solutions")) fs.mkdirSync("Test/solutions");
+        fs.writeFileSync("Test/src/problems.ts", this.files.emptyMethods);
+        fs.writeFileSync("Test/spec/tests.spec.ts", this.files.tests);
+        fs.writeFileSync("Test/solutions/solutions.ts", this.files.solutions);
+        fs.writeFileSync("Test/package.json", fs.readFileSync("data/package.json", {encoding: "utf8"}));
+        fs.writeFileSync("Test/tsconfig.json", fs.readFileSync("data/tsconfig.json", {encoding: "utf8"}));
+        fs.writeFileSync("Test/spec/support/jasmine.json", fs.readFileSync("data/spec/support/jasmine.json", {encoding: "utf8"}));
     }
 
     /**
@@ -41,13 +55,17 @@ class Generator {
      */
     private generateFileStrings() {
         
+        // Add imports for all types to the test file string.
+        this.types.forEach(t => {
+            this.files.tests += `import * as ${t} from "../src/problems";\n`;
+        });
+
         // keep track of which problems are already included to avoid duplicates.
         const included = new Set<string>();
         let count = 0;
 
         while (count < this.total) {
             const randomTypeName = this.types[Math.floor(Math.random() * this.types.length)];
-            console.log(randomTypeName);
             const randomProblemIndex = Math.floor(Math.random() * this.problems[randomTypeName].length);
             const problem = this.problems[randomTypeName][randomProblemIndex];
 
@@ -107,7 +125,7 @@ class Generator {
 
             if (name && body) {
 
-                const content = "throw new Error('Method not implemented.');"; 
+                const content = "\tthrow new Error('Method not implemented.');"; 
                 const empty =
                     body.slice(0, body.indexOf("{\n") + 3) +
                     content +
