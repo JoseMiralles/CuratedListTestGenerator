@@ -20,6 +20,8 @@ interface IFiles {
 
 class Generator {
 
+    private types: string[];
+    private total: number;
     private problems: {[Index: string]: IProblem[]} = {};
     private files: IFiles = {
         tests: "",
@@ -27,16 +29,30 @@ class Generator {
         emptyMethods: "",
     };
 
-    public constructor(private types: string[] = ["arrays"], private total: number = 3){
+    public constructor(){
+        this.loadGeneratorSettings();
         this.generateProblemsDictionary();
         this.generateFileStrings();
         this.createFoldersAndProject();
     }
 
     /**
+     * Loads the settings from generator.json
+     */
+    loadGeneratorSettings() {
+        console.log("Loading settings from generator.json...");
+        const rawData = fs.readFileSync("generator.json", {encoding: "utf8"});
+        const settings = JSON.parse(rawData);
+        console.log(settings);
+        this.types = settings["problem-types"];
+        this.total = settings["total-problems"];
+    }
+
+    /**
      * Creates the "Test" folder, with all required files.
      */
     createFoldersAndProject() {
+        console.log("Creating folders and files...");
         if (!fs.existsSync("Test")) fs.mkdirSync("Test");
         if (!fs.existsSync("Test/spec")) fs.mkdirSync("Test/spec");
         if (!fs.existsSync("Test/spec/support")) fs.mkdirSync("Test/spec/support");
@@ -54,6 +70,7 @@ class Generator {
      * Populates "this.files" with the text of each file.
      */
     private generateFileStrings() {
+        console.log("Generating files strings...");
         
         // Add imports for all types to the test file string.
         this.types.forEach(t => {
@@ -84,6 +101,7 @@ class Generator {
      * Populates "this.problems" dictionary with {type => IProblem} object.
      */
     private generateProblemsDictionary = () => {
+        console.log("Generating problems dictionary...");
         this.types.forEach(type => {
             this.problems[type] = [];
             const solutions = this.getSolutions(type);
