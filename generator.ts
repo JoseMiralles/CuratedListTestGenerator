@@ -12,17 +12,61 @@ interface IProblemPair {
     empty: string;
 }
 
+interface IFiles {
+    tests: string;
+    solutions: string;
+    emptyMethods: string;
+}
+
 class Generator {
 
-    public problems: {[Index: string]: IProblem[]};
+    private problems: {[Index: string]: IProblem[]} = {};
+    private files: IFiles = {tests: "", solutions: "", emptyMethods: ""};
 
-    public constructor(types: string[] = ["arrays"]){
-        this.problems = {};
-        this.generateProblemsDictionary(types);
+    public constructor(private types: string[] = ["arrays"], private total: number = 3){
+        this.generateProblemsDictionary();
+        this.generateFileStrings();
+        this.createFoldersAndProject();
     }
 
-    private generateProblemsDictionary = (types: string[]) => {
-        types.forEach(type => {
+    /**
+     * Creates the "Test" folder, with all required files.
+     */
+    createFoldersAndProject() {
+        
+    }
+
+    /**
+     * Populates "this.files" with the text of each file.
+     */
+    private generateFileStrings() {
+        
+        // keep track of which problems are already included to avoid duplicates.
+        const included = new Set<string>();
+        let count = 0;
+
+        while (count < this.total) {
+            const randomTypeName = this.types[Math.floor(Math.random() * this.types.length)];
+            console.log(randomTypeName);
+            const randomProblemIndex = Math.floor(Math.random() * this.problems[randomTypeName].length);
+            const problem = this.problems[randomTypeName][randomProblemIndex];
+
+            if (!included.has(problem.name)) {
+                this.files.emptyMethods += problem.emptyMethod;
+                this.files.solutions += problem.solution;
+                this.files.tests += problem.test;
+
+                count++;
+                included.add(problem.name);
+            }
+        }
+    }
+
+    /**
+     * Populates "this.problems" dictionary with {type => IProblem} object.
+     */
+    private generateProblemsDictionary = () => {
+        this.types.forEach(type => {
             this.problems[type] = [];
             const solutions = this.getSolutions(type);
             const tests = this.getTests(type);
@@ -34,7 +78,6 @@ class Generator {
                     test: tests[name]
                 });
             });
-            console.log(this.problems);
         });
     };
 
