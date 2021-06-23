@@ -30,22 +30,27 @@ This generator creates a project containing a list of 10 problems and unit tests
 - The **unit tests** can be seen under `spec/tests.spec.ts`.
 - The **solutions** can be seen under `solutions/solutions.ts`.
 
-5. To run the tests, run `npm run test-ts` in the `./Test` directory.
-   - To run a specific test, add the line number of the test to the command, EX:
-
-   ```npm run test-ts 32```
-
 ## JavaScript
 - The **problems** can be found under `dist/src/problems.js`.
 - The **unit tests** can be seen under `dist/spec/tests.spec.js`.
 - The **solutions** can be seen under `dist/solutions/solutions.js`.
 
-5. To run the tests, run `npm run test-js` in the `./Test` directory.
-   - To run a specific test, add the line number of the test to the command, EX:
-
-   ```npm run test-js 32```
-
 **WARNING:** Make sure to use `test-js` and not `test-ts` if you are using JavaScript. Using `test-ts` will re-transpile the TS code and replace the entire `./Dist` folder, which will make you lose your progress.
+
+<br>
+
+# Running Specific Tests
+
+1. Open the test file (TS: `spec/tests.spec.ts`, JS: `dist/spec/tests.spec.js`).
+2. Change the name of a specific **describe** or **it** statements to **fdescribe** or **fit** respectively.
+
+`describe("maxProfit"...` >>> `fdescribe("maxProfit"...`
+
+or
+
+`it("Should return 0 if profi...` >>> `fit("Should return 0 if profi...`
+
+3. Run the tests again. Only the tests named **fdescribe** / **fit** run.
 
 <br>
 

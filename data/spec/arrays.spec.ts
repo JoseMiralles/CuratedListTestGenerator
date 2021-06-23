@@ -125,3 +125,23 @@ describe("maxSubArray", () => {
         });
     });
 });
+
+//---START---maxProduct
+describe("maxProduct", () => {
+
+    interface IScenario {
+        nums: number[];
+        expectedOutput: number;
+    }
+
+    const scenarios: IScenario[] = [
+        {nums: [2,3,-2,4], expectedOutput: 6},
+        {nums: [-2,0,-1], expectedOutput: 0}
+    ];
+
+    scenarios.forEach(scenario => {
+        it(`Should return the product of the subarray with the largest product.\n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`, () => {
+            expect(arrays.maxProduct(scenario.nums)).toBe(scenario.expectedOutput);
+        })
+    });
+});
