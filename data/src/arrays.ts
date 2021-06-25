@@ -161,6 +161,8 @@ export function maxSubArray(nums: number[]): number {
  * 
  * Expected TC: O(n)
  * 
+ * https://leetcode.com/problems/maximum-product-subarray/
+ * 
  * Input: nums = [2,3,-2,4]
  * Output: 6
  * Explanation: [2,3] has the largest product 6.
@@ -173,7 +175,36 @@ export function maxSubArray(nums: number[]): number {
  * @returns The product of the contiguous non-empty subarray with the largest product.
  */
 export function maxProduct(nums: number[]): number {
+    console.log("\n\nInput:\t" + nums);
 
-    return 1;
-    
+    let result = nums[0];
+    let imax = result;
+    let imin = result;
+    for (let i = 1; i < nums.length; i++) {
+
+        console.log(`
+            nums[i]:\t${nums[i]}
+            result:\t${result}
+            imax:\t${imax}
+            imin:\t${imin}
+        `);
+
+        /**
+         * Swap imax and imin if this is a negative number.
+         */
+        if (nums[i] < 0) {
+            console.log("Swapping...");
+            const temp = imax;
+            imax = imin;
+            imin = temp;
+        }
+
+        imax = Math.max(nums[i], imax * nums[i]);
+        imin = Math.min(nums[i], imin * nums[i]);
+
+        result = Math.max(result, imax);
+    }
+
+    console.log("Returning:\t" + result);
+    return result;
 }
