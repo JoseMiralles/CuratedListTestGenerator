@@ -4,8 +4,7 @@
   "description": "",
   "main": "generator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "setup-project": "npm install && npm --prefix ./data install ./data",
+    "dev-setup": "npm install && npm --prefix ./data install ./data",
     "generate": "npm install && tsc generator.ts && node generator.js && npm --prefix ./Test install ./Test && npm --prefix ./Test run tsc"
   },
   "repository": {
