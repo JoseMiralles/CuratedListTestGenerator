@@ -145,3 +145,24 @@ describe("maxProduct", () => {
         })
     });
 });
+
+//---START---findMin
+describe("findMin", () => {
+
+    interface IScenario {
+        nums: number[];
+        expectedOutput: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { nums: [3,4,5,1,2], expectedOutput: 1 },
+        { nums: [4,5,6,7,0,1,2], expectedOutput: 0 },
+        { nums: [11,13,15,17], expectedOutput: 11 },
+    ];
+
+    scenarios.forEach(scenario => {
+        it ("Should return the minimum value in the array. \n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`", () => {
+            expect(arrays.findMin(scenario.nums)).toBe(scenario.expectedOutput);
+        })
+    });
+});

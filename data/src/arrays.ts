@@ -208,3 +208,13 @@ export function maxProduct(nums: number[]): number {
     console.log("Returning:\t" + result);
     return result;
 }
+
+//---START---findMin
+export function findMin(nums: number[]): number {
+
+    if (!nums.length) return;
+
+    const mid = nums.length / 2;
+
+
+}
