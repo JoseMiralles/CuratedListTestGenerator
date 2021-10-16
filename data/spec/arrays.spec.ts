@@ -167,3 +167,25 @@ describe("findMin", () => {
         })
     });
 });
+
+//---START---searchRotated
+describe("searchRotated", () => {
+
+    interface IScenario {
+        nums: number[];
+        target: number;
+        expectedOutput: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { nums: [4,5,6,7,0,1,2], target: 0, expectedOutput: 4 },
+        { nums: [4,5,6,7,0,1,2], target: 3, expectedOutput: -1 },
+        { nums: [1], target: 0, expectedOutput: -1 }
+    ];
+
+    scenarios.forEach(scenario => {
+        it (`Should return the index of the target number. \n\tInput: [${scenario.nums}]\n\tTarget: ${scenario.target}\n\tExpected Output: ${scenario.expectedOutput}`, () => {
+            expect(arrays.findMin(scenario.nums)).toBe(scenario.expectedOutput);
+        })
+    });
+});
