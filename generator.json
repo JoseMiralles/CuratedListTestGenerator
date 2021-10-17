@@ -1,4 +1,4 @@
 {
-    "problem-types": ["arrays"],
+    "problem-types": ["arrays", "binary"],
     "total-problems": 3
 }
