@@ -196,3 +196,24 @@ describe("searchRotated", () => {
         })
     });
 });
+
+//---START---threeSum
+describe("threeSum", () => {
+
+    interface IScenario {
+        nums: number[];
+        output: number[][];
+    }
+
+    const scenarios: IScenario[] = [
+        { nums: [-1,0,1,2,-1,-4], output: [[-1,-1,2],[-1,0,1]] },
+        { nums: [], output: [] },
+        { nums: [0], output: [] }
+    ];
+
+    scenarios.forEach(s => {
+        it (`Should return all the triplets that add up to 0. \n\tInput:[${s.nums}]\n\tExpected Output:${s.output}`, () => {
+            expect(arrays.threeSum(s.nums)).toEqual(s.output);
+        });
+    });
+});

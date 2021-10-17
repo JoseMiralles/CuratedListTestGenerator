@@ -295,7 +295,7 @@ export function searchRotated(nums: number[], target: number): number {
     let middle: number;
 
     while (left < right) {
-        
+
         middle = Math.floor((left + right) / 2);
         if (nums[middle] === target) return middle;
 
@@ -326,4 +326,73 @@ export function searchRotated(nums: number[], target: number): number {
 
     // LEFT might still be the element
     return nums[left] === target ? left : -1;
+};
+
+//---START---threeSum
+/**
+ * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
+ * such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+ * 
+ * Notice that the solution set must not contain duplicate triplets.
+ * 
+ * Input: nums = [-1,0,1,2,-1,-4]
+ * Output: [[-1,-1,2],[-1,0,1]]
+ * 
+ * Input: nums = []
+ * Output: []
+ * 
+ * Input: nums = [0]
+ * Output: []
+ * 
+ * @param nums 
+ * @returns 
+ */
+export function threeSum(nums: number[]): number[][] {
+    const results: number[][] = [];
+
+    // Need at least three numbers.
+    if (nums.length < 3) return results;
+
+    // Sort in assending order, this is a O(NLog N) operation.
+    nums = nums.sort((a, b) => a - b);
+
+    let middle: number, right: number;
+    for (let left = 0; left < nums.length - 2; left++) {
+        
+        // Only positive numbers are left at this point, so break.
+        // Can't get 0 from positive numbers.
+        if (nums[left] > 0) break;
+
+        // Skip to the next iteration if this is a repeated number.
+        if (left > 0 && nums[left] === nums[left - 1]) continue;
+
+        middle = left + 1;
+        right = nums.length - 1;
+
+        while (middle < right) {
+            let sum = nums[left] + nums[middle] + nums[right];
+
+            if (sum === 0) {
+                results.push([nums[left], nums[middle], nums[right]]);
+                
+                // Again, avoid duplicated values for the middle, and the right side.
+                while (nums[middle] === nums[middle + 1]) middle++;
+                while (nums[right] === nums[right - 1]) right--;
+
+                middle++;
+                right--;
+
+            // If the sum is lower than 0, then increment middle to get closer to the target.
+            } else if (sum < 0) {
+                middle++;
+
+            // If the sum is larger than 0, decrement right.
+            } else {
+                right--;
+            }
+        }
+
+    }
+
+    return results;
 };
