@@ -175,25 +175,16 @@ export function maxSubArray(nums: number[]): number {
  * @returns The product of the contiguous non-empty subarray with the largest product.
  */
 export function maxProduct(nums: number[]): number {
-    console.log("\n\nInput:\t" + nums);
 
     let result = nums[0];
     let imax = result;
     let imin = result;
     for (let i = 1; i < nums.length; i++) {
 
-        console.log(`
-            nums[i]:\t${nums[i]}
-            result:\t${result}
-            imax:\t${imax}
-            imin:\t${imin}
-        `);
-
         /**
          * Swap imax and imin if this is a negative number.
          */
         if (nums[i] < 0) {
-            console.log("Swapping...");
             const temp = imax;
             imax = imin;
             imin = temp;
@@ -205,7 +196,6 @@ export function maxProduct(nums: number[]): number {
         result = Math.max(result, imax);
     }
 
-    console.log("Returning:\t" + result);
     return result;
 }
 
@@ -294,10 +284,46 @@ export function findMin(nums: number[]): number {
  * Input: nums = [1], target = 0
  * Output: -1
  * 
- * @param nums 
- * @param target 
- * @returns
+ * @param nums A sorted and rotated array of numbers.
+ * @param target The target to be found.
+ * @returns The index of the target, or -1 if not found.
  */
-function searchRotated(nums: number[], target: number): number {
+export function searchRotated(nums: number[], target: number): number {
+    
+    let left = 0;
+    let right = nums.length - 1;
+    let middle: number;
 
+    while (left < right) {
+        
+        middle = Math.floor((left + right) / 2);
+        if (nums[middle] === target) return middle;
+
+        // Check if the LEFT SIDE IS SORTED.
+        if (nums[left] <= nums[middle]) {
+
+            // Check if target is on the left side.
+            if (target >= nums[left] && target < nums[middle]) {
+                right = middle - 1;
+            } else {
+                // Go to the right, it's definetly not on the left.
+                left = middle + 1;
+            }
+
+        // The left side is not sorted, which means that the RIGHT SIDE IS SORTED.
+        } else {
+
+            // Check if the element is to the right.
+            if (target > nums[middle] && target <= nums[right]) {
+                left = middle + 1;
+            } else {
+                // Go to the left, its definetly not on the right.
+                right = middle - 1;
+            }
+
+        }
+    }
+
+    // LEFT might still be the element
+    return nums[left] === target ? left : -1;
 };

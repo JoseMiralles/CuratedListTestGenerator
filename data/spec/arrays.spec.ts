@@ -152,19 +152,26 @@ describe("findMin", () => {
     interface IScenario {
         nums: number[];
         expectedOutput: number;
+        compareToLinear?: boolean;
     }
 
     const scenarios: IScenario[] = [
-        { nums: [3,4,5,1,2], expectedOutput: 1 },
-        { nums: [4,5,6,7,0,1,2], expectedOutput: 0 },
+        { nums: [3,4,5,1,2], expectedOutput: 1, compareToLinear: true },
+        { nums: [4,5,6,7,0,1,2], expectedOutput: 0, compareToLinear: true },
         { nums: [11,13,15,17], expectedOutput: 11 },
         { nums: [2, 1], expectedOutput: 1 }
     ];
 
     scenarios.forEach(scenario => {
+
         it (`Should return the minimum value in the array. \n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`, () => {
             expect(arrays.findMin(scenario.nums)).toBe(scenario.expectedOutput);
-        })
+        });
+
+        // Check if it is faster than the linear approach.
+        if (scenario.compareToLinear) {
+
+        }
     });
 });
 
@@ -185,7 +192,7 @@ describe("searchRotated", () => {
 
     scenarios.forEach(scenario => {
         it (`Should return the index of the target number. \n\tInput: [${scenario.nums}]\n\tTarget: ${scenario.target}\n\tExpected Output: ${scenario.expectedOutput}`, () => {
-            expect(arrays.findMin(scenario.nums)).toBe(scenario.expectedOutput);
+            expect(arrays.searchRotated(scenario.nums, scenario.target)).toBe(scenario.expectedOutput);
         })
     });
 });
