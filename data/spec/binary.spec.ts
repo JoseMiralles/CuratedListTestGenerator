@@ -24,3 +24,24 @@ describe("getSum", () => {
         });
     });
 });
+
+//---START---hammingWeight
+describe("hammingWeight", () => {
+
+    interface IScenario {
+        num: number;
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { num: 11, output: 3 },         // 00000000000000000000000000001011
+        { num: 128, output: 1 },        // 00000000000000000000000010000000
+        { num: 4294967293, output: 31 } // 11111111111111111111111111111101
+    ];
+
+    scenarios.forEach(s => {
+        it(`return the total number of "1"s in the binary string.`, () => {
+            expect(binary.hammingWeight(s.num)).toBe(s.output);
+        });
+    });
+});
