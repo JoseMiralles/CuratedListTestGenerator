@@ -1,9 +1,16 @@
 //---START---getSum
 /**
- *  This is a test.
- * @param a 
- * @param b 
- * @returns 
+ * Given two integers a and b, return the sum of the
+ * two integers without using the operators + and -.
+ * 
+ * https://leetcode.com/problems/sum-of-two-integers/
+ * 
+ * Input: a = 1, b = 2
+ * Output: 3
+ * 
+ * @param a First addend
+ * @param b Second addend
+ * @returns Sum of the two addends
  */
 export function getSum(a: number, b: number): number {
     
