@@ -217,3 +217,25 @@ describe("threeSum", () => {
         });
     });
 });
+
+//---START---maxArea
+describe("maxArea", () => {
+
+    interface IScenario {
+        height: number[],
+        output: number
+    }
+
+    const scenarios: IScenario[] = [
+        { height: [1,8,6,2,5,4,8,3,7], output: 49 },
+        { height: [1,1], output: 1 },
+        { height: [4,3,2,1,4], output: 16 },
+        { height: [1,2,1], output: 2 }
+    ];
+
+    scenarios.forEach(s => {
+        it(`Should return max area of water. \n\tInput:[${s.height}]\n\tExpected: ${s.output}`, () => {
+            expect(arrays.maxArea(s.height)).toBe(s.output);            
+        })
+    });
+});
