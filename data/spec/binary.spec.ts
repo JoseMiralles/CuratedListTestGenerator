@@ -45,3 +45,23 @@ describe("hammingWeight", () => {
         });
     });
 });
+
+//---START---countBits
+describe("countBits", () => {
+
+    interface IScenario {
+        num: number;
+        output: number[];
+    }
+
+    const scenarios: IScenario[] = [
+        { num: 2, output: [0,1,1] },
+        { num: 5, output: [0,1,1,2,1,2] }
+    ];
+
+    scenarios.forEach(s => {
+        it(`return the total number of "1"s in the binary string.`, () => {
+            expect(binary.countBits(s.num)).toEqual(s.output);
+        });
+    });
+});

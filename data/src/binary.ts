@@ -68,3 +68,48 @@ export function hammingWeight(n: number): number {
 
     return count;
 };
+
+//---START---countBits
+/**
+ * Given an integer n, return an array ans of length n + 1 such that for
+ * each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+ * 
+ * https://leetcode.com/problems/counting-bits/
+ * 
+ * Input: n = 5
+ * Output: [0,1,1,2,1,2]
+ * Explanation:
+ * 0 --> 0
+ * 1 --> 1
+ * 2 --> 10
+ * 3 --> 11
+ * 4 --> 100
+ * 5 --> 101
+ * 
+ * @param n 
+ * @returns 
+ */
+export function countBits(n: number): number[] {
+
+    const res: number[] = [];
+
+    let num: number;
+    let count: number;
+
+    for (let i = 0; i <= n; i++) {
+        
+        num = i;
+        count = 0;
+
+        while (num > 0) {
+            num = num & (num - 1);
+            count++;
+        }
+
+        res.push(count);
+    }
+
+    return res;
+};
+
+// O( n )
