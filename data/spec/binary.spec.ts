@@ -87,3 +87,23 @@ describe("missingNumber", () => {
         });
     });
 });
+
+//---START---reverseBits
+describe("reverseBits", () => {
+
+    interface IScenario {
+        n: number;
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { n: 43261596, output: 964176192 },
+        { n: 4294967293, output: 3221225471 }
+    ];
+
+    scenarios.forEach(s => {
+        it(`Should return the reversed bits in decimal form.`, () => {
+            expect(binary.reverseBits(s.n)).toEqual(s.output);
+        });
+    });
+});

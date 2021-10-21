@@ -147,3 +147,39 @@ export function missingNumber(nums: number[]): number {
     const expectedTotal = (n * (n - 1) / 2);
     return expectedTotal - sum;
 };
+
+//---START---reverseBits
+/**
+ * Reverse bits of a given 32 bits unsigned integer.
+ * 
+ * https://leetcode.com/problems/reverse-bits/
+ * 
+ * Input:   43261596 (In binary: 00000010100101000001111010011100).
+ * Output:  964176192 (In binary: 00111001011110000010100101000000)
+ * Explanation: The input binary string 00000010100101000001111010011100 represents the unsigned
+ *              integer 43261596, so return 964176192 which its binary representation
+ *              is 00111001011110000010100101000000.
+ * 
+ * Constraints:
+ * The input must be of length 32 in binary string form.
+ */
+export function reverseBits(n: number): number {
+
+    // There are many approaches, this approach uses bitwise operations only.
+    
+    if (n === 0) return 0;
+
+    let result = 0;
+    let lastBit;
+    let reversedLastBit;
+
+    for (let i = 0; i < 32; i++) {
+        lastBit = n & 1;
+        reversedLastBit = lastBit << (31 - i);
+        result |= reversedLastBit;
+        n >>>= 1;
+    }
+
+    // The >> is arithmetic shift right, >>> is logical shift right.
+    return result >>> 0;
+};
