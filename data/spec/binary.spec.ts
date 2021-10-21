@@ -65,3 +65,25 @@ describe("countBits", () => {
         });
     });
 });
+
+//---START---missingNumber
+describe("missingNumber", () => {
+
+    interface IScenario {
+        nums: number[];
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { nums: [3,0,1], output: 2 },
+        { nums: [0,1], output: 2 },
+        { nums: [9,6,4,2,3,5,7,0,1], output: 8 },
+        { nums: [0], output: 1 }
+    ];
+
+    scenarios.forEach(s => {
+        it(`Should return the number missing from the array.`, () => {
+            expect(binary.missingNumber(s.nums)).toEqual(s.output);
+        });
+    });
+});

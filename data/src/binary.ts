@@ -112,4 +112,34 @@ export function countBits(n: number): number[] {
     return res;
 };
 
-// O( n )
+//---START---missingNumber
+/**
+ * Given an array nums containing n distinct numbers in the range [0, n],
+ * return the only number in the range that is missing from the array.
+ * 
+ * https://leetcode.com/problems/missing-number/
+ * 
+ * Input: nums = [3,0,1]
+ * Output: 2
+ * Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3].
+ *              2 is the missing number in the range since it does not appear in nums.
+ * 
+ * @param nums An array of numbers.
+ * @returns The missing number.
+ */
+export function missingNumber(nums: number[]): number {
+
+    let sum = 0;
+    nums.forEach(n => sum += n);
+
+    /**
+     * Figure out what the sum of all the numbers between 0 - n should be
+     * using this formula: n * (n - 1) / 2
+     * n = the length of nums + 1.
+     * 
+     * Then subtract the sum of all the given numbers from that.
+     */
+    const n = nums.length + 1;
+    const expectedTotal = (n * (n - 1) / 2);
+    return expectedTotal - sum;
+};
