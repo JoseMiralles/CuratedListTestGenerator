@@ -63,8 +63,30 @@ describe("lengthOfLIS", () => {
     ];
 
     scenarios.forEach(s => {
-        it(`Should return the the length of the longest strictly increasing subsequence.`, () => {
+        it(`Should return the length of the longest strictly increasing subsequence.`, () => {
             expect(dynamic.lengthOfLIS(s.nums)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---longestCommonSubsequence
+describe("longestCommonSubsequence", () => {
+
+    interface IScenario {
+        text1: string;
+        text2: string;
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { text1: "abcde", text2: "ace", output: 3 },
+        { text1: "abc", text2: "abc", output: 3 },
+        { text1: "abc", text2: "def", output: 0 },
+    ];
+
+    scenarios.forEach(s => {
+        it(`Should return the length of the longest common subsequence.`, () => {
+            expect(dynamic.longestCommonSubsequence(s.text1, s.text2)).toEqual(s.output);
         });
     });
 });
