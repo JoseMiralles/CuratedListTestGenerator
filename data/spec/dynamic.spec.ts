@@ -90,3 +90,34 @@ describe("longestCommonSubsequence", () => {
         });
     });
 });
+
+//---START---wordBreak
+describe("wordBreak", () => {
+
+    interface IScenario {
+        s: string,
+        wordDict: string[],
+        output: boolean
+    }
+
+    const trueScenarios: IScenario[] = [
+        { s: "leetcode", wordDict: ["leet","code"], output: true },
+        { s: "applepenapple", wordDict: ["apple","pen"], output: true },
+    ];
+
+    const falseScenarios: IScenario[] = [
+        { s: "catsandog", wordDict: ["cats","dog","sand","and","cat"], output: false },
+    ];
+
+    trueScenarios.forEach(s => {
+        it(`Should return return true if s can be segmented into a space-separated sequence of one or more dictionary words.`, () => {
+            expect(dynamic.wordBreak(s.s, s.wordDict)).toEqual(s.output);
+        });
+    });
+
+    falseScenarios.forEach(s => {
+        it(`Should return return false if s cannot be segmented into a space-separated sequence of one or more dictionary words.`, () => {
+            expect(dynamic.wordBreak(s.s, s.wordDict)).toEqual(s.output);
+        });
+    });
+});

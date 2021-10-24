@@ -163,3 +163,25 @@ export function longestCommonSubsequence(text1: string, text2: string): number {
 
     return matrix[text1.length][text2.length];
 };
+
+//---START---wordBreak
+export function wordBreak(s: string, wordDict: string[]): boolean {
+    
+    const set = new Set(wordDict);
+    const dp = Array(s.length + 1).fill(false);
+    dp[0] = true;
+
+    for (let end = 1; end <= s.length; end++) {
+        for (let start = 0; start < end; start++) {
+            
+            const w = s.slice(start, end);
+
+            if (dp[start] === true && set.has(w)) {
+                dp[end] = true;
+                break;
+            }
+        }
+    }
+
+    return dp[s.length];
+};
