@@ -121,3 +121,24 @@ describe("wordBreak", () => {
         });
     });
 });
+
+//---START---combinationSum4
+describe("combinationSum4", () => {
+
+    interface IScenario {
+        nums: number[];
+        target: number;
+        output: number;
+    }
+
+    const trueScenarios: IScenario[] = [
+        { nums: [1,2,3], target: 4, output: 7 },
+        { nums: [9], target: 3, output: 0 }
+    ];
+
+    trueScenarios.forEach(s => {
+        it(`Should return return the number of possible combinations that add up to target.`, () => {
+            expect(dynamic.combinationSum4(s.nums, s.target)).toEqual(s.output);
+        });
+    });
+});

@@ -165,6 +165,21 @@ export function longestCommonSubsequence(text1: string, text2: string): number {
 };
 
 //---START---wordBreak
+/**
+ * Given a string s and a dictionary of strings wordDict, return true if s can be segmented
+ * into a space-separated sequence of one or more dictionary words.
+ * 
+ * Note that the same word in the dictionary may be reused multiple times in the segmentation.
+ * 
+ * https://leetcode.com/problems/word-break/
+ * 
+ * Input: s = "leetcode", wordDict = ["leet","code"]
+ * Output: true
+ * Explanation: Return true because "leetcode" can be segmented as "leet code".
+ * 
+ * Input: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
+ * Output: false
+ */
 export function wordBreak(s: string, wordDict: string[]): boolean {
     
     const set = new Set(wordDict);
@@ -184,4 +199,62 @@ export function wordBreak(s: string, wordDict: string[]): boolean {
     }
 
     return dp[s.length];
+};
+
+//---START---combinationSum4
+/**
+ * Given an array of distinct integers nums and a target integer target,
+ * return the number of possible combinations that add up to target.
+ * 
+ * The answer is guaranteed to fit in a 32-bit integer.
+ * 
+ * https://leetcode.com/problems/combination-sum-iv/
+ * 
+ * Input: nums = [1,2,3], target = 4
+ * Output: 7
+ * Explanation:
+ * The possible combination ways are:
+ * (1, 1, 1, 1)
+ * (1, 1, 2)
+ * (1, 2, 1)
+ * (1, 3)
+ * (2, 1, 1)
+ * (2, 2)
+ * (3, 1)
+ * Note that different sequences are counted as different combinations.
+ */
+export function combinationSum4(nums: number[], target: number): number {
+
+    cs4n = nums.length;
+    cs4memo = new Map();
+    cs4Nums = nums;
+    
+    return topDown(target);
+}
+
+let cs4n: number;
+let cs4memo: Map<number, number>;
+let cs4Nums: number[];
+
+const topDown = (target: number): number => {
+
+    if (target === 0) return 1;
+    if (target < 0) return 0;
+    const existing = cs4memo.get(target);
+    if (existing) return existing;
+
+    let count = 0;
+
+    for (let i = 0; i < cs4n; i++) {
+
+        const num = cs4Nums[i];
+        
+        if (num <= target) {
+            const amountLeft = target - num;
+            count += topDown(amountLeft);
+        }
+    }
+
+    cs4memo.set(target, count);
+    return count;
 };
