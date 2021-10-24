@@ -142,3 +142,44 @@ describe("combinationSum4", () => {
         });
     });
 });
+
+//---START---rob
+describe("rob", () => {
+
+    interface IScenario {
+        nums: number[];
+        output: number;
+    }
+
+    const trueScenarios: IScenario[] = [
+        { nums: [1,2,3,1], output: 4 },
+        { nums: [2,7,9,3,1], output: 12 }
+    ];
+
+    trueScenarios.forEach(s => {
+        it(`Should return return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+            expect(dynamic.rob(s.nums)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---rob2
+describe("rob2", () => {
+
+    interface IScenario {
+        nums: number[];
+        output: number;
+    }
+
+    const trueScenarios: IScenario[] = [
+        { nums: [2,3,2], output: 3 },
+        { nums: [1,2,3,1], output: 4 },
+        { nums: [1,2,3], output: 3 }
+    ];
+
+    trueScenarios.forEach(s => {
+        it(`Should return return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+            expect(dynamic.rob2(s.nums)).toEqual(s.output);
+        });
+    });
+});
