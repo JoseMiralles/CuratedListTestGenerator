@@ -116,7 +116,7 @@ describe("wordBreak", () => {
     });
 
     falseScenarios.forEach(s => {
-        it(`Should return return false if s cannot be segmented into a space-separated sequence of one or more dictionary words.`, () => {
+        it(`Should return false if s cannot be segmented into a space-separated sequence of one or more dictionary words.`, () => {
             expect(dynamic.wordBreak(s.s, s.wordDict)).toEqual(s.output);
         });
     });
@@ -137,7 +137,7 @@ describe("combinationSum4", () => {
     ];
 
     trueScenarios.forEach(s => {
-        it(`Should return return the number of possible combinations that add up to target.`, () => {
+        it(`Should return the number of possible combinations that add up to target.`, () => {
             expect(dynamic.combinationSum4(s.nums, s.target)).toEqual(s.output);
         });
     });
@@ -157,7 +157,7 @@ describe("rob", () => {
     ];
 
     trueScenarios.forEach(s => {
-        it(`Should return return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+        it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
             expect(dynamic.rob(s.nums)).toEqual(s.output);
         });
     });
@@ -178,8 +178,72 @@ describe("rob2", () => {
     ];
 
     trueScenarios.forEach(s => {
-        it(`Should return return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+        it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
             expect(dynamic.rob2(s.nums)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---numDecodings
+describe("numDecodings", () => {
+
+    interface IScenario {
+        s: string;
+        output: number;
+    }
+
+    const trueScenarios: IScenario[] = [
+        { s: "12", output: 2 },
+        { s: "226", output: 3 },
+        { s: "0", output: 0 },
+        { s: "06", output: 0 },
+    ];
+
+    trueScenarios.forEach(s => {
+        it(`Should return the number of ways to decode the string.`, () => {
+            expect(dynamic.numDecodings(s.s)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---uniquePaths
+describe("uniquePaths", () => {
+
+    interface IScenario {
+        m: number;
+        n: number;
+        output: number;
+    }
+
+    const trueScenarios: IScenario[] = [
+        { m: 3, n: 2, output: 3 },
+        { m: 3, n: 7, output: 28 },
+        { m: 7, n: 3, output: 28 }
+    ];
+
+    trueScenarios.forEach(s => {
+        it(`Should return the number of ways to decode the string.`, () => {
+            expect(dynamic.uniquePaths(s.m, s.n)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---canJump
+describe("canJump", () => {
+
+    interface IScenario {
+        nums: number[];
+        output: boolean;
+    }
+
+    const trueScenarios: IScenario[] = [
+        { nums: [2,3,1,1,4], output: true },
+        { nums: [3,2,1,0,4], output: false },
+    ];
+
+    trueScenarios.forEach(s => {
+        it(`Should return the number of ways to decode the string.`, () => {
+            expect(dynamic.canJump(s.nums)).toEqual(s.output);
         });
     });
 });

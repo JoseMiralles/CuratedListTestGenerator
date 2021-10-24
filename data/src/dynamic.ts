@@ -345,3 +345,125 @@ function rob_impl(nums: number[], start: number, end: number){
     
    return Math.max(include, exclude);
 }
+
+//---START---numDecodings
+/**
+ * A message containing letters from A-Z can be encoded into numbers using the following mapping:
+ * 'A' -> "1"
+ * 'B' -> "2"
+ * ...
+ * 'Z' -> "26"
+ * 
+ * To decode an encoded message, all the digits must be grouped then mapped back into letters
+ * using the reverse of the mapping above (there may be multiple ways).
+ * For example, "11106" can be mapped into:
+ * "AAJF" with the grouping (1 1 10 6)
+ * "KJF" with the grouping (11 10 6)
+ * 
+ * Note that the grouping (1 11 06) is invalid because "06" cannot be mapped into 'F' since "6"
+ * is different from "06".
+ * 
+ * Given a string s containing only digits, return the number of ways to decode it.
+ * 
+ * The answer is guaranteed to fit in a 32-bit integer.
+ * 
+ * https://leetcode.com/problems/decode-ways/
+ * 
+ * Input: s = "12"
+ * Output: 2
+ * Explanation: "12" could be decoded as "AB" (1 2) or "L" (12).
+ * 
+ * Input: s = "06"
+ * Output: 0
+ * Explanation: "06" cannot be mapped to "F" because of the leading
+ * zero ("6" is different from "06").
+ */
+export function numDecodings(s: string): number {
+
+    if (s.length === 0) return 0;
+
+    const N = s.length;
+    const dp = Array(N+1).fill(0);
+  
+    dp[0] = 1;
+    dp[1] = s[0] === '0' ? 0 : 1;
+  
+    for (let i = 2; i <= N; i++) {
+      if (s[i-1] !== '0') {
+        dp[i] += dp[i-1];
+      }
+      if (s[i-2] === '1' || s[i-2] === '2' && s[i-1] <= '6') {
+        dp[i] += dp[i-2];
+      }
+    }
+  
+    return dp[N];
+};
+
+//---START---uniquePaths
+/**
+ * NOTE: See the instructions on leetcode.
+ * 
+ * A robot is located at the top-left corner of a {m * n} grid (marked 'Start' in the diagram below).
+ * 
+ * The robot can only move either down or right at any point in time. The robot is trying to reach
+ * the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+ * 
+ * How many possible unique paths are there?
+ * 
+ * https://leetcode.com/problems/unique-paths/
+ */
+export function uniquePaths(m: number, n: number): number {
+
+    let currentRow = new Array(n);
+    // Assigning a 1 to matrix[0][0] is simply a shortcut that skips some later computation
+    // as matrix[i][0] will never change in this iterative process
+    for (let i = 0; i < n; i++) {
+        currentRow[i] = 1;
+    }
+    for (let row = 1; row < m; row++) {
+        for (let i = 1; i < n; i++) {
+            currentRow[i] += currentRow[i - 1];
+        }
+    }
+    return currentRow[n - 1];
+};
+
+//---START---canJump
+/**
+ * You are given an integer array nums. You are initially positioned at the array's first index,
+ * and each element in the array represents your maximum jump length at that position.
+ * 
+ * Return true if you can reach the last index, or false otherwise.
+ * 
+ * Input: nums = [2,3,1,1,4]
+ * Output: true
+ * Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+ * 
+ * Input: nums = [3,2,1,0,4]
+ * Output: false
+ * Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0,
+ * which makes it impossible to reach the last index.
+ */
+export function canJump(nums: number[]): boolean {
+
+    let idx = 0;
+    let max = 0;
+    let target = nums.length - 1;
+  
+    while(idx < nums.length) {
+      max = Math.max(max, idx + nums[idx]);
+      
+      if (max >= target) {
+        return true;
+      }
+      
+      if (max <= idx && nums[idx] === 0) {
+        return false;
+      }
+      
+      idx++;
+    }
+    
+    return false;
+};
