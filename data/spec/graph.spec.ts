@@ -215,3 +215,24 @@ describe("longestConsecutive", () => {
         });
     });
 });
+
+//---START---alienOrder
+describe("alienOrder", () => {
+
+    interface IScenario {
+        words: string[];
+        output: string;
+    };
+
+    const scenarios: IScenario[] = [
+        { words: ["wrt","wrf","er","ett","rftt"], output: "wertf" },
+        { words: ["z","x"], output: "zx" },
+        { words: ["z","x","z"], output: "" }
+    ];
+
+    scenarios.forEach(s => {
+        it ("Should return the order of letters in this language.", () => {
+            expect(graph.alienOrder(s.words)).toEqual(s.output);
+        });
+    });
+});
