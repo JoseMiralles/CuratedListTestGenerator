@@ -4,15 +4,22 @@ import * as graph from "../src/graph";
 describe("cloneGraph", () => {
 
     interface IScenario {
-        adjList: number[][];
+        graphArray: number[][];
     }
 
     const scenarios: IScenario[] = [
-        { adjList: [[2,4],[1,3],[2,4],[1,3]] }
+        { graphArray: [[2,4],[1,3],[2,4],[1,3]] },
+        { graphArray: [[]] },
+        { graphArray: [] },
+        { graphArray: [[2],[1]] }
     ];
 
     // Generates a graph with nodes.
-    const buildGraph = (list: number[][]): graph.cGNode => {
+    const buildGraph = (list: number[][]): graph.cGNode | null => {
+
+        if (list.length < 1 || list.some(arr => arr.length !== 2)) {
+            return null;
+        }
 
         const dict: {[key: number]: graph.cGNode} = {};
         let node: graph.cGNode;
@@ -44,7 +51,7 @@ describe("cloneGraph", () => {
 
         const s = scenarios[i];
 
-        const originalGraph = buildGraph(s.adjList);
+        const originalGraph = buildGraph(s.graphArray);
         const deepDup = graph.cloneGraph(originalGraph);
 
         if (originalGraph && !deepDup) {
@@ -53,7 +60,7 @@ describe("cloneGraph", () => {
             continue;
         };
 
-        const originalQue: graph.cGNode[] = [ originalGraph ];
+        const originalQue: graph.cGNode[] = originalGraph ? [ originalGraph ] : [];
         const dupQue: graph.cGNode[] = deepDup ? [ deepDup ] : [];
 
         const originalVisited = new Set<number>();
@@ -96,3 +103,34 @@ describe("cloneGraph", () => {
         }
     };
 });
+
+//---START---canFinish
+describe("canFinish", () => {
+
+    interface IScenario {
+        numCourses: number;
+        prerequisites: number[][];
+        output: boolean;
+    };
+
+    const trueScenarios: IScenario[] = [
+        { numCourses: 2, prerequisites: [[1,0]], output: true },
+    ];
+
+    const falseScenarios: IScenario[] = [
+        { numCourses: 2, prerequisites: [[1,0], [0,1]], output: false }
+    ];
+
+    trueScenarios.forEach(s => {
+        it ("Should return TRUE if the courses CAN be completed.", () => {
+            expect(graph.canFinish(s.numCourses, s.prerequisites)).toBe(s.output);
+        });
+    });
+
+    falseScenarios.forEach(s => {
+        it ("Should return FALSE if the courses CANNOT be completed.", () => {
+            expect(graph.canFinish(s.numCourses, s.prerequisites)).toBe(s.output);
+        });
+    });
+});
+
