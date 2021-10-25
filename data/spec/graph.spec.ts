@@ -195,3 +195,23 @@ describe("numIslands", () => {
         });
     });
 });
+
+//---START---longestConsecutive
+describe("longestConsecutive", () => {
+
+    interface IScenario {
+        nums: number[];
+        output: number;
+    };
+
+    const scenarios: IScenario[] = [
+        { nums: [100,4,200,1,3,2], output: 4 },
+        { nums: [0,3,7,2,5,8,4,6,0,1], output: 9 },
+    ];
+
+    scenarios.forEach(s => {
+        it ("Should return the length of the longest consecutive elements sequence.", () => {
+            expect(graph.longestConsecutive(s.nums)).toEqual(s.output);
+        });
+    });
+});
