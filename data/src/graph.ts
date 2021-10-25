@@ -103,3 +103,143 @@ export function canFinish(numCourses: number, prerequisites: number[][]): boolea
   
     return !numCourses;
 };
+
+//---START---pacificAtlantic
+/**
+ * NOTE: View description and chart on LeetCode
+ * 
+ * https://leetcode.com/problems/pacific-atlantic-water-flow/
+ * 
+ * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean.
+ * The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches
+ * the island's right and bottom edges.
+ * 
+ * The island is partitioned into a grid of square cells. You are given an m x n integer
+ * matrix heights where heights[r][c] represents the height above sea level of the cell
+ * at coordinate (r, c).
+ * 
+ * The island receives a lot of rain, and the rain water can flow to neighboring cells
+ * directly north, south, east, and west if the neighboring cell's height is less than or
+ * equal to the current cell's height. Water can flow from any cell adjacent to an ocean
+ * into the ocean.
+ * 
+ * Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain
+ * water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.
+ */
+export function pacificAtlantic(heights: number[][]): number[][] {
+    let res: number[][] = [];
+
+    if (!heights || heights.length === 0 || heights[0].length === 0) {
+        return res;
+    }
+
+    const rows: number = heights.length - 1;
+    const cols: number = heights[0].length - 1;
+
+    let atlantic: boolean[][] = new Array(rows + 1)
+        .fill(null)
+        .map(() => Array(cols + 1).fill(false));
+    let pacific: boolean[][] = new Array(rows + 1)
+        .fill(null)
+        .map(() => Array(cols + 1).fill(false));
+
+    for (let row = 0; row <= rows; row++) {
+        helper(0, row, pacific, -1, heights);
+        helper(cols, row, atlantic, -1, heights);
+    }
+
+    for (let col = 0; col <= cols; col++) {
+        helper(col, 0, pacific, -1, heights);
+        helper(col, rows, atlantic, -1, heights);
+    }
+
+    for (let row = 0; row <= rows; row++) {
+        for (let col = 0; col <= cols; col++) {
+            if (pacific[row][col] && atlantic[row][col]) {
+                res.push([row, col]);
+            }
+        }
+    }
+
+    return res;
+};
+
+const helper = function (col: number, row: number, visited: boolean[][], height: number, matrix: number[][]): boolean | void {
+    if (
+        col < 0 ||
+        col >= matrix[0].length ||
+        row < 0 ||
+        row >= matrix.length ||
+        visited[row][col] ||
+        matrix[row][col] < height
+    ) {
+        return;
+    }
+
+    visited[row][col] = true;
+    helper(col + 1, row, visited, matrix[row][col], matrix);
+    helper(col - 1, row, visited, matrix[row][col], matrix);
+    helper(col, row + 1, visited, matrix[row][col], matrix);
+    helper(col, row - 1, visited, matrix[row][col], matrix);
+};
+
+//---START---numIslands
+/**
+ * Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water),
+ * return the number of islands.
+ * 
+ * An island is surrounded by water and is formed by connecting adjacent lands horizontally or
+ * vertically. You may assume all four edges of the grid are all surrounded by water.
+ * 
+ * https://leetcode.com/problems/number-of-islands/discuss/1525633/TypeScript%3A-DFS-check-boundary-and-visited
+ * 
+ * Input: grid = [
+ * ["1","1","1","1","0"],
+ * ["1","1","0","1","0"],
+ * ["1","1","0","0","0"],
+ * ["0","0","0","0","0"]
+ * ]
+ * Output: 1
+ * 
+ * Input: grid = [
+ * ["1","1","0","0","0"],
+ * ["1","1","0","0","0"],
+ * ["0","0","1","0","0"],
+ * ["0","0","0","1","1"]
+ * ]
+ * Output: 3
+ */
+export function numIslands(grid: string[][]): number {
+	// modify the grid to zero as visited;
+	let ret = 0;
+
+	const M = grid.length;
+	const N = grid[0].length;
+
+	const dfs = (i: number, j: number): void => {
+		// boundary
+		if (i < 0 || i >= M || j < 0 || j >= N) return;
+
+		// we've visited or not island
+		if (grid[i][j] !== "1") return;
+
+		grid[i][j] = "0";
+
+		dfs(i + 1, j);
+		dfs(i, j + 1);
+		dfs(i - 1, j);
+		dfs(i, j - 1);
+	};
+
+	for (let i = 0; i < M; i++) {
+		for (let j = 0; j < N; j++) {
+			if (grid[i][j] === "1") {
+				dfs(i, j);
+				ret++;
+			}
+		}
+	}
+	return ret;
+};
+
+

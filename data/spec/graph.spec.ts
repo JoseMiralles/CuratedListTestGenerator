@@ -134,3 +134,64 @@ describe("canFinish", () => {
     });
 });
 
+//---START---pacificAtlantic
+describe("pacificAtlantic", () => {
+
+    interface IScenario {
+        heights: number[][];
+        output: number[][];
+    };
+
+    const scenarios: IScenario[] = [
+        {
+            heights: [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]],
+            output: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
+        },
+        {
+            heights: [[2,1],[1,2]],
+            output: [[0,0],[0,1],[1,0],[1,1]]
+        }
+    ];
+
+    scenarios.forEach(s => {
+        it ("Should return a 2D list of grid coordinates 'result' where 'result[i] = [ri, ci]' denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.", () => {
+            expect(graph.pacificAtlantic(s.heights)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---numIslands
+describe("numIslands", () => {
+
+    interface IScenario {
+        grid: string[][];
+        output: number;
+    };
+
+    const scenarios: IScenario[] = [
+        {
+            grid: [
+                ["1", "1", "1", "1", "0"],
+                ["1", "1", "0", "1", "0"],
+                ["1", "1", "0", "0", "0"],
+                ["0", "0", "0", "0", "0"]
+            ],
+            output: 1
+        },
+        {
+            grid: [
+                ["1", "1", "0", "0", "0"],
+                ["1", "1", "0", "0", "0"],
+                ["0", "0", "1", "0", "0"],
+                ["0", "0", "0", "1", "1"]
+            ],
+            output: 3
+        }
+    ];
+
+    scenarios.forEach(s => {
+        it ("Should return the number of islands.", () => {
+            expect(graph.numIslands(s.grid)).toEqual(s.output);
+        });
+    });
+});
