@@ -1,5 +1,5 @@
 
-//---START---canJump
+//---START---cloneGraph
 /**
  * Given a reference of a node in a connected undirected graph.
  * 
@@ -30,6 +30,7 @@ export function cloneGraph(node: cGNode | null): cGNode | null {
     return clone(node);
 };
 
+//---INCLUDE
 export class cGNode {
 
     val: number

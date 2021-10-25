@@ -134,12 +134,31 @@ class Generator {
     }
 
     private getSolutions = (type: string): {[indexer: string]: IProblemPair} => {
-        const solutionsArr: string[] = fs.readFileSync(`./data/src/${type}.ts`, {encoding: "utf8"}).split("//---START---");
+
+        const solutionsArr: string[] = fs.readFileSync(
+            `./data/src/${type}.ts`, {encoding: "utf8"})
+                .split("//---START---");
         const solutions: {[indexer: string]: IProblemPair} = {};
+
         solutionsArr.forEach(s => {
+
             const indexOfFirstNewLine = s.indexOf("\n");
             const name = s.slice(0, indexOfFirstNewLine);
-            const body = s.slice(indexOfFirstNewLine);
+            const includeFlag = "//---INCLUDE\n";
+            const indexOfExtraFlag = s.indexOf(includeFlag);
+            const includeMessage = `// Used by ${name}`;
+            let body: string = "";
+            let rest: string = "";
+
+            // Include extra functions and objects if they exist.
+            if (indexOfExtraFlag) {
+
+                body = s.slice(indexOfFirstNewLine, indexOfExtraFlag);
+                rest = `\n${s.slice(indexOfExtraFlag + includeFlag.length)}`;
+            } else {
+
+                body = s.slice(indexOfFirstNewLine);
+            }
 
             if (name && body) {
 
@@ -147,7 +166,10 @@ class Generator {
                 const empty =
                     body.slice(0, body.indexOf("{\n") + 3) +
                     content +
-                    "\n};\n\n";
+                    "\n}; \n\n" +
+                    includeMessage +
+                    rest +
+                    "\n\n";
 
                 solutions[name] = {
                     solved: body,

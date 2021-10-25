@@ -1,4 +1,4 @@
 {
-    "problem-types": ["arrays", "binary", "dynamic"],
-    "total-problems": 3
+    "problem-types": ["graph"],
+    "total-problems": 1
 }
