@@ -131,12 +131,12 @@ describe("combinationSum4", () => {
         output: number;
     }
 
-    const trueScenarios: IScenario[] = [
+    const scenarios: IScenario[] = [
         { nums: [1,2,3], target: 4, output: 7 },
         { nums: [9], target: 3, output: 0 }
     ];
 
-    trueScenarios.forEach(s => {
+    scenarios.forEach(s => {
         it(`Should return the number of possible combinations that add up to target.`, () => {
             expect(dynamic.combinationSum4(s.nums, s.target)).toEqual(s.output);
         });
@@ -151,12 +151,12 @@ describe("rob", () => {
         output: number;
     }
 
-    const trueScenarios: IScenario[] = [
+    const scenarios: IScenario[] = [
         { nums: [1,2,3,1], output: 4 },
         { nums: [2,7,9,3,1], output: 12 }
     ];
 
-    trueScenarios.forEach(s => {
+    scenarios.forEach(s => {
         it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
             expect(dynamic.rob(s.nums)).toEqual(s.output);
         });
@@ -171,13 +171,13 @@ describe("rob2", () => {
         output: number;
     }
 
-    const trueScenarios: IScenario[] = [
+    const scenarios: IScenario[] = [
         { nums: [2,3,2], output: 3 },
         { nums: [1,2,3,1], output: 4 },
         { nums: [1,2,3], output: 3 }
     ];
 
-    trueScenarios.forEach(s => {
+    scenarios.forEach(s => {
         it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
             expect(dynamic.rob2(s.nums)).toEqual(s.output);
         });
@@ -192,14 +192,14 @@ describe("numDecodings", () => {
         output: number;
     }
 
-    const trueScenarios: IScenario[] = [
+    const scenarios: IScenario[] = [
         { s: "12", output: 2 },
         { s: "226", output: 3 },
         { s: "0", output: 0 },
         { s: "06", output: 0 },
     ];
 
-    trueScenarios.forEach(s => {
+    scenarios.forEach(s => {
         it(`Should return the number of ways to decode the string.`, () => {
             expect(dynamic.numDecodings(s.s)).toEqual(s.output);
         });
@@ -215,13 +215,13 @@ describe("uniquePaths", () => {
         output: number;
     }
 
-    const trueScenarios: IScenario[] = [
+    const scenarios: IScenario[] = [
         { m: 3, n: 2, output: 3 },
         { m: 3, n: 7, output: 28 },
         { m: 7, n: 3, output: 28 }
     ];
 
-    trueScenarios.forEach(s => {
+    scenarios.forEach(s => {
         it(`Should return the number of ways to decode the string.`, () => {
             expect(dynamic.uniquePaths(s.m, s.n)).toEqual(s.output);
         });
@@ -236,12 +236,12 @@ describe("canJump", () => {
         output: boolean;
     }
 
-    const trueScenarios: IScenario[] = [
+    const scenarios: IScenario[] = [
         { nums: [2,3,1,1,4], output: true },
         { nums: [3,2,1,0,4], output: false },
     ];
 
-    trueScenarios.forEach(s => {
+    scenarios.forEach(s => {
         it(`Should return the number of ways to decode the string.`, () => {
             expect(dynamic.canJump(s.nums)).toEqual(s.output);
         });
