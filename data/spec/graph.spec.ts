@@ -236,3 +236,33 @@ describe("alienOrder", () => {
         });
     });
 });
+
+//---START---validTree
+describe("validTree", () => {
+
+    interface IScenario {
+        n: number;
+        edges: number[][];
+        output: boolean;
+    };
+
+    const trueScenarios: IScenario[] = [
+        { n: 5, edges: [[0, 1], [0, 2], [0, 3], [1, 4]], output: true }
+    ];
+
+    const falseScenarios: IScenario[] = [
+        { n: 5, edges: [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]], output: false }
+    ];
+
+    trueScenarios.forEach(s => {
+        it ("Should return TRUE if the edges DO make up a valid tree.", () => {
+            expect(graph.validTree(s.n, s.edges)).toEqual(s.output);
+        });
+    });
+
+    falseScenarios.forEach(s => {
+        it ("Should return FALSE if the edges DO NOT make up a valid tree.", () => {
+            expect(graph.validTree(s.n, s.edges)).toEqual(s.output);
+        });
+    });
+});

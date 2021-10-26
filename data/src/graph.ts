@@ -415,4 +415,89 @@ export function alienOrder(words: string[]): string  {
 
     return result.join('');
 }
-  
+
+//---START---validTree
+/**
+ * Given n nodes labeled from 0 to n - 1 and a list of undirected edges
+ * (each edge is a pair of nodes), write a function to check whether these edges make up a
+ * valid tree.
+ * 
+ * You can assume that no duplicate edges will appear in edges. Since all edges are undirected,
+ * [0, 1] is the same as [1, 0] and thus will not appear together in edges.
+ * 
+ * (Premium)        https://leetcode.com/problems/graph-valid-tree/
+ * (Non-premium)    https://www.lintcode.com/problem/178/
+ * 
+ * Input: n = 5 edges = [[0, 1], [0, 2], [0, 3], [1, 4]]
+ * Output: true.
+ * 
+ * Input: n = 5 edges = [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]
+ * Output: false.
+ */
+export function validTree(n: number, edges: number[][]): boolean {
+    
+    const adjList = buildAdjList(n, edges);
+    const visited: {[key: number]: boolean} = {};
+    const parent: {[key: number]: number} = {};
+    let regions = 0;
+
+    for (let vertex = 0; vertex < adjList.length; vertex++) {
+        if (!visited[vertex]) {
+            regions++;
+            if (regions > 1) return false;
+            if (isBfsCycle(vertex, adjList, visited, parent)) return false;
+        }
+    }
+
+    return true;
+}
+
+const isBfsCycle = (
+    node: number,
+    adjList: number[][],
+    visited: { [key: number]: boolean; },
+    parent: { [key: number]: number }
+): boolean => {
+    
+    const queue = [node];
+
+    while (queue.length) {
+
+        const curNode = queue.shift();
+
+        if (curNode !== undefined) {
+
+            visited[curNode] = true;
+
+            adjList[curNode].forEach(neighbor => {
+
+                if (!visited[neighbor]) {
+
+                    visited[neighbor] = true;
+                    parent[neighbor] = curNode;
+                    queue.push(neighbor);
+                } else {
+
+                    if (neighbor !== parent[curNode]) return true;
+                }
+            });
+        }
+    }
+
+    return false;
+}
+
+const buildAdjList = (n: number, edges: number[][]) => {
+
+    const adjList: number[][] = Array.from({length: n}, () => []);
+
+    edges.forEach(edge => {
+        
+        let [src, dest] = edge;
+        
+        adjList[src].push(dest);
+        adjList[dest].push(src);
+    });
+
+    return adjList;
+}
