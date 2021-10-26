@@ -47,3 +47,24 @@ describe("merge", () => {
         });
     });
 });
+
+//---START---eraseOverlapIntervals
+describe("eraseOverlapIntervals", () => {
+
+    interface IScenario {
+        intervals: number[][];
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { intervals: [[1,2],[2,3],[3,4],[1,3]], output: 1 },
+        { intervals: [[1,2],[1,2],[1,2]], output: 2 },
+        { intervals: [[1,2],[2,3]], output: 0 },
+    ];
+
+    scenarios.forEach(s => {
+        it("Should return an array of the non-overlapping intervals that cover all the intervals in the input.", () => {
+            expect(interval.eraseOverlapIntervals(s.intervals)).toEqual(s.output);
+        });
+    });
+});

@@ -81,3 +81,18 @@ export function merge(intervals: number[][]): number[][] {
   
     return intervals;
 };
+
+//---START---eraseOverlapIntervals
+export function eraseOverlapIntervals(intervals: number[][]): number {
+
+    if (intervals.length < 2) return 0;
+    intervals.sort(([, a], [, b]) => a - b);
+    let count = 0;
+    let pervEnd = intervals[0][1];
+  
+    for (let i = 1; i < intervals.length; i++) {
+      if (pervEnd > intervals[i][0]) count++;
+      else pervEnd = intervals[i][1];
+    }
+    return count;
+};
