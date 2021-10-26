@@ -436,68 +436,65 @@ export function alienOrder(words: string[]): string  {
  */
 export function validTree(n: number, edges: number[][]): boolean {
     
-    const adjList = buildAdjList(n, edges);
-    const visited: {[key: number]: boolean} = {};
-    const parent: {[key: number]: number} = {};
-    let regions = 0;
-
-    for (let vertex = 0; vertex < adjList.length; vertex++) {
-        if (!visited[vertex]) {
-            regions++;
-            if (regions > 1) return false;
-            if (isBfsCycle(vertex, adjList, visited, parent)) return false;
-        }
+    let ufs = new UnionFindSet(n);
+    for (let edge of edges) {
+      if (ufs.union(edge[0], edge[1])) // find cycle
+        return false;
     }
-
-    return true;
+  
+    return edges.length === n-1; 
 }
 
-const isBfsCycle = (
-    node: number,
-    adjList: number[][],
-    visited: { [key: number]: boolean; },
-    parent: { [key: number]: number }
-): boolean => {
-    
-    const queue = [node];
+class UnionFindSet {
 
-    while (queue.length) {
+    private _parents: number[];
+    private _ranks: number[];
 
-        const curNode = queue.shift();
-
-        if (curNode !== undefined) {
-
-            visited[curNode] = true;
-
-            adjList[curNode].forEach(neighbor => {
-
-                if (!visited[neighbor]) {
-
-                    visited[neighbor] = true;
-                    parent[neighbor] = curNode;
-                    queue.push(neighbor);
-                } else {
-
-                    if (neighbor !== parent[curNode]) return true;
-                }
-            });
-        }
+    constructor(n: number) {
+      this._parents = new Array(n);
+      this._ranks = new Array(n);
+      for (let i = 0; i < this._parents.length; i += 1) {
+        this._parents[i] = i;
+        this._ranks[i] = i;
+      }
     }
-
-    return false;
-}
-
-const buildAdjList = (n: number, edges: number[][]) => {
-
-    const adjList: number[][] = Array.from({length: n}, () => []);
-
-    edges.forEach(edge => {
-        
-        let [src, dest] = edge;
-        
-        adjList[src].push(dest);
-        adjList[dest].push(src);
-    });
-
-    return adjList;
-}
+  
+    /**
+     * Find u and set u's parent to root of the set
+     * 
+     * @param {number} u 
+     */
+    find(u: number) {
+      while (this._parents[u] !== u) {
+        this._parents[u] = this._parents[this._parents[u]];
+        u = this._parents[u];
+      }
+  
+      return u;
+    }
+  
+    /**
+     * If u and v are connected, return true, else return false 
+     * 
+     * @param {number} u 
+     * @param {number} v 
+     * @return {boolean}
+     */
+    union(u: number, v: number) {
+      let parent_u = this.find(u);
+      let parent_v = this.find(v);
+  
+      if (parent_u === parent_v) return true;
+  
+      if (this._ranks[parent_v] > this._ranks[parent_u])
+        this._parents[parent_u] = parent_v;
+      else if (this._ranks[parent_u] > this._ranks[parent_v])
+        this._parents[parent_v] = parent_u;
+      else {
+        this._parents[parent_v] = parent_u;
+        this._ranks[parent_u] += 1;
+      }
+  
+      return false;
+    }
+  }
