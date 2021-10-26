@@ -425,6 +425,7 @@ export function alienOrder(words: string[]): string  {
  * You can assume that no duplicate edges will appear in edges. Since all edges are undirected,
  * [0, 1] is the same as [1, 0] and thus will not appear together in edges.
  * 
+ * LeetCode #:      261
  * (Premium)        https://leetcode.com/problems/graph-valid-tree/
  * (Non-premium)    https://www.lintcode.com/problem/178/
  * 
@@ -498,3 +499,85 @@ class UnionFindSet {
       return false;
     }
   }
+
+//---START---countComponents
+/**
+ * Given n nodes labeled from 0 to n - 1 and a list of undirected edges
+ * (each edge is a pair of nodes), write a function to find the number of connected
+ * components in an undirected graph.
+ * 
+ * You can assume that no duplicate edges will appear in edges. Since all edges are undirected,
+ * [0, 1] is the same as [1, 0] and thus will not appear together in edges.
+ * 
+ * LeetCode#    323
+ * (Premium)    https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
+ * 
+ * Examples:
+ * 
+ *      0          3
+ *      |          |
+ *      1 --- 2    4
+ * Given n = 5 and edges = [[0, 1], [1, 2], [3, 4]], return 2.
+ * 
+ *      0           4
+ *      |           |
+ *      1 --- 2 --- 3
+ * Given n = 5 and edges = [[0, 1], [1, 2], [2, 3], [3, 4]], return 1.
+ */
+export function countComponents (n: number, edges: number[][]): number {
+
+    const adjList = buildAdjList(n, edges);
+    const visited: {[key: number]: boolean} = {};
+    let numComponents = 0;
+
+    for (let vertex = 0; vertex < adjList.length; vertex++) {
+        
+        if (!visited[vertex]) {
+
+            numComponents++;
+            bfs(vertex, adjList, visited);
+        }
+    }
+
+    return numComponents;
+}
+
+const buildAdjList = (n: number, edges: number[][]) => {
+
+    const adjList: number[][] = Array.from({length: n}, () => []);
+
+    edges.forEach(edge => {
+        
+        let [src, dest] = edge;
+
+        adjList[src].push(dest);
+        adjList[dest].push(src);
+    });
+
+    return adjList;
+};
+
+const bfs = (
+    node: number,
+    adjList: number[][],
+    visited: { [key: number]: boolean }
+) => {
+    
+    const queue: number[] = [node];
+    visited[node] = true;
+
+    while (queue.length) {
+        
+        const curNode = queue.shift();
+
+        if (curNode !== undefined)
+            adjList[curNode].forEach(neighbor => {
+                
+                if (!visited[neighbor]) {
+                    
+                    visited[neighbor] = true;
+                    queue.push(neighbor);
+                }
+            });
+    }
+}

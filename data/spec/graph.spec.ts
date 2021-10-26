@@ -4,14 +4,14 @@ import * as graph from "../src/graph";
 describe("cloneGraph", () => {
 
     interface IScenario {
-        graphArray: number[][];
+        edges: number[][];
     }
 
     const scenarios: IScenario[] = [
-        { graphArray: [[2,4],[1,3],[2,4],[1,3]] },
-        { graphArray: [[]] },
-        { graphArray: [] },
-        { graphArray: [[2],[1]] }
+        { edges: [[2,4],[1,3],[2,4],[1,3]] },
+        { edges: [[]] },
+        { edges: [] },
+        { edges: [[2],[1]] }
     ];
 
     // Generates a graph with nodes.
@@ -51,7 +51,7 @@ describe("cloneGraph", () => {
 
         const s = scenarios[i];
 
-        const originalGraph = buildGraph(s.graphArray);
+        const originalGraph = buildGraph(s.edges);
         const deepDup = graph.cloneGraph(originalGraph);
 
         if (originalGraph && !deepDup) {
@@ -263,6 +263,27 @@ describe("validTree", () => {
     falseScenarios.forEach(s => {
         it ("Should return FALSE if the edges DO NOT make up a valid tree.", () => {
             expect(graph.validTree(s.n, s.edges)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---countComponents
+describe("countComponents", () => {
+
+    interface IScenario {
+        n: number;
+        edges: number[][];
+        output: number;
+    };
+
+    const scenarios: IScenario[] = [
+        { n: 5, edges: [[0,1], [1,2], [3,4]], output: 2 },
+        { n: 5, edges: [[0,1], [1,2], [2,3], [3,4]], output: 1 },
+    ];
+
+    scenarios.forEach(s => {
+        it ("Should return the number of connected components in the undirected graph.", () => {
+            expect(graph.countComponents(s.n, s.edges)).toEqual(s.output);
         });
     });
 });
