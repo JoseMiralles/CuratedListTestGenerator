@@ -83,6 +83,21 @@ export function merge(intervals: number[][]): number[][] {
 };
 
 //---START---eraseOverlapIntervals
+/**
+ * Given an array of intervals intervals where intervals[i] = [starti, endi], return the minimum
+ * number of intervals you need to remove to make the rest of the intervals non-overlapping.
+ * 
+ * https://leetcode.com/problems/non-overlapping-intervals/
+ * 
+ * Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
+ * Output: 1
+ * Explanation: [1,3] can be removed and the rest of the intervals are non-overlapping.
+ * 
+ * Input: intervals = [[1,2],[2,3]]
+ * Output: 0
+ * Explanation: You don't need to remove any of the intervals since
+ *              they're already non-overlapping.
+ */
 export function eraseOverlapIntervals(intervals: number[][]): number {
 
     if (intervals.length < 2) return 0;
@@ -96,3 +111,40 @@ export function eraseOverlapIntervals(intervals: number[][]): number {
     }
     return count;
 };
+
+//---START---canAttendMeetings
+/**
+ * Given an array of meeting time intervals consisting of start and end times
+ * [[s1,e1],[s2,e2],...] (si < ei), determine if a person could attend all meetings.
+ * 
+ * (0,8),(8,10) is not conflict at 8
+ * 
+ * Leetcode #   252
+ * (Premium)    https://leetcode.com/problems/meeting-rooms/
+ * (Free)       https://www.lintcode.com/problem/920/
+ * 
+ * Input: intervals = [(0,30),(5,10),(15,20)]
+ * Output: false
+ * Explanation: 
+ * (0,30), (5,10) and (0,30),(15,20) will conflict
+ * 
+ * Input: intervals = [(5,8),(9,15)]
+ * Output: true
+ * Explanation: 
+ * Two times will not conflict 
+ */
+export function canAttendMeetings(intervals: number[][]): boolean {
+
+    if (intervals.length < 2) return true;
+    
+    intervals.sort((a, b) => a[0] - b[0]);
+
+    let end = intervals[0][1];
+
+    for (let i = 1; i < intervals.length; i++) {
+        if (end > intervals[i][0]) return false;
+        if (end < intervals[i][1]) end = intervals[i][1];
+    }
+
+    return true;
+}

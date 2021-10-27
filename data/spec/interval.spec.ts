@@ -68,3 +68,23 @@ describe("eraseOverlapIntervals", () => {
         });
     });
 });
+
+//---START---canAttendMeetings
+describe("canAttendMeetings", () => {
+
+    interface IScenario {
+        intervals: number[][];
+        output: boolean;
+    }
+
+    const scenarios: IScenario[] = [
+        { intervals: [[0,30],[5,10],[15,20]], output: false },
+        { intervals: [[5,8],[9,15]] , output: true },
+    ];
+
+    scenarios.forEach(s => {
+        it("Should return an array of the non-overlapping intervals that cover all the intervals in the input.", () => {
+            expect(interval.canAttendMeetings(s.intervals)).toEqual(s.output);
+        });
+    });
+});
