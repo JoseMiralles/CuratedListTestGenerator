@@ -63,7 +63,7 @@ describe("eraseOverlapIntervals", () => {
     ];
 
     scenarios.forEach(s => {
-        it("Should return an array of the non-overlapping intervals that cover all the intervals in the input.", () => {
+        it("Should return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.", () => {
             expect(interval.eraseOverlapIntervals(s.intervals)).toEqual(s.output);
         });
     });
@@ -83,8 +83,28 @@ describe("canAttendMeetings", () => {
     ];
 
     scenarios.forEach(s => {
-        it("Should return an array of the non-overlapping intervals that cover all the intervals in the input.", () => {
+        it("Should determine if a person could attend all meetings.", () => {
             expect(interval.canAttendMeetings(s.intervals)).toEqual(s.output);
+        });
+    });
+});
+
+//---START---minMeetingRooms
+describe("minMeetingRooms", () => {
+
+    interface IScenario {
+        intervals: number[][];
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { intervals: [[0,30],[5,10],[15,20]], output: 2 },
+        { intervals: [[2,7]], output: 1 },
+    ];
+
+    scenarios.forEach(s => {
+        it("Should return the minimum number of conference rooms required.", () => {
+            expect(interval.minMeetingRooms(s.intervals)).toEqual(s.output);
         });
     });
 });
