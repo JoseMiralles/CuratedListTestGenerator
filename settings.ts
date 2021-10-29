@@ -3,4 +3,4 @@
 export const problemTypes = ["arrays", "binary", "dynamic", "graph", "linkedList"];
 
 // Total number of problems to be generated.
-export const totalProblems = 2;
+export const totalProblems = 200;

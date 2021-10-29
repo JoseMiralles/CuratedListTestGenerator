@@ -1,3 +1,4 @@
+import { Console } from "console";
 import * as fs from "fs";
 import * as settings from "./settings";
 
@@ -73,6 +74,20 @@ class Generator {
      */
     private generateFileStrings() {
         console.log("Generating files strings...");
+
+        // Make sure that there are enough problems to generate test.
+        let totalProblems = 0;
+        Object.keys(this.problems).forEach(type => {
+            
+            totalProblems += this.problems[type].length;
+        });
+
+        if (totalProblems < this.total) {
+            console.log("*** WARNING ***");
+            console.log(`There are not enough problems to reach ${this.total}.`);
+            console.log(`Generating ${totalProblems} problems instead.`);
+            this.total = totalProblems;
+        }
         
         // Add imports for all types to the test file string.
         this.types.forEach(t => {
@@ -102,7 +117,9 @@ class Generator {
                 included.add(problem.name);
 
                 // Add the names of the required shared items to the set.
-                problem.required.forEach(p => sharedItemsIncluded.add(p));
+                problem.required.forEach(p => {
+                    sharedItemsIncluded.add(p);
+                });
             }
         }
 
@@ -112,6 +129,7 @@ class Generator {
 /** END OF TEST **/
 /** The following items are used by the problems above. **/
         `;
+
         Array.from(sharedItemsIncluded).forEach(si => {
             sharedItemsFileString += this.sharedItems[si];
         });
@@ -182,13 +200,20 @@ class Generator {
             const body: string = s.slice(indexOfFirstNewLine, indexOfEndFlag);
             // Include extra functions for this problem
             const rest: string = `\n${s.slice(indexOfEndFlag + endFlag.length)}`;
-            // Get the list of the required shared items for this problem.
-            const required: string[] = body.slice(
-                body.indexOf("/** Requires: ")  + "/** Requires: ".length,
-                body.indexOf("]")
-            )
-            .replace(/[ []/g, "")
-            .split(",");
+
+            let required: string[] = [];
+            if (body.includes("/** Requires: ")) {
+                
+                // Get the list of the required shared items for this problem.
+                required = body.slice(
+                    body.indexOf("/** Requires: ")  + "/** Requires: ".length,
+                    body.indexOf("]")
+                )
+                .replace(/[ []/g, "")
+                .split(",");
+            }
+
+            required.forEach(r => console.log(`REQUIRED:\t${r}\n`));
 
             // Do not render a message if there is no extra methods.
             if (rest.replace(/[ \n]/g, "").length < 1) includeMessage = "";
@@ -215,7 +240,7 @@ class Generator {
         });
 
         // Loop trough all of the shared items, and add them to the dictionary.
-        fileSections[1].split("//---START---").forEach(si => {
+        if (fileSections[1]) fileSections[1].split("//---START---").forEach(si => {
             
             const indexOfFirstNewLine = si.indexOf("\n");
             const name = si.slice(0, indexOfFirstNewLine);

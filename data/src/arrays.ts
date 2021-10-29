@@ -66,7 +66,7 @@ export function maxProfit (prices: number[]): number {
 
     return biggestMargin;
 }
-//---END---maxProfit
+//---END---
 
 //---START---containsDuplicate
 /**
@@ -128,7 +128,7 @@ export function productExceptSelf(nums: number[]): number[]{
 
     return res;
 }
-//---END---productExceptSelf
+//---END---
 
 //---START---maxSubArray
 /**
