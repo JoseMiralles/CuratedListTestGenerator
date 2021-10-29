@@ -6,6 +6,7 @@ interface IProblem {
     solution: string;
     emptyMethod: string;
     test: string;
+    required: string[];
 }
 
 interface IProblemPair {
@@ -82,11 +83,16 @@ class Generator {
         const included = new Set<string>();
         let count = 0;
 
+        // Keep track of which shared items need to be included.
+        const sharedItemsIncluded = new Set<string>();
+
+        // Randomly add problems until the requested amount is fullfiled.
         while (count < this.total) {
             const randomTypeName = this.types[Math.floor(Math.random() * this.types.length)];
             const randomProblemIndex = Math.floor(Math.random() * this.problems[randomTypeName].length);
             const problem = this.problems[randomTypeName][randomProblemIndex];
 
+            // This problem hasn't been added, so it can be added.
             if (!included.has(problem.name)) {
                 this.files.emptyMethods += problem.emptyMethod;
                 this.files.solutions += problem.solution;
@@ -94,8 +100,24 @@ class Generator {
 
                 count++;
                 included.add(problem.name);
+
+                // Add the names of the required shared items to the set.
+                problem.required.forEach(p => sharedItemsIncluded.add(p));
             }
         }
+
+        // Add the required shared items to the solution, and emptyMethods file strings.
+        let sharedItemsFileString = `
+
+/** END OF TEST **/
+/** The following items are used by the problems above. **/
+        `;
+        Array.from(sharedItemsIncluded).forEach(si => {
+            sharedItemsFileString += this.sharedItems[si];
+        });
+
+        this.files.emptyMethods += sharedItemsFileString;
+        this.files.solutions += sharedItemsFileString;
     }
 
     /**
@@ -118,7 +140,7 @@ class Generator {
                     solution: solutions[name].solved,
                     emptyMethod: solutions[name].empty,
                     test: tests[name],
-                    
+                    required: solutions[name].required
                 });
             });
         });
