@@ -11,6 +11,7 @@ interface IProblem {
 interface IProblemPair {
     solved: string;
     empty: string;
+    required: string[];
 }
 
 interface IFiles {
@@ -23,7 +24,10 @@ class Generator {
 
     private types: string[];
     private total: number;
-    private problems: {[Index: string]: IProblem[]} = {};
+    // Will hold all problems, separated by type.
+    private problems: {[type: string]: IProblem[]} = {};
+    // Will hold all of the shared items for all problems.
+    private sharedItems: {[name: string]: string} = {};
     private files: IFiles = {
         tests: "",
         solutions: "",
@@ -113,7 +117,8 @@ class Generator {
                     name,
                     solution: solutions[name].solved,
                     emptyMethod: solutions[name].empty,
-                    test: tests[name]
+                    test: tests[name],
+                    
                 });
             });
         });
@@ -137,9 +142,9 @@ class Generator {
 
     private getSolutions = (type: string): {[indexer: string]: IProblemPair} => {
 
-        const solutionsArr: string[] = fs.readFileSync(
-            `./data/src/${type}.ts`, {encoding: "utf8"})
-                .split("//---START---");
+        const fileSections = fs.readFileSync(
+            `./data/src/${type}.ts`, {encoding: "utf8"}).split("/**SHARED ITEMS**/");
+        const solutionsArr: string[] = fileSections[0].split("//---START---");
         const solutions: {[indexer: string]: IProblemPair} = {};
 
         solutionsArr.forEach(s => {
@@ -149,18 +154,22 @@ class Generator {
 
             const endFlag = "//---END---\n";
             const indexOfEndFlag = s.indexOf(endFlag);
+
             let includeMessage = `// Used by ${name}`;
             
-            let body: string = "";
-            let rest: string = "";
-
-            body = s.slice(indexOfFirstNewLine, indexOfEndFlag);
-            // Include extra functions
-            rest = `\n${s.slice(indexOfEndFlag + endFlag.length)}`;
+            const body: string = s.slice(indexOfFirstNewLine, indexOfEndFlag);
+            // Include extra functions for this problem
+            const rest: string = `\n${s.slice(indexOfEndFlag + endFlag.length)}`;
+            // Get the list of the required shared items for this problem.
+            const required: string[] = body.slice(
+                body.indexOf("/** Requires: ")  + "/** Requires: ".length,
+                body.indexOf("]")
+            )
+            .replace(/[ []/g, "")
+            .split(",");
 
             // Do not render a message if there is no extra methods.
             if (rest.replace(/[ \n]/g, "").length < 1) includeMessage = "";
-            console.log(`REST: ${rest}`);
 
             if (name && body) {
 
@@ -177,9 +186,22 @@ class Generator {
 
                 solutions[name] = {
                     solved,
-                    empty
+                    empty,
+                    required
                 };
             }
+        });
+
+        // Loop trough all of the shared items, and add them to the dictionary.
+        fileSections[1].split("//---START---").forEach(si => {
+            
+            const indexOfFirstNewLine = si.indexOf("\n");
+            const name = si.slice(0, indexOfFirstNewLine);
+            const endFlag = "//---END---\n";
+            const indexOfEndFlag = si.indexOf(endFlag);
+            const body: string = si.slice(indexOfFirstNewLine, indexOfEndFlag);
+
+            this.sharedItems[name] = body;
         });
 
         return solutions;

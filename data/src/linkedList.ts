@@ -1,4 +1,7 @@
 //---START---reverseList
+/** Requires: [ListNode]
+ * 
+ */
 export function reverseList(head: ListNode | null): ListNode | null {
     
     if (head === null) return null;
@@ -19,16 +22,14 @@ export function reverseList(head: ListNode | null): ListNode | null {
 };
 //---END---
 
-//---NEEDS [ListNode] NEEDS---//
-
 //---START---mergeTwoLists
+/** Requires: [ListNode,arrayToList]
+ * 
+ */
 export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
     return null;
 };
 //---END---
-
-//---NEEDS [ListNode,arrayToList] NEEDS---//
-
 
 /**SHARED ITEMS**/
 
