@@ -33,6 +33,7 @@ export function climbStairs(n: number): number {
 
     return dp[n];
 };
+//---END---
 
 //---START---coinChange
 /**
@@ -83,6 +84,7 @@ export function coinChange(coins: number[], amount: number): number {
 
     return dp[amount] === Infinity ? -1 : dp[amount];
 }
+//---END---
 
 //---START---lengthOfLIS
 /**
@@ -118,6 +120,7 @@ export function lengthOfLIS(nums: number[]): number {
 
     return sequence.length;
 };
+//---END---
 
 //---START---longestCommonSubsequence
 /**
@@ -163,6 +166,7 @@ export function longestCommonSubsequence(text1: string, text2: string): number {
 
     return matrix[text1.length][text2.length];
 };
+//---END---
 
 //---START---wordBreak
 /**
@@ -200,6 +204,7 @@ export function wordBreak(s: string, wordDict: string[]): boolean {
 
     return dp[s.length];
 };
+//---END---
 
 //---START---combinationSum4
 /**
@@ -258,6 +263,7 @@ const topDown = (target: number): number => {
     cs4memo.set(target, count);
     return count;
 };
+//---END---
 
 //---START---rob
 /**
@@ -297,6 +303,7 @@ export function rob(nums: number[]): number {
     
     return maxAtOneBefore;
 };
+//---END---
 
 //---START---rob2
 /**
@@ -345,6 +352,7 @@ function rob_impl(nums: number[], start: number, end: number){
     
    return Math.max(include, exclude);
 }
+//---END---
 
 //---START---numDecodings
 /**
@@ -399,6 +407,7 @@ export function numDecodings(s: string): number {
   
     return dp[N];
 };
+//---END---
 
 //---START---uniquePaths
 /**
@@ -428,6 +437,7 @@ export function uniquePaths(m: number, n: number): number {
     }
     return currentRow[n - 1];
 };
+//---END---
 
 //---START---canJump
 /**
@@ -467,3 +477,4 @@ export function canJump(nums: number[]): boolean {
     
     return false;
 };
+//---END---

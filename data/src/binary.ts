@@ -28,6 +28,7 @@ export function getSum(a: number, b: number): number {
 
     return a;
 };
+//---END---
 
 //---START---hammingWeight
 /**
@@ -68,6 +69,7 @@ export function hammingWeight(n: number): number {
 
     return count;
 };
+//---END---
 
 //---START---countBits
 /**
@@ -111,6 +113,7 @@ export function countBits(n: number): number[] {
 
     return res;
 };
+//---END---
 
 //---START---missingNumber
 /**
@@ -147,6 +150,7 @@ export function missingNumber(nums: number[]): number {
     const expectedTotal = (n * (n - 1) / 2);
     return expectedTotal - sum;
 };
+//---END---
 
 //---START---reverseBits
 /**
@@ -183,3 +187,4 @@ export function reverseBits(n: number): number {
     // The >> is arithmetic shift right, >>> is logical shift right.
     return result >>> 0;
 };
+//---END---

@@ -1,4 +1,5 @@
-import  * as fs from "fs";
+import * as fs from "fs";
+import * as settings from "./settings";
 
 interface IProblem {
     name: string;
@@ -40,12 +41,8 @@ class Generator {
      * Loads the settings from generator.json
      */
     loadGeneratorSettings() {
-        console.log("Loading settings from generator.json...");
-        const rawData = fs.readFileSync("generator.json", {encoding: "utf8"});
-        const settings = JSON.parse(rawData);
-        console.log(settings);
-        this.types = settings["problem-types"];
-        this.total = settings["total-problems"];
+        this.types = settings.problemTypes;
+        this.total = settings.totalProblems;
     }
 
     /**
@@ -101,12 +98,17 @@ class Generator {
      * Populates "this.problems" dictionary with {type => IProblem} object.
      */
     private generateProblemsDictionary = () => {
+
         console.log("Generating problems dictionary...");
+
         this.types.forEach(type => {
+
             this.problems[type] = [];
             const solutions = this.getSolutions(type);
             const tests = this.getTests(type);
+
             Object.keys(solutions).forEach(name => {
+
                 this.problems[type].push({
                     name,
                     solution: solutions[name].solved,
@@ -144,21 +146,21 @@ class Generator {
 
             const indexOfFirstNewLine = s.indexOf("\n");
             const name = s.slice(0, indexOfFirstNewLine);
-            const includeFlag = "//---INCLUDE\n";
-            const indexOfExtraFlag = s.indexOf(includeFlag);
-            const includeMessage = `// Used by ${name}`;
+
+            const endFlag = "//---END---\n";
+            const indexOfEndFlag = s.indexOf(endFlag);
+            let includeMessage = `// Used by ${name}`;
+            
             let body: string = "";
             let rest: string = "";
 
-            // Include extra functions and objects if they exist.
-            if (indexOfExtraFlag) {
+            body = s.slice(indexOfFirstNewLine, indexOfEndFlag);
+            // Include extra functions
+            rest = `\n${s.slice(indexOfEndFlag + endFlag.length)}`;
 
-                body = s.slice(indexOfFirstNewLine, indexOfExtraFlag);
-                rest = `\n${s.slice(indexOfExtraFlag + includeFlag.length)}`;
-            } else {
-
-                body = s.slice(indexOfFirstNewLine);
-            }
+            // Do not render a message if there is no extra methods.
+            if (rest.replace(/[ \n]/g, "").length < 1) includeMessage = "";
+            console.log(`REST: ${rest}`);
 
             if (name && body) {
 
@@ -170,9 +172,11 @@ class Generator {
                     includeMessage +
                     rest +
                     "\n\n";
+                const solved = body + rest;
+
 
                 solutions[name] = {
-                    solved: body,
+                    solved,
                     empty
                 };
             }

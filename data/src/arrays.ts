@@ -34,6 +34,7 @@ export function twoSum(nums: number[], target: number): number[] {
 
     return [];
 };
+//---END---
 
 //---START---maxProfit
 /**
@@ -65,6 +66,7 @@ export function maxProfit (prices: number[]): number {
 
     return biggestMargin;
 }
+//---END---maxProfit
 
 //---START---containsDuplicate
 /**
@@ -91,6 +93,7 @@ export function containsDuplicate(nums: number[]): boolean {
 
     return false;
 }
+//---END---
 
 //---START---productExceptSelf
 /**
@@ -125,6 +128,7 @@ export function productExceptSelf(nums: number[]): number[]{
 
     return res;
 }
+//---END---productExceptSelf
 
 //---START---maxSubArray
 /**
@@ -149,6 +153,7 @@ export function maxSubArray(nums: number[]): number {
 
     return maxSum;
 }
+//---END---
 
 //---START---maxProduct
 /**
@@ -198,6 +203,7 @@ export function maxProduct(nums: number[]): number {
 
     return result;
 }
+//---END---
 
 //---START---findMin
 /**
@@ -258,6 +264,7 @@ export function findMin(nums: number[]): number {
 
     return nums[left];
 }
+//---END---
 
 //---START---searchRotated
 /**
@@ -327,6 +334,7 @@ export function searchRotated(nums: number[], target: number): number {
     // LEFT might still be the element
     return nums[left] === target ? left : -1;
 };
+//---END---
 
 //---START---threeSum
 /**
@@ -396,6 +404,7 @@ export function threeSum(nums: number[]): number[][] {
 
     return results;
 };
+//---END---
 
 //---START---maxArea
 /**
@@ -444,3 +453,4 @@ export function maxArea(height: number[]): number {
 
     return max;
 };
+//---END---

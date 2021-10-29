@@ -33,8 +33,8 @@ export function cloneGraph(node: cGNode | null): cGNode | null {
 
     return clone(node);
 };
+//---END---
 
-//---INCLUDE
 export class cGNode {
 
     val: number
@@ -103,6 +103,7 @@ export function canFinish(numCourses: number, prerequisites: number[][]): boolea
   
     return !numCourses;
 };
+//---END---
 
 //---START---pacificAtlantic
 /**
@@ -182,6 +183,7 @@ const helper = function (col: number, row: number, visited: boolean[][], height:
     helper(col, row + 1, visited, matrix[row][col], matrix);
     helper(col, row - 1, visited, matrix[row][col], matrix);
 };
+//---END---
 
 //---START---numIslands
 /**
@@ -241,6 +243,7 @@ export function numIslands(grid: string[][]): number {
 	}
 	return ret;
 };
+//---END---
 
 //---START---longestConsecutive
 /**
@@ -282,6 +285,7 @@ export function longestConsecutive(nums: number[]): number {
   
     return max;
 };
+//---END---
 
 //---START---alienOrder
 /**
@@ -415,6 +419,7 @@ export function alienOrder(words: string[]): string  {
 
     return result.join('');
 }
+//---END---
 
 //---START---validTree
 /**
@@ -452,28 +457,28 @@ class UnionFindSet {
     private _ranks: number[];
 
     constructor(n: number) {
-      this._parents = new Array(n);
-      this._ranks = new Array(n);
-      for (let i = 0; i < this._parents.length; i += 1) {
-        this._parents[i] = i;
-        this._ranks[i] = i;
-      }
+        this._parents = new Array(n);
+        this._ranks = new Array(n);
+        for (let i = 0; i < this._parents.length; i += 1) {
+            this._parents[i] = i;
+            this._ranks[i] = i;
+        }
     }
-  
+
     /**
      * Find u and set u's parent to root of the set
      * 
      * @param {number} u 
      */
     find(u: number) {
-      while (this._parents[u] !== u) {
-        this._parents[u] = this._parents[this._parents[u]];
-        u = this._parents[u];
-      }
-  
-      return u;
+        while (this._parents[u] !== u) {
+            this._parents[u] = this._parents[this._parents[u]];
+            u = this._parents[u];
+        }
+
+        return u;
     }
-  
+
     /**
      * If u and v are connected, return true, else return false 
      * 
@@ -482,23 +487,24 @@ class UnionFindSet {
      * @return {boolean}
      */
     union(u: number, v: number) {
-      let parent_u = this.find(u);
-      let parent_v = this.find(v);
-  
-      if (parent_u === parent_v) return true;
-  
-      if (this._ranks[parent_v] > this._ranks[parent_u])
-        this._parents[parent_u] = parent_v;
-      else if (this._ranks[parent_u] > this._ranks[parent_v])
-        this._parents[parent_v] = parent_u;
-      else {
-        this._parents[parent_v] = parent_u;
-        this._ranks[parent_u] += 1;
-      }
-  
-      return false;
+        let parent_u = this.find(u);
+        let parent_v = this.find(v);
+
+        if (parent_u === parent_v) return true;
+
+        if (this._ranks[parent_v] > this._ranks[parent_u])
+            this._parents[parent_u] = parent_v;
+        else if (this._ranks[parent_u] > this._ranks[parent_v])
+            this._parents[parent_v] = parent_u;
+        else {
+            this._parents[parent_v] = parent_u;
+            this._ranks[parent_u] += 1;
+        }
+
+        return false;
     }
-  }
+}
+//---END---
 
 //---START---countComponents
 /**
@@ -581,3 +587,4 @@ const bfs = (
             });
     }
 }
+//---END---

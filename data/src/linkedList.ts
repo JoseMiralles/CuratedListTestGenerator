@@ -17,6 +17,7 @@ export function reverseList(head: ListNode | null): ListNode | null {
 
     return left;
 };
+//---END---
 
 //---NEEDS [ListNode] NEEDS---//
 
@@ -24,10 +25,12 @@ export function reverseList(head: ListNode | null): ListNode | null {
 export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
     return null;
 };
+//---END---
 
 //---NEEDS [ListNode,arrayToList] NEEDS---//
 
-/** SHARED ITEMS **/
+
+/**SHARED ITEMS**/
 
 //---START---ListNode
 export class ListNode {
@@ -38,6 +41,7 @@ export class ListNode {
         this.next = (next === undefined ? null : next)
     }
 }
+//---END---
 
 //---START---arrayToList
 export const arrayToList = (arr: number[]): ListNode => {
@@ -52,3 +56,4 @@ export const arrayToList = (arr: number[]): ListNode => {
 
     return current;
 };
+//---END---

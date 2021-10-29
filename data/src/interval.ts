@@ -50,6 +50,7 @@ const mergeIntervals = (int1: number[], int2: number[]) => [
     Math.min(int1[0], int2[0]),
     Math.max(int1[1], int2[1]),
 ];
+//---END---
 
 //---START---merge
 /**
@@ -81,6 +82,7 @@ export function merge(intervals: number[][]): number[][] {
   
     return intervals;
 };
+//---END---
 
 //---START---eraseOverlapIntervals
 /**
@@ -111,6 +113,7 @@ export function eraseOverlapIntervals(intervals: number[][]): number {
     }
     return count;
 };
+//---END---
 
 //---START---canAttendMeetings
 /**
@@ -148,6 +151,7 @@ export function canAttendMeetings(intervals: number[][]): boolean {
 
     return true;
 }
+//---END---
 
 //---START---minMeetingRooms
 /**
@@ -193,3 +197,4 @@ export function canAttendMeetings(intervals: number[][]): boolean {
 
     return roomTime.length;
 }
+//---END---
