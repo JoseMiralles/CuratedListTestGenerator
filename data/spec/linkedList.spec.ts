@@ -74,7 +74,7 @@ describe("mergeTwoLists", () => {
             const list1 = linkedList.arrayToList(s.l1);
             const list2 = linkedList.arrayToList(s.l2);
             let temp: linkedList.ListNode | null = linkedList.mergeTwoLists(list1, list2);
-    
+
             it ("Should return a merged list.", () => {
                 
                 s.output.forEach(n => {

@@ -1,6 +1,18 @@
 //---START---reverseList
 /** Requires: [ListNode]
+ * Given the head of a singly linked list, reverse the list, and return the
+ * reversed list.
  * 
+ * https://leetcode.com/problems/reverse-linked-list/
+ * 
+ * Input: head = [1,2,3,4,5]
+ * Output: [5,4,3,2,1]
+ * 
+ * Input: head = [1,2]
+ * Output: [2,1]
+ * 
+ * Input: head = []
+ * Output: []
  */
 export function reverseList(head: ListNode | null): ListNode | null {
     
@@ -24,10 +36,41 @@ export function reverseList(head: ListNode | null): ListNode | null {
 
 //---START---mergeTwoLists
 /** Requires: [ListNode,arrayToList]
+ * Merge two sorted linked lists and return it as a sorted list. The list
+ * should be made by splicing together the nodes of the first two lists.
  * 
+ * Input: l1 = [1,2,4], l2 = [1,3,4]
+ * Output: [1,1,2,3,4,4]
+ * 
+ * Input: l1 = [], l2 = []
+ * Output: []
+ * 
+ * Input: l1 = [], l2 = [0]
+ * Output: [0]
  */
 export function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
-    return null;
+    
+    const head: ListNode = new ListNode();
+    let curr: ListNode = head;
+
+    while (l1 && l2) {
+
+      if (l1.val < l2.val) {
+
+        curr.next = l1;
+        l1 = l1.next;
+      } else {
+
+        curr.next = l2;
+        l2 = l2.next;
+      }
+
+      curr = curr.next;
+    }
+
+    curr.next = l1 || l2;
+
+    return head.next;
 };
 //---END---
 
@@ -47,7 +90,8 @@ export class ListNode {
 //---START---arrayToList
 export const arrayToList = (arr: number[]): ListNode => {
 
-    let current = new ListNode(arr[0]);
+    const head = new ListNode(arr[0]);
+    let current = head;
 
     for (let i = 1; i < arr.length; i++) {
 
@@ -55,6 +99,6 @@ export const arrayToList = (arr: number[]): ListNode => {
         current = current.next;
     }
 
-    return current;
+    return head;
 };
 //---END---
