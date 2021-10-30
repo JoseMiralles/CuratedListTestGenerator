@@ -162,3 +162,58 @@ describe("removeNthFromEnd", () => {
         });
     });
 });
+
+//---START---reorderList
+describe("reorderList", () => {
+
+    interface IScenario {
+        input: number[];
+        output: number[];
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [1,2,3,4], output: [1,4,2,3] },
+        { input: [1,2,3,4,5], output: [1,5,2,4,3] }
+    ];
+
+    scenarios.forEach(s => {
+
+        const inputHead = linkedList.arrayToList(s.input);
+        const listNodeDictionary: {[key: number]: linkedList.ListNode} = {};
+
+        let current: linkedList.ListNode | null | undefined = inputHead;
+
+        /** Add all the nodes to listNodeDictionary.
+         * This is so that we can compare the nodes to ensure that the
+         * nodes switched, and not just the values. All nodes should still point
+         * to their original values.
+         */
+        while ( current ) {
+
+            listNodeDictionary[current.val] = current;
+            current = current.next;
+        }
+        
+        // This mutates the list.
+        linkedList.reorderList(inputHead);
+        
+        it("Should have values in the correct order.", () => {
+
+            current = inputHead;
+            
+            s.output.forEach((n) => {
+            
+                if(current?.val) expect(current.val).toBe(n);
+                current = current?.next;
+            });
+        });
+
+        // Loop trough it again for the other test to avoid async issues.
+        it ("Should only re-arrange the nodes, and not the values.", () => {
+            s.output.forEach((n) => {
+
+                expect(listNodeDictionary[n].val).toEqual(n);
+            });
+        });
+    });
+});

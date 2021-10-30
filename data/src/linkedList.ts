@@ -137,10 +137,13 @@ function mergeTwoListss(l1: ListNode | null, l2: ListNode | null): ListNode | nu
 
 //---START---removeNthFromEnd
 /** Requires: [ListNode,arrayToList]
+ * 
  * Given the head of a linked list, remove the nth node from the end of
  * the list and return its head.
  * 
  * Could you do this in one pass?
+ * 
+ * https://leetcode.com/problems/remove-nth-node-from-end-of-list/
  * 
  * Input: head = [1,2,3,4,5], n = 2
  * Output: [1,2,3,5]
@@ -172,6 +175,43 @@ export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | n
   if (left.next) left.next = left.next.next;
   
   return dummyHead.next;
+};
+//---END---
+
+//---START---reorderList
+/** Requires: [ListNode,arrayToList]
+ * 
+ * You are given the head of a singly linked-list. The list can be represented as:
+ *      L0 → L1 → … → Ln - 1 → Ln
+ * 
+ * Reorder the list to be on the following form:
+ *      L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+ * 
+ * You may NOT modify the values in the list's nodes. Only nodes themselves may be changed.
+ * 
+ * Input: head = [1,2,3,4]
+ * Output: [1,4,2,3]
+ * 
+ * Input: head = [1,2,3,4,5]
+ * Output: [1,5,2,4,3]
+ */
+export function reorderList(head: ListNode | null): void {
+
+  const stack: ListNode[] = [];
+
+  while (head) {
+    stack.push(head);
+    head = head.next;
+  }
+
+  while (stack.length >= 3) {
+    stack[0].next = stack[stack.length - 1];
+    stack[stack.length - 1].next = stack[1];
+    stack[stack.length - 2].next = null;
+
+    stack.shift();
+    stack.pop();
+  }
 };
 //---END---
 
