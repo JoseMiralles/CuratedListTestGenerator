@@ -86,3 +86,79 @@ describe("mergeTwoLists", () => {
         }
     });
 });
+
+//---START---mergeKLists
+describe("mergeKLists", () => {
+
+    interface IScenario {
+        lists: number[][];
+        output: number[];
+    }
+
+    const scenarios: IScenario[] = [
+        { lists: [[1,4,5],[1,3,4],[2,6]], output: [1,1,2,3,4,4,5,6] },
+        { lists: [], output: [] },
+        { lists: [[]], output: [] },
+    ];
+    
+    scenarios.forEach(s => {
+        
+        const listsArray: (linkedList.ListNode | null)[] = [];
+        
+        // Convert all of the arrays into lists, and add them to listsArray.
+        s.lists.forEach(l => {
+            listsArray.push( linkedList.arrayToList(l) );
+        });
+        
+        let res: linkedList.ListNode | null | undefined
+            = linkedList.mergeKLists(listsArray);
+
+        if (s.lists.length < 1 || s.lists.every(l => l.length < 1)) {
+
+            it ("Should return null if the array is empty, or if all of the lists are empty.", () => {
+                expect( linkedList.mergeKLists(listsArray) ).toBeNull();
+            });
+        } else {
+
+            it("Should return a single merged list.", () => {
+
+                s.output.forEach(n => {
+                    expect(res?.val).toBe(n);
+                    res = res?.next;
+                });
+            });
+        }
+    });
+});
+
+//---START---removeNthFromEnd
+describe("removeNthFromEnd", () => {
+
+    interface IScenario {
+        arr: number[];
+        n: number;
+        output: number[];
+    }
+
+    const scenarios: IScenario[] = [
+        { arr: [1,2,3,4,5], n: 2, output: [1,2,3,5]  },
+        { arr: [0,2,5], n: -1, output: [0,2,5] },
+        { arr: [1], n: 1, output: []  },
+        { arr: [1,2], n: 1, output: [1]  },
+    ];
+
+    scenarios.forEach(s => {
+
+        const input = linkedList.arrayToList(s.arr);
+        let current = linkedList.removeNthFromEnd(input, s.n);
+        
+        it ("Should return the list with the correct element removed.", () => {
+            
+            s.output.forEach(n => {
+
+                expect(current?.val).toBe(n);
+                if (current) current = current.next;
+            });
+        });
+    });
+});
