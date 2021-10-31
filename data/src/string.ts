@@ -72,6 +72,8 @@ const getLongestSubstring = (
  * Return the length of the longest substring containing the same letter
  * you can get after performing the above operations.
  * 
+ * https://leetcode.com/problems/minimum-window-substring/
+ * 
  * Input: s = "ABAB", k = 2
  * Output: 4
  * Explanation: Replace the two 'A's with two 'B's or vice versa.
@@ -116,4 +118,104 @@ export function characterReplacement(s: string, k: number): number {
     // length. The max will be determined by the final state of our left bound.
     return s.length - left;
 };
+//---END---
+
+//---START---minWindow
+/**
+ * Given two strings s and t of lengths m and n respectively, return the minimum window
+ * substring of s such that every character in t (including duplicates) is included
+ * in the window. If there is no such substring, return the empty string "".
+ * 
+ * The testcases will be generated such that the answer is unique.
+ * 
+ * A substring is a contiguous sequence of characters within the string.
+ * 
+ * https://leetcode.com/problems/minimum-window-substring/
+ * 
+ * Example 1:
+ * Input: s = "ADOBECODEBANC", t = "ABC"
+ * Output: "BANC"
+ * Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+ * 
+ * Example 2:
+ * Input: s = "a", t = "a"
+ * Output: "a"
+ * Explanation: The entire string s is the minimum window.
+ * 
+ * Example 3:
+ * Input: s = "a", t = "aa"
+ * Output: ""
+ * Explanation: Both 'a's from t must be included in the window.
+ * Since the largest window of s only has one 'a', return empty string.
+ * 
+ * Constraints:
+ * m == s.length
+ * n == t.length
+ * 1 <= m, n <= 105
+ * s and t consist of uppercase and lowercase English letters.
+ * 
+ * Follow up: Could you find an algorithm that runs in O(m + n) time?
+ */
+export function minWindow(s: string, t: string): string {
+
+    if (!s || !t) return "";
+
+    const mainCharArray = s.split("");
+    const targetCount: Map<string, number> = getTargetCount(t.split(""));
+    let leftPointer: number = 0;
+    let completedCount: number = 0;
+    const isCompleteSubstring = (count: number) => count === t.length;
+    let minLength: number = Infinity;
+    let minLeftIndex: number = 0;
+    mainCharArray.forEach((rightChar: string, rightPointer: number) => {
+      if (!targetCount.has(rightChar)) return;
+  
+      decrementCount(rightChar, targetCount);
+      if (targetCount.get(rightChar)! >= 0) completedCount += 1;
+  
+      while (isCompleteSubstring(completedCount)) {
+        const leftChar: string = s.charAt(leftPointer);
+        const currentLength: number = rightPointer - leftPointer + 1;
+        if (currentLength < minLength) {
+          minLeftIndex = leftPointer;
+          minLength = currentLength;
+        }
+        if (targetCount.has(leftChar)) {
+          incrementCount(leftChar, targetCount);
+          if (targetCount.get(leftChar)! > 0) completedCount -= 1;
+        }
+        leftPointer += 1;
+      }
+    });
+    if (minLength === Infinity) return "";
+  
+    return s.substring(minLeftIndex, minLeftIndex + minLength);
+};
+
+const incrementCount = (
+    character: string,
+    targetCount: Map<string, number>
+  ): void => {
+    targetCount.set(character, targetCount.get(character)! + 1);
+  };
+  
+  const decrementCount = (
+    character: string,
+    targetCount: Map<string, number>
+  ): void => {
+    targetCount.set(character, targetCount.get(character)! - 1);
+  };
+  
+  const getTargetCount = (charArray: string[]): Map<string, number> => {
+    const targetCount: Map<string, number> = new Map();
+    charArray.forEach((char: string) => {
+      const currentCount: number | undefined = targetCount.get(char);
+      if (currentCount) {
+        incrementCount(char, targetCount);
+      } else {
+        targetCount.set(char, 1);
+      }
+    });
+    return targetCount;
+  };
 //---END---

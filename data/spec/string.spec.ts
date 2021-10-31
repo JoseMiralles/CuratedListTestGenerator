@@ -46,3 +46,27 @@ describe("characterReplacement", () => {
         });
     });
 });
+
+//---START---minWindow
+describe("minWindow", () => {
+
+    interface IScenario {
+        s: string;
+        t: string;
+        output: string;
+    }
+
+    const scenarios: IScenario[] = [
+        { s: "ADOBECODEBANC", t: "ABC", output: "BANC" },
+        { s: "a", t: "a", output: "a" },
+        { s: "a", t: "aa", output: "" }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("should return the minimum windows substing.", () => {
+
+            expect(strings.minWindow(s.s, s.t)).toBe(s.output);
+        });
+    });
+});
