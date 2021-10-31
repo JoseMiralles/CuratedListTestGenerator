@@ -69,3 +69,41 @@ describe("rotate", () => {
         });
     });
 });
+
+//---START---exist
+describe("exist", () => {
+
+    interface IScenario {
+        input: string[][];
+        word: string;
+        output: boolean;
+    }
+
+    const scenarios: IScenario[] = [
+        {
+            input: [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],
+            word: "ABCCED",
+            output: true
+        },
+        {
+            input: [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],
+            word: "SEE",
+            output: true
+        },
+        {
+            input: [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],
+            word: "ABCB",
+            output: false
+        }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("should return true if the word is in the matrix, false if not.", () => {
+
+            expect(
+                matrix.exist(s.input, s.word)
+            ).toBe(s.output);
+        });
+    });
+});

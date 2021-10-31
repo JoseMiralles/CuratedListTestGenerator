@@ -169,3 +169,70 @@ function reverse(array: number[]): void {
     }
 }
 //---END---
+
+//---START---exist
+/**
+ * Given an m x n grid of characters board and a string word, return
+ * true if word exists in the grid.
+ * 
+ * The word can be constructed from letters of sequentially adjacent cells,
+ * where adjacent cells are horizontally or vertically neighboring.
+ * The same letter cell may not be used more than once.
+ * 
+ * https://leetcode.com/problems/word-search/
+ * 
+ * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+ * word = "ABCCED"
+ * Output: true
+ * 
+ * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+ * word = "SEE"
+ * Output: true
+ * 
+ * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+ * word = "ABCB"
+ * Output: false
+ */
+export function exist(board: string[][], word: string): boolean {
+
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[0].length; col++) {
+            if (depthFirstSearch(board, word, row, col, 0)) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+const depthFirstSearch = (
+    charMatrix: string[][],
+    word: string,
+    row: number,
+    col: number,
+    index: number
+  ): boolean => {
+    if (index === word.length) return true;
+    if (isOutOfBounds(row, col, charMatrix)) return false;
+    if (!charMatrix[row][col].includes(word.charAt(index))) return false;
+  
+    charMatrix[row][col] = "#";
+    const depthFirstSearchResult: boolean =
+      depthFirstSearch(charMatrix, word, row + 1, col, index + 1) ||
+      depthFirstSearch(charMatrix, word, row - 1, col, index + 1) ||
+      depthFirstSearch(charMatrix, word, row, col + 1, index + 1) ||
+      depthFirstSearch(charMatrix, word, row, col - 1, index + 1);
+    charMatrix[row][col] = word.charAt(index);
+    return depthFirstSearchResult;
+  };
+  
+  const isOutOfBounds = (
+    row: number,
+    col: number,
+    charMatrix: string[][]
+  ): boolean => {
+    const lastRowIndex = charMatrix.length - 1;
+    const lastColIndex = charMatrix[0].length - 1;
+    return row < 0 || col < 0 || row > lastRowIndex || col > lastColIndex;
+  };
+//---END---
