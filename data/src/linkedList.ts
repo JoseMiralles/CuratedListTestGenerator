@@ -187,7 +187,8 @@ export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | n
  * Reorder the list to be on the following form:
  *      L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
  * 
- * You may NOT modify the values in the list's nodes. Only nodes themselves may be changed.
+ * You may NOT modify the values in the list's nodes. Only nodes themselves
+ * may be changed.
  * 
  * Input: head = [1,2,3,4]
  * Output: [1,4,2,3]
