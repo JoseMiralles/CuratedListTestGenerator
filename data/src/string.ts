@@ -219,3 +219,72 @@ const incrementCount = (
     return targetCount;
   };
 //---END---
+
+//---START---isAnagram
+/**
+ * Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+ * 
+ * Example 1:
+ * Input: s = "anagram", t = "nagaram"
+ * Output: true
+ * 
+ * Example 2:
+ * Input: s = "rat", t = "car"
+ * Output: false
+ * 
+ * Constraints:
+ * 1 <= s.length, t.length <= 5 * 104
+ * s and t consist of lowercase English letters.
+ * 
+ * Follow up: What if the inputs contain Unicode characters? How would you adapt your
+ * solution to such a case?
+ */
+export function isAnagram(s: string, t: string): boolean {
+
+    // This solution is not ideal at all.
+    return [...s].sort().join('') === [...t].sort().join('');
+};
+//---END---
+
+//---START---groupAnagrams
+/**
+ * Given an array of strings strs, group the anagrams together. You can return the answer
+ * in any order.
+ * 
+ * An Anagram is a word or phrase formed by rearranging the letters of a different
+ * word or phrase, typically using all the original letters exactly once.
+ * 
+ * Example 1:
+ * Input: strs = ["eat","tea","tan","ate","nat","bat"]
+ * Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+ * 
+ * Example 2:
+ * Input: strs = [""]
+ * Output: [[""]]
+ * 
+ * Example 3:
+ * Input: strs = ["a"]
+ * Output: [["a"]]
+ * 
+ * Constraints:
+ * 1 <= strs.length <= 104
+ * 0 <= strs[i].length <= 100
+ * strs[i] consists of lowercase English letters.
+ */
+export function groupAnagrams(strs: string[]): string[][] {
+
+    const anagramGroups = new Map<string, string[]>();
+    strs.forEach((word) => {
+      const sortedWordKey: string = word.split("").sort().toString();
+      if (!anagramGroups.has(sortedWordKey)) {
+        anagramGroups.set(sortedWordKey, [word]);
+        return;
+      }
+      anagramGroups.set(
+        sortedWordKey,
+        anagramGroups.get(sortedWordKey)!.concat([word])
+      );
+    });
+    return [...anagramGroups.values()];
+};
+//---END---
