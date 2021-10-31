@@ -66,3 +66,51 @@ export function setZeroes(matrix: number[][]): void {
     }
 };
 //---END---
+
+//---START---spiralOrder
+/**
+ * Given an m x n matrix, return all elements of the matrix in spiral order.
+ * 
+ * https://leetcode.com/problems/spiral-matrix/
+ * 
+ * Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+ * Output: [1,2,3,6,9,8,7,4,5]
+ * 
+ * Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+ * Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+ */
+export function spiralOrder(matrix: number[][]): number[] {
+
+    const flattenedOrder: number[] = [];
+
+    let startRow: number = 0;
+    let endRow: number = matrix.length - 1;
+    let startCol: number = 0;
+    let endCol: number = matrix[0].length - 1;
+    while (startRow <= endRow && startCol <= endCol) {
+      // Go Right
+      for (let currCol = startCol; currCol <= endCol; currCol++) {
+        flattenedOrder.push(matrix[startRow][currCol]);
+      }
+      // Go Down
+      for (let currRow = startRow + 1; currRow <= endRow; currRow++) {
+        flattenedOrder.push(matrix[currRow][endCol]);
+      }
+      // Go Left
+      for (let currCol = endCol - 1; currCol > startCol; currCol--) {
+        if (startRow === endRow) break;
+        flattenedOrder.push(matrix[endRow][currCol]);
+      }
+      // Go Up
+      for (let currRow = endRow; currRow > startRow; currRow--) {
+        if (startCol === endCol) break;
+        flattenedOrder.push(matrix[currRow][startCol]);
+      }
+      startRow++;
+      endRow--;
+      startCol++;
+      endCol--;
+    }
+    return flattenedOrder;return [];return [];
+};
+//---END---

@@ -22,3 +22,25 @@ describe("setZeroes", () => {
         });
     });
 });
+
+//---START---spiralOrder
+describe("spiralOrder", () => {
+
+    interface IScenario {
+        input: number[][];
+        output: number[];
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [[1,2,3],[4,5,6],[7,8,9]], output: [1,2,3,6,9,8,7,4,5] },
+        { input: [[1,2,3,4],[5,6,7,8],[9,10,11,12]], output: [1,2,3,4,8,12,11,10,9,5,6,7] }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("should return the elements in spiral order as an array.", () => {
+            
+            expect(matrix.spiralOrder(s.input)).toEqual(s.output);
+        });
+    });
+});
