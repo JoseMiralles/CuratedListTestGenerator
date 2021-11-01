@@ -398,3 +398,57 @@ export function isPalindrome(s: string): boolean {
     return false;
 };
 //---END---
+
+//---START---longestPalindrome
+/**
+ * Given a string s, return the longest palindromic substring in s.
+ * 
+ * Example 1:
+ * Input: s = "babad"
+ * Output: "bab"
+ * Note: "aba" is also a valid answer.
+ * 
+ * Example 2:
+ * Input: s = "cbbd"
+ * Output: "bb"
+ * 
+ * Example 3:
+ * Input: s = "a"
+ * Output: "a"
+ * 
+ * Example 4:
+ * Input: s = "ac"
+ * Output: "a"
+ * 
+ * Constraints:
+ * 1 <= s.length <= 1000
+ * s consist of only digits and English letters.
+ */
+export function longestPalindrome(s: string): string {
+
+    if (s === null || s.length < 2) return s;
+
+    let start: number = 0;
+    let end: number = 0;
+    for (let i = 0; i < s.length; i++) {
+        const oddRange: number = getPalindromeRange(s, i, i);
+        const evenRange: number = getPalindromeRange(s, i, i + 1);
+        const currentRange: number = Math.max(oddRange, evenRange)
+        if (currentRange > end - start) {
+            start = i - Math.ceil(currentRange / 2) + 1;
+            end = i + Math.floor(currentRange / 2) + 1;
+        }
+    }
+    return s.substring(start, end);
+
+    function getPalindromeRange(str: string, left: number, right: number): number {
+        while (left >= 0 && right < str.length) {
+            if (str[left] !== str[right]) break;
+            left--;
+            right++;
+        }
+        const palindromeRange: number = right - left - 1;
+        return palindromeRange;
+    }
+};
+//---END---

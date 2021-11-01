@@ -168,8 +168,8 @@ describe("isValid", () => {
     });
 });
 
-//---START---isValid
-describe("isValid", () => {
+//---START---isPalindrome
+describe("isPalindrome", () => {
 
     interface IScenario {
         s: string;
@@ -187,6 +187,30 @@ describe("isValid", () => {
         scenarios.forEach(s => {
 
             expect(strings.isPalindrome(s.s)).toBe(s.output);
+        });
+    });
+});
+
+//---START---longestPalindrome
+describe("longestPalindrome", () => {
+
+    interface IScenario {
+        s: string;
+        output: string;
+    }
+
+    const scenarios: IScenario[] = [
+        { s: "babad", output: "bab" },
+        { s: "cbbd", output: "bb" },
+        { s: "a", output: "a" },
+        { s: "ac", output: "a" },
+    ];
+
+    it("should the longest palindromic substring.", () => {
+        
+        scenarios.forEach(s => {
+
+            expect(strings.longestPalindrome(s.s)).toBe(s.output);
         });
     });
 });
