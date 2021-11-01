@@ -143,4 +143,50 @@ describe("groupAnagrams", () => {
         });
     });
 });
-//---END---
+
+//---START---isValid
+describe("isValid", () => {
+
+    interface IScenario {
+        input: string;
+        output: boolean;
+    }
+
+    const scenarios: IScenario [] = [
+        { input: "()", output: true },
+        { input: "()[]{}", output: true },
+        { input: "(]", output: false },
+        { input: "([)]", output: false },
+        { input: "{[]}", output: true },
+    ];
+
+    it("should return true if the strings is valid, and false if not.", () => {
+        scenarios.forEach(s => {
+
+            expect(strings.isValid(s.input)).toBe(s.output);
+        });
+    });
+});
+
+//---START---isValid
+describe("isValid", () => {
+
+    interface IScenario {
+        s: string;
+        output: boolean;
+    }
+
+    const scenarios: IScenario[] = [
+        { s: "A man, a plan, a canal: Panama", output: true },
+        { s: "race a car", output: false },
+        { s: " ", output: true }
+    ];
+
+    it("should return true if the string is a plaindrome, or false otherwise.", () => {
+        
+        scenarios.forEach(s => {
+
+            expect(strings.isPalindrome(s.s)).toBe(s.output);
+        });
+    });
+});

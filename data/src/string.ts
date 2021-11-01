@@ -224,6 +224,9 @@ const incrementCount = (
 /**
  * Given two strings s and t, return true if t is an anagram of s, and false otherwise.
  * 
+ * Leetcode # 242
+ * https://leetcode.com/problems/valid-anagram/
+ * 
  * Example 1:
  * Input: s = "anagram", t = "nagaram"
  * Output: true
@@ -253,6 +256,9 @@ export function isAnagram(s: string, t: string): boolean {
  * 
  * An Anagram is a word or phrase formed by rearranging the letters of a different
  * word or phrase, typically using all the original letters exactly once.
+ * 
+ * Leetcode # 49
+ * https://leetcode.com/problems/group-anagrams/
  * 
  * Example 1:
  * Input: strs = ["eat","tea","tan","ate","nat","bat"]
@@ -286,5 +292,109 @@ export function groupAnagrams(strs: string[]): string[][] {
       );
     });
     return [...anagramGroups.values()];
+};
+//---END---
+
+//---START---isValid
+/**
+ * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']',
+ * determine if the input string is valid.
+ * 
+ * An input string is valid if:
+ * 
+ * Open brackets must be closed by the same type of brackets.
+ * Open brackets must be closed in the correct order.
+ * 
+ * Leetcode # 20
+ * https://leetcode.com/problems/valid-parentheses/
+ * 
+ * Example 1:
+ * Input: s = "()"
+ * Output: true
+ * 
+ * Example 2:
+ * Input: s = "()[]{}"
+ * Output: true
+ * 
+ * Example 3:
+ * Input: s = "(]"
+ * Output: false
+ * 
+ * Example 4:
+ * Input: s = "([)]"
+ * Output: false
+ * 
+ * Example 5:
+ * Input: s = "{[]}"
+ * Output: true
+ * 
+ * Constraints:
+ * 1 <= s.length <= 104
+ * s consists of parentheses only '()[]{}'.
+ */
+export function isValid(s: string): boolean {
+    
+    const hash: { [key: string]: string } = {
+        '(': ')',
+        '{': '}',
+        '[': ']',
+      };
+    
+      const stack: string[] = [];
+    
+      for (const char of s) {
+        if (char in hash) stack.push(char);
+        else {
+          const top = stack.pop();
+          if (top === undefined || hash[top] !== char) {
+            return false;
+          }
+        }
+      }
+    
+      return !stack.length;
+};
+//---END---
+
+//---START---isValid
+/**
+ * A phrase is a palindrome if, after converting all uppercase letters into
+ * lowercase letters and removing all non-alphanumeric characters, it
+ * reads the same forward and backward. Alphanumeric characters include
+ * letters and numbers.
+ * 
+ * Given a string s, return true if it is a palindrome, or false otherwise
+ * 
+ * Leetcode # 125:
+ * https://leetcode.com/problems/valid-palindrome/
+ * 
+ * Example 1:
+ * Input: s = "A man, a plan, a canal: Panama"
+ * Output: true
+ * Explanation: "amanaplanacanalpanama" is a palindrome.
+ * 
+ * Example 2:
+ * Input: s = "race a car"
+ * Output: false
+ * Explanation: "raceacar" is not a palindrome.
+ * 
+ * Example 3:
+ * Input: s = " "
+ * Output: true
+ * Explanation: s is an empty string "" after removing non-alphanumeric characters.
+ * Since an empty string reads the same forward and backward, it is a palindrome.
+ * 
+ * Constraints:
+ * 
+ * 1 <= s.length <= 2 * 105
+ * s consists only of printable ASCII characters.
+ */
+export function isPalindrome(s: string): boolean {
+
+    const regex = /[\W_]/g;
+    let cleaned = s.toLowerCase().replace(regex, "");
+    let rev = cleaned.split("").reverse().join("");
+    if (rev === cleaned) return true;
+    return false;
 };
 //---END---
