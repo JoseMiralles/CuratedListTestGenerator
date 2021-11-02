@@ -551,6 +551,5 @@ export function _decode (s: string): string[] {
 //---END---
 
 export function decode (s: string): string[] {
-
   throw new Error('Method not implemented.');
 }

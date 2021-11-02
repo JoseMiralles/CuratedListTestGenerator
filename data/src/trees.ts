@@ -227,6 +227,56 @@ export function levelOrder(root: TreeNode | null): number[][] {
     }
     return result
 };
+//---END---
+
+//---START---serialize
+/**
+ * 
+ */
+export function serialize(root: TreeNode | null): string {
+    
+    const path: (TreeNode | null)[] = [];
+    const preorder = (node: TreeNode | null) => {
+      path.push(node);
+      if (node === null) {
+        return;
+      }
+      preorder(node.left);
+      preorder(node.right);
+    };
+  
+    preorder(root);
+    return path.map((node) => (node === null ? "#" : node.val)).join(",");
+};
+
+export function _deserialize(data: string): TreeNode | null {
+    
+    if (data === "") return null;
+    const path = data
+      .split(",")
+      .map((val) => (val === "#" ? null : new TreeNode(Number(val))));
+  
+    const preorder = (path: (TreeNode | null)[]): TreeNode | null => {
+      if (path.length === 0) return null;
+      const node = path.shift();
+      if (node === null) return null;
+  
+      if (node) {
+        node.left = preorder(path);
+        node.right = preorder(path);
+      }
+  
+      if (node) return node;
+      else return null;
+    };
+    return preorder(path);
+};
+//---END---
+
+export function deserialize(data: string): TreeNode | null {
+    throw new Error('Method not implemented.');
+};
+
 /**SHARED ITEMS**/
 
 //---START---TreeNode

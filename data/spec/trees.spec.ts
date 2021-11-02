@@ -134,3 +134,37 @@ describe("levelOrder", () => {
         });
     });
 });
+
+//---START---serialize
+describe("serialize", () => {
+
+    interface IScenario {
+        input: (number|null)[];
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [1,2,3,null,null,4,5] },
+        { input: [] },
+        { input: [1] }
+    ];
+
+    // @ts-ignore
+    const deserialize = trees._deserialize ? trees._deserialize : trees.deserialize;
+
+    scenarios.forEach(s => {
+
+        it("should serialise and then deserialize the tree.", () => {
+
+            const inputTree = trees.arrayToBinaryTree(s.input);
+            const resultTree = deserialize(trees.serialize(inputTree));
+
+            if(inputTree && resultTree)
+                trees.compareTwoTreesTest(resultTree, inputTree);
+
+            if (s.input[0] && resultTree === null) {
+
+                fail("The root is null.");
+            }
+        });
+    });
+});
