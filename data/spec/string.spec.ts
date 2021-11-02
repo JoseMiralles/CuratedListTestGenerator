@@ -240,7 +240,8 @@ describe("countSubstrings", () => {
 //---START---encode
 describe("encode", () => {
 
-    const decode = strings._decode ? strings._decode : strings.decode;
+    // @ts-ignore
+    const decode = (strings._decode) ? strings._decode : strings.decode;
 
     interface IScenario {
         input: string[];
