@@ -42,12 +42,15 @@ export function maxDepth(root: TreeNode | null): number {
 //---END---
 
 //---START---isSameTree
-/**
+/** Requires: [TreeNode,arrayToBinaryTree]
  * Given the roots of two binary trees p and q, write a function to check if they are the same
  * or not.
  * 
  * Two binary trees are considered the same if they are structurally identical, and the nodes
  * have the same value.
+ * 
+ * Leetcode # 100
+ * https://leetcode.com/problems/same-tree/
  * 
  * Example 1:
  * Input: p = [1,2,3], q = [1,2,3]
@@ -67,6 +70,49 @@ export function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
     if (!p || !q) return false;
     if (p.val !== q.val) return false;
     return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
+//---END---
+
+//---START---invertTree
+/** Requires: [TreeNode,arrayToBinaryTree,compareTwoTreesTest]
+ * Given the root of a binary tree, invert the tree, and return its root.
+ * 
+ * Leetcode # 226
+ * https://leetcode.com/problems/invert-binary-tree/
+ * 
+ * Example 1:
+ * Input: root = [4,2,7,1,3,6,9]
+ * Output: [4,7,2,9,6,3,1]
+ * 
+ * Example 2:
+ * Input: root = [2,1,3]
+ * Output: [2,3,1]
+ * 
+ * Example 3:
+ * Input: root = []
+ * Output: []
+ *  
+ * Constraints:
+ * The number of nodes in the tree is in the range [0, 100].
+ * -100 <= Node.val <= 100
+ */
+export function invertTree(root: TreeNode | null): TreeNode | null {
+
+    if (!root) return null;
+    if (root.left && root.right) {
+      const temp = root.left;
+      root.left = root.right;
+      root.right = temp;
+    } else if (root.left) {
+      root.right = root.left;
+      root.left = null;
+    } else if (root.right) {
+      root.left = root.right;
+      root.right = null;
+    }
+    invertTree(root.left);
+    invertTree(root.right);
+    return root;
 };
 //---END---
 
@@ -106,4 +152,30 @@ export function arrayToBinaryTree(
     }
 
     return root;
+}
+
+//---START---compareTwoTreesTest
+export function compareTwoTreesTest(
+    root1: TreeNode,
+    root2: TreeNode
+): void {
+    const que1 = [root1];
+    const que2 = [root2]
+
+    while(que1.length && que2.length){
+
+        const node1 = que1.shift();
+        const node2 = que2.shift();
+
+        expect(node1?.val).toBe(node2?.val);
+
+        if (node1?.left) que1.push(node1.left);
+        if (node1?.right) que1.push(node1.right);
+        if (node2?.left) que2.push(node2.left);
+        if (node2?.right) que2.push(node2.right);
+    }
+
+    if (que1.length || que2.length) {
+        fail("Either some leaves are missing, or extra nodes are included.");
+    }
 }

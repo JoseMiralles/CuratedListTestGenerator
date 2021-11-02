@@ -59,3 +59,31 @@ describe("isSameTree", () => {
         });
     });
 });
+
+//---START---invertTree
+describe("invertTree", () => {
+
+    interface IScenario {
+        input: number[];
+        output: number[];
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [4,2,7,1,3,6,9], output: [4,7,2,9,6,3,1] },
+        { input: [2,1,3], output: [2,3,1] },
+        { input: [], output: [] }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("should return an inverted tree.", () => {
+
+            const inputRoot = trees.arrayToBinaryTree(s.input);
+            const expectedOutput = trees.arrayToBinaryTree(s.output);
+            const exerciseOutput = trees.invertTree(inputRoot);
+
+            if (exerciseOutput && expectedOutput)
+                trees.compareTwoTreesTest(exerciseOutput, expectedOutput);
+        });
+    });
+});
