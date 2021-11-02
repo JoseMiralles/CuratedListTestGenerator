@@ -452,3 +452,105 @@ export function longestPalindrome(s: string): string {
     }
 };
 //---END---
+
+//---START---countSubstrings
+/**
+ * Given a string s, return the number of palindromic substrings in it.
+ * 
+ * A string is a palindrome when it reads the same backward as forward.
+ * A substring is a contiguous sequence of characters within the string.
+ * 
+ * Leetcode # 647
+ * https://leetcode.com/problems/palindromic-substrings/
+ * 
+ * Example 1:
+ * Input: s = "abc"
+ * Output: 3
+ * Explanation: Three palindromic strings: "a", "b", "c".
+ * 
+ * Example 2:
+ * Input: s = "aaa"
+ * Output: 6
+ * Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
+ * 
+ * Constraints:
+ * 1 <= s.length <= 1000
+ * s consists of lowercase English letters.
+ */
+export function countSubstrings(s: string): number {
+
+    let count = 0 ;
+    const sLength = s.length;
+    
+    for(let i = 0 ; i < sLength ; i++){
+        //both odd and oven cases
+        for(let j = i ; j < i + 2 ; j++){
+            let left = i , right = j;
+            while(s[left] && s[right] && s[left] === s[right]){
+                count++;
+                left--;
+                right++
+            }
+        }
+    }
+    
+    return count;
+};
+//---END---
+
+//---START---encode
+/**
+ * Design an algorithm to encode a list of strings to a string. The encoded
+ * string is then sent over the network and is decoded back to the original
+ * list of strings.
+ * 
+ * Please implement encode and decode
+ * 
+ * Leetcode # 271
+ * (Premium)    https://leetcode.com/problems/encode-and-decode-strings/
+ * (Free)       https://www.lintcode.com/problem/659/
+ * 
+ * Example1
+ * Input: ["lint","code","love","you"]
+ * Output: ["lint","code","love","you"]
+ * Explanation:
+ * One possible encode method is: "lint:;code:;love:;you"
+ * 
+ * Example2
+ * Input: ["we", "say", ":", "yes"]
+ * Output: ["we", "say", ":", "yes"]
+ * Explanation:
+ * One possible encode method is: "we:;say:;:::;yes"
+ * 
+ * Your functions will be called as such:
+ * decode(encode(strs));
+ */ 
+
+export function encode (strs: string[]): string {
+  let sb = [];
+  for (let str of strs) {
+    sb.push(str.length);
+    sb.push('/');
+    sb.push(str);
+  }
+  return sb.join('');
+};
+
+export function _decode (s: string): string[] {
+  let res = [];
+  let i = 0;
+  while (i < s.length) {
+    let slash = s.indexOf('/', i);
+    let len = parseInt(s.substring(i, slash));
+    let str = s.substring(slash + 1, slash + 1 + len);
+    res.push(str);
+    i = slash + 1 + len;
+  }
+  return res;
+};
+//---END---
+
+export function decode (s: string): string[] {
+
+  throw new Error('Method not implemented.');
+}

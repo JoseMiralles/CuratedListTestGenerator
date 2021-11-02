@@ -214,3 +214,51 @@ describe("longestPalindrome", () => {
         });
     });
 });
+
+//---START---countSubstrings
+describe("countSubstrings", () => {
+
+    interface IScenario {
+        s: string;
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { s: "abc", output: 3 },
+        { s: "aaa", output: 6 },
+    ];
+
+    it("should the longest palindromic substring.", () => {
+        
+        scenarios.forEach(s => {
+
+            expect(strings.countSubstrings(s.s)).toBe(s.output);
+        });
+    });
+});
+
+//---START---encode
+describe("encode", () => {
+
+    const decode = strings._decode ? strings._decode : strings.decode;
+
+    interface IScenario {
+        input: string[];
+    }
+
+    const scenarios: IScenario[] = [
+        { input: ["lint","code","love","you"] },
+        { input: ["we", "say", ":", "yes"] }
+
+    ];
+
+    it("should the longest palindromic substring.", () => {
+        
+        scenarios.forEach(s => {
+
+            expect(
+                decode(strings.encode(s.input))
+            ).toEqual(s.input);
+        });
+    });
+});
