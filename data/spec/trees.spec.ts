@@ -87,3 +87,26 @@ describe("invertTree", () => {
         });
     });
 });
+
+//---START---maxPathSum
+describe("maxPathSum", () => {
+
+    interface IScenario {
+        input: (number|null)[];
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [1,2,3], output: 6 },
+        { input: [-10,9,20,null,null,15,7], output: 42 },
+    ];
+
+    scenarios.forEach(s => {
+
+        it("it should return the sum of the largest path.", () => {
+            
+            const inputTree = trees.arrayToBinaryTree(s.input);
+            expect(trees.maxPathSum(inputTree)).toBe(s.output);
+        });
+    });
+});
