@@ -75,6 +75,7 @@ export function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
 
 //---START---invertTree
 /** Requires: [TreeNode,arrayToBinaryTree,compareTwoTreesTest]
+ * 
  * Given the root of a binary tree, invert the tree, and return its root.
  * 
  * Leetcode # 226
@@ -118,6 +119,7 @@ export function invertTree(root: TreeNode | null): TreeNode | null {
 
 //---START---maxPathSum
 /** Requires: [TreeNode,arrayToBinaryTree]
+ * 
  * A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in
  * the sequence has an edge connecting them. A node can only appear in the sequence at
  * most once. Note that the path does not need to pass through the root.
@@ -160,6 +162,71 @@ export function maxPathSum(root: TreeNode | null): number {
 };
 //---END---
 
+//---START---levelOrder
+/** Requires: [TreeNode,arrayToBinaryTree]
+ * 
+ * Given the root of a binary tree, return the level order traversal of
+ * its nodes' values. (i.e., from left to right, level by level).
+ * 
+ * Leetcode # 102
+ * https://leetcode.com/problems/binary-tree-level-order-traversal/
+ * 
+ * Example 1:
+ * Input: root = [3,9,20,null,null,15,7]
+ * Output: [[3],[9,20],[15,7]]
+ * 
+ * Example 2:
+ * Input: root = [1]
+ * Output: [[1]]
+ * 
+ * Example 3:
+ * Input: root = []
+ * Output: []
+ *  
+ * Constraints:
+ * The number of nodes in the tree is in the range [0, 2000].
+ * -1000 <= Node.val <= 1000
+ */
+//---END---
+export function levelOrder(root: TreeNode | null): number[][] {
+
+    if (!root) return []
+    
+    type Memo = {
+        val: number
+        level: number
+    }
+	
+    const arr: Memo[] = []
+    let maxLevel: number = -1
+    
+    dfs(root, 1)
+    
+    function dfs(root: TreeNode | null, level: number) {
+        if (!root) return
+        
+        const n: Memo = {
+            val: root.val,
+            level: level
+        }
+		
+        arr.push(n)
+        maxLevel = Math.max(maxLevel, level)
+        
+        if (root && root.left) {
+            dfs(root.left, level+1)
+        }
+        if (root && root.right) {
+            dfs(root.right, level+1)
+        }
+    }
+    
+    const result: number[][] = []
+    for (let i = 1; i <= maxLevel; ++i) {
+        result.push(arr.filter(d => d.level === i).map(n => n.val))
+    }
+    return result
+};
 /**SHARED ITEMS**/
 
 //---START---TreeNode

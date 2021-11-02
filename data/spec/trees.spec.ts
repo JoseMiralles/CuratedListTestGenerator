@@ -110,3 +110,27 @@ describe("maxPathSum", () => {
         });
     });
 });
+
+//---START---levelOrder
+describe("levelOrder", () => {
+
+    interface IScenario {
+        input: (number|null)[];
+        output: number[][];
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [3,9,20,null,null,15,7], output: [[3],[9,20],[15,7]] },
+        { input: [1], output: [[1]] },
+        { input: [], output: [] }
+    ];
+
+    scenarios.forEach(s => {
+
+        it("should return the level order traversal of its nodes.", () => {
+
+            const inputRoot = trees.arrayToBinaryTree(s.input);
+            expect(trees.levelOrder(inputRoot)).toEqual(s.output);
+        });
+    });
+});
