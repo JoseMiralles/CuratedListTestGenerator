@@ -18,8 +18,7 @@ describe("maxDepth", () => {
     scenarios.forEach(s => {
 
         if (s.input[0]) {
-            const inputTree = new trees.TreeNode(s.input[0]);
-            trees.arrayToBinaryTree(s.input, 0, inputTree);
+            const inputTree = trees.arrayToBinaryTree(s.input);
 
             it("should return the maximum depth.", () => {
                 if (inputTree) expect(trees.maxDepth(inputTree)).toBe(s.output);
@@ -30,5 +29,33 @@ describe("maxDepth", () => {
                 expect(trees.maxDepth(null)).toBe(0);
             })
         }
+    });
+});
+
+//---START---isSameTree
+describe("isSameTree", () => {
+
+    interface IScenario {
+        p: (number | null)[];
+        q: (number | null)[];
+        output: boolean;
+    }
+
+    const scenarios: IScenario[] = [
+        { p: [1,2,3], q: [1,2,3], output: true },
+        { p: [1,2], q: [1,null,2], output: false },
+        { p: [1,2,3,null,4,null,5], q: [1,2,3,null,4,null,5], output: true },
+        { p: [1,2,3,null,4,null,5], q: [1,2,3,4,null,null,5], output: false },
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("should return true if the trees are the same, and false if they are not the same.", () => {
+
+            const p = trees.arrayToBinaryTree(s.p);
+            const q = trees.arrayToBinaryTree(s.q);
+
+            expect(trees.isSameTree(p,q)).toBe(s.output);
+        });
     });
 });

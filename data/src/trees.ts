@@ -7,6 +7,9 @@
  * A binary tree's maximum depth is the number of nodes along the longest
  * path from the root node down to the farthest leaf node.
  * 
+ * Leetcode # 104
+ * https://leetcode.com/problems/maximum-depth-of-binary-tree/
+ * 
  * Example 1:
  * Input: root = [3,9,20,null,null,15,7]
  * Output: 3
@@ -38,6 +41,35 @@ export function maxDepth(root: TreeNode | null): number {
 };
 //---END---
 
+//---START---isSameTree
+/**
+ * Given the roots of two binary trees p and q, write a function to check if they are the same
+ * or not.
+ * 
+ * Two binary trees are considered the same if they are structurally identical, and the nodes
+ * have the same value.
+ * 
+ * Example 1:
+ * Input: p = [1,2,3], q = [1,2,3]
+ * Output: true
+ * 
+ * Example 2:
+ * Input: p = [1,2], q = [1,null,2]
+ * Output: false
+ * 
+ * Example 3:
+ * Input: p = [1,2,1], q = [1,1,2]
+ * Output: false
+ */
+export function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+
+    if (!p && !q) return true;
+    if (!p || !q) return false;
+    if (p.val !== q.val) return false;
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
+//---END---
+
 /**SHARED ITEMS**/
 
 //---START---TreeNode
@@ -55,8 +87,8 @@ export class TreeNode {
 //---START---arrayToBinaryTree
 export function arrayToBinaryTree(
     arr: (number | null)[],
-    i: number,
-    root: TreeNode | null
+    i: number = 0,
+    root: TreeNode | null = null
 ): TreeNode | null {
 
     if (i < arr.length) {
@@ -74,19 +106,4 @@ export function arrayToBinaryTree(
     }
 
     return root;
-}
-
-export function printTree(
-    root: TreeNode,
-): void {
-
-    const stack = [ root ];
-
-    while (stack.length) {
-
-        const current = stack.shift();
-        console.log(current?.val);
-        if (current?.left) stack.push(current.left);
-        if (current?.right) stack.push(current.right);
-    }
 }
