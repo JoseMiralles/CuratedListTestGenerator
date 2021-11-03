@@ -311,3 +311,46 @@ describe("lowestCommonAncestor", () => {
     });
 });
 //---END---
+
+//---START---Trie
+fdescribe("Trie", () => {
+
+    interface IScenario {
+        operations: string[];
+        args: string[];
+        outputs: (boolean|null)[];
+    }
+
+    const scenarios: IScenario[] = [
+        {
+            operations: ["Trie", "insert", "search", "search", "startsWith", "insert", "search"],
+            args: ["", "apple", "apple", "app", "app", "app", "app"],
+            outputs: [null, null, true, false, true, null, true]
+        }
+    ];
+
+    // @ts-ignore
+    const Trie: Class = trees.Trie;
+
+    scenarios.forEach(s => {
+
+        it ("Should return the correct", () => {
+            
+            const trie = new Trie();
+
+            for (let i = 1; i < s.operations.length; i++) {
+
+                // call the scenario operations and pass in arguments.
+                const operationOutputs = trie[ s.operations[i] ] ( s.args[i] );
+
+                if (s.outputs[i] !== null)
+                    expect(operationOutputs)
+                    .withContext(
+                        `trie.${s.operations[i]}("${s.args[i]}") was expected to return ${s.outputs[i]}`
+                    )
+                    .toBe(s.outputs[i]);
+            }
+        });
+    });
+});
+//---END---

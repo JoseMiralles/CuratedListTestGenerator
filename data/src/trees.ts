@@ -538,6 +538,93 @@ export function lowestCommonAncestor(
 };
 //---END---
 
+//---START---Trie
+/**
+ * A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently
+ * store and retrieve keys in a dataset of strings. There are various applications of this
+ * data structure, such as autocomplete and spellchecker.
+ * 
+ * Implement the Trie class and its methods:
+ * - Trie() Initializes the trie object.
+ * - void insert(String word) Inserts the string word into the trie.
+ * - boolean search(String word) Returns true if the string word is in the
+ *   trie (i.e., was inserted before), and false otherwise.
+ * - boolean startsWith(String prefix) Returns true if there is a previously
+ *   inserted string word that has the prefix prefix, and false otherwise.
+ * 
+ * Leetcode # 208
+ * https://leetcode.com/problems/implement-trie-prefix-tree/
+ * 
+ * Your Trie object will be instantiated and called as such:
+ * var obj = new Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ * 
+ * Example:
+ * Input
+ *  ["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
+ *  [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+ * Output
+ *  [null, null, true, false, true, null, true]
+ * Explanation
+ *  Trie trie = new Trie();
+ *  trie.insert("apple");
+ *  trie.search("apple");   // return True
+ *  trie.search("app");     // return False
+ *  trie.startsWith("app"); // return True
+ *  trie.insert("app");
+ *  trie.search("app");     // return True
+ *  
+ * Constraints:
+ * 1 <= word.length, prefix.length <= 2000
+ * word and prefix consist only of lowercase English letters.
+ * At most 3 * 104 calls in total will be made to insert, search, and startsWith.
+ */
+ export class Trie {
+    map:{[key:string]:Trie} = {};
+    isWord:boolean = false;
+    constructor() {
+    }
+
+    public insert(word: string): void {
+        this.add(word,0,this)
+    }
+
+    public search(word: string): boolean {
+       return this.find(word,0,this,true)
+    }
+
+    public startsWith(prefix: string): boolean {
+        return this.find(prefix,0,this,false)
+    }
+
+	private add(word:string,index:number,letterMap:Trie):void{
+  		if(index == word.length){
+    			letterMap.isWord = true
+    			return; 
+  		}
+  		if(!letterMap.map[word.charAt(index)]){
+    			letterMap.map[word.charAt(index)] = new Trie()
+  		}
+  		return this.add(word,index+1,letterMap.map[word.charAt(index)])
+	}
+
+    private find(word:string,index:number,letterMap:Trie,isWord:boolean):boolean{
+  		if(index == word.length){
+    			if(letterMap.isWord || !isWord){
+      				return true
+    			}
+    			return false
+  		}
+  		if(letterMap.map[word[index]]){
+    		return this.find(word,index+1,letterMap.map[word.charAt(index)],isWord)
+  		}
+  		return false
+	}
+}
+//---END---
+
 /**SHARED ITEMS**/
 
 //---START---TreeNode
