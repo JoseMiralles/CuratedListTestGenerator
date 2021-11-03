@@ -168,3 +168,31 @@ describe("serialize", () => {
         });
     });
 });
+
+//---START---serialize
+describe("isSubtree", () => {
+
+    interface IScenario {
+        root: (number | null)[];
+        subRoot: (number | null)[];
+        output: boolean;
+    }
+
+    const scenarios: IScenario[] = [
+        { root: [3,4,5,1,2], subRoot: [4,1,2], output: true },
+        { root: [3,4,5,1,2,null,null,null,null,0], subRoot: [4,1,2], output: false }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("Should return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.", () => {
+
+            const rootNode = trees.arrayToBinaryTree(s.root);
+            const subRootNode = trees.arrayToBinaryTree(s.subRoot);
+
+            expect(
+                trees.isSubtree(rootNode, subRootNode)
+            ).toBe(s.output);
+        });
+    });
+});
