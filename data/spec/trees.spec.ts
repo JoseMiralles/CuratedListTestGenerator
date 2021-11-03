@@ -169,7 +169,7 @@ describe("serialize", () => {
     });
 });
 
-//---START---serialize
+//---START---isSubtree
 describe("isSubtree", () => {
 
     interface IScenario {
@@ -196,3 +196,37 @@ describe("isSubtree", () => {
         });
     });
 });
+
+//---START---buildTree
+describe("buildTree", () => {
+
+    interface IScenario {
+        preorder: number[];
+        inorder: number[];
+        output: (number | null)[];
+    }
+
+    const scenarios: IScenario[] = [
+        { preorder: [3,9,20,15,7], inorder: [9,3,15,20,7], output: [3,9,20,null,null,15,7] },
+        { preorder: [-1], inorder: [-1], output: [-1] }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("Should construct and return the binary tree.", () => {
+
+            const expectedOutput = trees.arrayToBinaryTree(s.output);
+            const exerciseOutput = trees.buildTree(s.preorder, s.inorder);
+
+            if (expectedOutput && exerciseOutput)
+                trees.compareTwoTreesTest(
+                    expectedOutput,
+                    exerciseOutput
+                );
+
+            if (expectedOutput)
+                    expect(exerciseOutput).not.toBeNull();
+        });
+    });
+});
+//---END---
