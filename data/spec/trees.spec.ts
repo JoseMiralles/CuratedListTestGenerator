@@ -230,3 +230,27 @@ describe("buildTree", () => {
     });
 });
 //---END---
+
+//---START---isValidBST
+describe("isValidBST", () => {
+
+    interface IScenario {
+        input: (number|null)[];
+        output: boolean;
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [2,1,3], output: true },
+        { input: [5,1,4,null,null,3,6], output: false }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("Should determine if it is a valid binary search tree (BST).", () => {
+            
+            const inputTree = trees.arrayToBinaryTree(s.input);
+            expect(trees.isValidBST(inputTree)).toBe(s.output);
+        });
+    });
+});
+//---END---
