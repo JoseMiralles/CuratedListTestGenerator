@@ -447,7 +447,7 @@ export function isValidBST(root: TreeNode | null): boolean {
 };
 //---END---
 
-//---START---isValidBST
+//---START---kthSmallest
 /** Requires: [TreeNode,arrayToBinaryTree]
  * 
  * Given the root of a binary search tree, and an integer k, return the kth smallest
@@ -471,8 +471,26 @@ export function isValidBST(root: TreeNode | null): boolean {
  */
 export function kthSmallest(root: TreeNode | null, k: number): number {
 
-    return -900;
+    const path: number[] = [];
+    dfsKthSmallest(root, k, path);
+    return path[k - 1];
 };
+
+function dfsKthSmallest(tree: TreeNode | null, k: number, path: number[] = []) {
+    if (path.length >= k) {
+      return;
+    } else {
+      if (tree) {
+        if (tree.left) {
+          dfsKthSmallest(tree.left, k, path);
+        }
+        path.push(tree.val);
+        if (tree.right) {
+          dfsKthSmallest(tree.right, k, path);
+        }
+      }
+    }
+  }
 //---END---
 
 /**SHARED ITEMS**/
