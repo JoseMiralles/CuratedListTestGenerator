@@ -544,13 +544,19 @@ export function lowestCommonAncestor(
  * store and retrieve keys in a dataset of strings. There are various applications of this
  * data structure, such as autocomplete and spellchecker.
  * 
- * Implement the Trie class and its methods:
- * - Trie() Initializes the trie object.
- * - void insert(String word) Inserts the string word into the trie.
- * - boolean search(String word) Returns true if the string word is in the
- *   trie (i.e., was inserted before), and false otherwise.
- * - boolean startsWith(String prefix) Returns true if there is a previously
- *   inserted string word that has the prefix prefix, and false otherwise.
+ * ----Implement the Trie class and its methods:
+ * 
+ * "constructor(){..."  // Initializes the trie object.
+ * 
+ * "public insert(word: string): void {..." // Inserts the string word into the trie.
+ * 
+ * "public search(word: string): boolean {..." // Returns true if the string word is in the
+ *                                               trie (i.e., was inserted before), and
+ *                                               false otherwise.
+ * 
+ * "public startsWith(prefix: string): boolean {..." // Returns true if there is a previously
+ *                                                     inserted string word that has the
+ *                                                     prefix prefix, and false otherwise.
  * 
  * Leetcode # 208
  * https://leetcode.com/problems/implement-trie-prefix-tree/
@@ -624,6 +630,87 @@ export function lowestCommonAncestor(
 	}
 }
 //---END---
+
+//---START---WordDictionary
+/**
+ * Design a data structure that supports adding new words and finding if a string matches any
+ * previously added string.
+ * 
+ * Implement the WordDictionary class and its methods:
+ * 
+ * "constructor() {..." - Initializes the object.
+ * "addWord(word: string): void {" - Adds word to the data structure, it can be matched later.
+ * "search(word: string): boolean {" - Returns true if there is any string in the data structure
+ *                                     that matches word or false otherwise. word may contain
+ *                                     dots '.' where dots can be matched with any letter.
+ *  
+ * Leetcode # 211
+ * https://leetcode.com/problems/design-add-and-search-words-data-structure/
+ * 
+ * Example:
+ * Input
+ *  ["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+ *  [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+ * Output
+ *  [null,null,null,null,false,true,true,true]
+ * Explanation
+ *  WordDictionary wordDictionary = new WordDictionary();
+ *  wordDictionary.addWord("bad");
+ *  wordDictionary.addWord("dad");
+ *  wordDictionary.addWord("mad");
+ *  wordDictionary.search("pad"); // return False
+ *  wordDictionary.search("bad"); // return True
+ *  wordDictionary.search(".ad"); // return True
+ *  wordDictionary.search("b.."); // return True
+ *  
+ * Constraints:
+ * 1 <= word.length <= 500
+ * word in addWord consists lower-case English letters.
+ * word in search consist of  '.' or lower-case English letters.
+ * At most 50000 calls will be made to addWord and search.
+ */
+export class WordDictionary {
+
+    isWord: boolean;
+    child: {[Key: string]: WordDictionary};
+
+    constructor() {
+        this.child = {}; 
+        this.isWord = false;
+    }
+
+    addWord(word: string): void {
+        let curr: WordDictionary = this;
+        for(const c of word) {
+            if(!curr.child[c]) {
+                curr.child[c] = new WordDictionary();
+            }
+            curr = curr.child[c];
+        }
+        curr.isWord = true;
+    }
+
+    search(word: string, i = 0): boolean {
+        let curr: WordDictionary = this;
+        for(;i < word.length; i++) {
+            const c = word[i];
+            if(c !== '.') {
+                if(!curr.child[c]) { 
+                    return false; 
+                }
+                curr = curr.child[c];
+            } else {
+                for(const key in curr.child) {
+                    if(curr.child[key].search(word, i + 1)){
+                        return true;
+                    };
+                }
+                return false;
+            }
+        }
+        return curr.isWord;
+    }
+}
 
 /**SHARED ITEMS**/
 

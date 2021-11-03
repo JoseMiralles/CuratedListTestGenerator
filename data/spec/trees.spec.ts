@@ -313,7 +313,7 @@ describe("lowestCommonAncestor", () => {
 //---END---
 
 //---START---Trie
-fdescribe("Trie", () => {
+describe("Trie", () => {
 
     interface IScenario {
         operations: string[];
@@ -329,28 +329,70 @@ fdescribe("Trie", () => {
         }
     ];
 
-    // @ts-ignore
-    const Trie: Class = trees.Trie;
+    scenarios.forEach(s => {
+
+        it ("Should return the correct", () => {
+            
+            const trie = new trees.Trie();
+
+            for (let i = 1; i < s.operations.length; i++) {
+
+                // call the scenario operations and pass in arguments.
+                // @ts-ignore
+                const operationOutput: boolean = trie[ s.operations[i] ] ( s.args[i] );
+                const expectedOutput = s.outputs[i];
+
+                if (expectedOutput !== null)
+                    expect(operationOutput)
+                    .withContext(
+                        `trie.${s.operations[i]}("${s.args[i]}") was expected to return ${expectedOutput}`
+                    )
+                    .toBe(expectedOutput);
+            }
+        });
+    });
+});
+
+//---START---WordDictionary
+describe("WordDictionary", () => {
+
+    interface IScenario {
+        operations: string[];
+        args: string[];
+        outputs: (boolean|null)[];
+    }
+
+    const scenarios: IScenario[] = [
+        {
+            operations: ["WordDictionary","addWord","addWord","addWord","search","search","search","search"],
+            args: ["","bad","dad","mad","pad","bad",".ad","b.."],
+            outputs: [null,null,null,null,false,true,true,true]
+        }
+    ];
 
     scenarios.forEach(s => {
 
         it ("Should return the correct", () => {
             
-            const trie = new Trie();
+            const wordDictionary = new trees.WordDictionary();
 
             for (let i = 1; i < s.operations.length; i++) {
 
                 // call the scenario operations and pass in arguments.
-                const operationOutputs = trie[ s.operations[i] ] ( s.args[i] );
+                // @ts-ignore
+                const operationOutput: boolean = wordDictionary[ s.operations[i] ] ( s.args[i] );
+                const expectedOutput = s.outputs[i];
 
-                if (s.outputs[i] !== null)
-                    expect(operationOutputs)
+                if (expectedOutput !== null)
+                    expect(operationOutput)
                     .withContext(
-                        `trie.${s.operations[i]}("${s.args[i]}") was expected to return ${s.outputs[i]}`
+                        `wordDictionary.${s.operations[i]}("${s.args[i]}") was expected to return ${expectedOutput}`
                     )
-                    .toBe(s.outputs[i]);
+                    .toBe(expectedOutput);
             }
         });
     });
 });
-//---END---
+
+//---START---WordDictionary
+
