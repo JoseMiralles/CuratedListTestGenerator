@@ -329,9 +329,8 @@ describe("Trie", () => {
         }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("Should return the correct", () => {
+    it ("Should return the correct output for each operation and argument.", () => {
+        scenarios.forEach(s => {
             
             const trie = new trees.Trie();
 
@@ -370,9 +369,8 @@ describe("WordDictionary", () => {
         }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("Should return the correct", () => {
+    it ("Should return the correct output for each operation and argument.", () => {
+        scenarios.forEach(s => {
             
             const wordDictionary = new trees.WordDictionary();
 
@@ -395,4 +393,87 @@ describe("WordDictionary", () => {
 });
 
 //---START---WordDictionary
+describe("WordDictionary", () => {
 
+    interface IScenario {
+        operations: string[];
+        args: string[];
+        outputs: (boolean|null)[];
+    }
+
+    const scenarios: IScenario[] = [
+        {
+            operations: ["WordDictionary","addWord","addWord","addWord","search","search","search","search"],
+            args: ["","bad","dad","mad","pad","bad",".ad","b.."],
+            outputs: [null,null,null,null,false,true,true,true]
+        }
+    ];
+
+    it ("Should return the correct output for each operation and argument.", () => {
+        scenarios.forEach(s => {
+            
+            const wordDictionary = new trees.WordDictionary();
+
+            for (let i = 1; i < s.operations.length; i++) {
+
+                // call the scenario operations and pass in arguments.
+                // @ts-ignore
+                const operationOutput: boolean = wordDictionary[ s.operations[i] ] ( s.args[i] );
+                const expectedOutput = s.outputs[i];
+
+                if (expectedOutput !== null)
+                    expect(operationOutput)
+                    .withContext(
+                        `wordDictionary.${s.operations[i]}("${s.args[i]}") was expected to return ${expectedOutput}`
+                    )
+                    .toBe(expectedOutput);
+            }
+        });
+    });
+});
+
+//---START---findWords
+describe("findWords", () => {
+
+    interface IScenario {
+        board: string[][];
+        words: string[];
+        output: string[];
+    }
+
+    const scenarios: IScenario[] = [
+        {
+            board: [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],
+            words: ["oath","pea","eat","rain"],
+            output: ["eat","oath"]
+        },
+        {
+            board: [["a","b"],["c","d"]],
+            words: ["abcb"],
+            output: []
+        }
+    ];
+
+    it ("Should return a list of all the words from the array that are found in the grid.", () => {
+        scenarios.forEach(s => {
+            
+            const output = trees.findWords( s.board, s.words );
+
+            expect(output.length).withContext(
+                `The words found were: [${output}],\nbut were expected to be: [${s.output}]`
+            ).toBe(s.output.length);
+
+            output.forEach(word => {
+
+                if (!s.output.includes(word))
+                    fail(`${word} was not supposed to be in the output.`);
+            });
+
+            s.output.forEach(word => {
+
+                if (!output.includes(word))
+                    fail(`${word} is missing from the output.`);
+            });
+        });
+    });
+});
