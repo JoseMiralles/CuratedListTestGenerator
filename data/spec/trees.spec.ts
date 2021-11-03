@@ -279,3 +279,35 @@ describe("kthSmallest", () => {
     });
 });
 //---END---
+
+//---START---lowestCommonAncestor
+describe("lowestCommonAncestor", () => {
+
+    interface IScenario {
+        input: (number|null)[];
+        p: number;
+        q: number;
+        output: number;
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [6,2,8,0,4,7,9,null,null,3,5], p: 2, q: 8, output: 6 },
+        { input: [6,2,8,0,4,7,9,null,null,3,5], p: 2, q: 4, output: 2 },
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("should find the lowest common ancestor (LCA) of two given nodes in the BST.", () => {
+            
+            const inputTree = trees.arrayToBinaryTree(s.input);
+            expect(
+                trees.lowestCommonAncestor(
+                    trees.arrayToBinaryTree(s.input),
+                    new trees.TreeNode(s.p),
+                    new trees.TreeNode(s.q),
+                )?.val
+            ).toBe(s.output);
+        });
+    });
+});
+//---END---
