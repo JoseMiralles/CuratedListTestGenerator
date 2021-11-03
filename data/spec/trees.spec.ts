@@ -254,3 +254,28 @@ describe("isValidBST", () => {
     });
 });
 //---END---
+
+//---START---kthSmallest
+describe("kthSmallest", () => {
+
+    interface IScenario {
+        input: (number|null)[];
+        k: number;
+        output: number
+    }
+
+    const scenarios: IScenario[] = [
+        { input: [3,1,4,null,2], k: 1, output: 1 },
+        { input: [5,3,6,2,4,null,null,1], k: 3, output: 3 }
+    ];
+
+    scenarios.forEach(s => {
+
+        it ("Should determine if it is a valid binary search tree (BST).", () => {
+            
+            const inputTree = trees.arrayToBinaryTree(s.input);
+            expect(trees.kthSmallest(inputTree, s.k)).toBe(s.output);
+        });
+    });
+});
+//---END---

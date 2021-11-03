@@ -230,7 +230,8 @@ export function levelOrder(root: TreeNode | null): number[][] {
 //---END---
 
 //---START---serialize
-/**
+/** Requires: [TreeNode,arrayToBinaryTree,compareTwoTreesTest]
+ * 
  * Serialization is the process of converting a data structure or object into a
  * sequence of bits so that it can be stored in a file or memory buffer, or
  * transmitted across a network connection link to be reconstructed later in
@@ -314,7 +315,8 @@ export function deserialize(data: string): TreeNode | null {
 };
 
 //---START---isSubtree
-/**
+/** Requires: [TreeNode,arrayToBinaryTree]
+ * 
  * Given the roots of two binary trees root and subRoot, return true if there is a subtree
  * of root with the same structure and node values of subRoot and false otherwise.
  * 
@@ -356,7 +358,8 @@ export const isSubtreeEqual = (s: TreeNode | null, t: TreeNode | null): boolean 
 //---END---
 
 //---START---buildTree
-/**
+/** Requires: [TreeNode,arrayToBinaryTree,compareTwoTreesTest]
+ * 
  * Given two integer arrays preorder and inorder where preorder is the preorder traversal
  * of a binary tree and inorder is the inorder traversal of the same tree, construct and
  * return the binary tree.
@@ -400,7 +403,8 @@ export function buildTree(preorder: number[], inorder: number[]): TreeNode | nul
 //---END---
 
 //---START---isValidBST
-/**
+/** Requires: [TreeNode,arrayToBinaryTree]
+ * 
  * Given the root of a binary tree, determine if it is a valid binary search tree (BST).
  * 
  * A valid BST is defined as follows:
@@ -440,6 +444,34 @@ export function isValidBST(root: TreeNode | null): boolean {
       };
     
       return traverse(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+};
+//---END---
+
+//---START---isValidBST
+/** Requires: [TreeNode,arrayToBinaryTree]
+ * 
+ * Given the root of a binary search tree, and an integer k, return the kth smallest
+ * value (1-indexed) of all the values of the nodes in the tree.
+ * 
+ * Leetcode # 230
+ * https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+ * 
+ * Example 1:
+ * Input: root = [3,1,4,null,2], k = 1
+ * Output: 1
+ * 
+ * Example 2:
+ * Input: root = [5,3,6,2,4,null,null,1], k = 3
+ * Output: 3
+ *  
+ * Constraints:
+ * The number of nodes in the tree is n.
+ * 1 <= k <= n <= 104
+ * 0 <= Node.val <= 104
+ */
+export function kthSmallest(root: TreeNode | null, k: number): number {
+
+    return -900;
 };
 //---END---
 
