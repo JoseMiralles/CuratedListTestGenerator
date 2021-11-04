@@ -64,7 +64,7 @@ describe("MedianFinder", () => {
                 
                 if (output !== undefined) {
                     expect(output).withContext(
-                        `medianFinder.${s.operations[i]}(${s.args[i]}) returned ${output} but was supposed to return ${s.outputs[i]}.`
+                        `medianFinder.${s.operations[i]}() returned ${output} but was supposed to return ${s.outputs[i]}.`
                     ).toBe( s.outputs[i] );
                 }
             }
