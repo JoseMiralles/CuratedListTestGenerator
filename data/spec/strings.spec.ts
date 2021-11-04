@@ -15,9 +15,9 @@ describe("lengthOfLongestSubstring", () => {
         { input: "", output: 0 },
     ];
 
-    scenarios.forEach(s => {
+    it("should return the length of the longest non-repating subsring.", () => {
+        scenarios.forEach(s => {
 
-        it("should return the length of the longest non-repating subsring.", () => {
 
             expect(strings.lengthOfLongestSubstring(s.input)).toBe(s.output);
         });
@@ -38,10 +38,9 @@ describe("characterReplacement", () => {
         { s: "AABABBA", k: 1, output: 4 }
     ];
 
-    scenarios.forEach(s => {
-
-        it("should return the length of the longest substring containing the same letter you can get after performing the above operations.", () => {
-
+    it("should return the length of the longest substring containing the same letter you can get after performing the above operations.", () => {
+    
+        scenarios.forEach(s => {
             expect(strings.characterReplacement(s.s, s.k)).toBe(s.output);
         });
     });
@@ -62,9 +61,9 @@ describe("minWindow", () => {
         { s: "a", t: "aa", output: "" }
     ];
 
-    scenarios.forEach(s => {
+    it ("should return the minimum windows substing.", () => {
+        scenarios.forEach(s => {
 
-        it ("should return the minimum windows substing.", () => {
 
             expect(strings.minWindow(s.s, s.t)).toBe(s.output);
         });
@@ -108,9 +107,9 @@ describe("groupAnagrams", () => {
         { strs: ["a"], output: [["a"]] }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("should return the anagrams grouped in a matrix. These can be in any order.", () => {
+    it ("should return the anagrams grouped in a matrix. These can be in any order.", () => {
+        
+        scenarios.forEach(s => {
 
             const res = strings.groupAnagrams(s.strs);
 
@@ -179,6 +178,7 @@ describe("isPalindrome", () => {
     const scenarios: IScenario[] = [
         { s: "A man, a plan, a canal: Panama", output: true },
         { s: "race a car", output: false },
+        { s: "5P", output: false },
         { s: " ", output: true }
     ];
 

@@ -172,48 +172,69 @@ describe("reorderList", () => {
     }
 
     const scenarios: IScenario[] = [
-        { input: [1,2,3,4], output: [1,4,2,3] },
-        { input: [1,2,3,4,5], output: [1,5,2,4,3] }
+        { input: [1, 2, 3, 4], output: [1, 4, 2, 3] },
+        { input: [1, 2, 3, 4, 5], output: [1, 5, 2, 4, 3] }
     ];
 
-    scenarios.forEach(s => {
+    it("Should have values in the correct order.", () => {
 
-        const inputHead = linkedList.arrayToList(s.input);
-        const listNodeDictionary: {[key: number]: linkedList.ListNode} = {};
+        scenarios.forEach(s => {
 
-        let current: linkedList.ListNode | null | undefined = inputHead;
+            const inputHead = linkedList.arrayToList(s.input);
+            const listNodeDictionary: { [key: number]: linkedList.ListNode } = {};
 
-        /** Add all the nodes to listNodeDictionary.
-         * This is so that we can compare the nodes to ensure that the
-         * nodes switched, and not just the values. All nodes should still point
-         * to their original values.
-         */
-        while ( current ) {
+            let current: linkedList.ListNode | null | undefined = inputHead;
 
-            listNodeDictionary[current.val] = current;
-            current = current.next;
-        }
-        
-        // This mutates the list.
-        linkedList.reorderList(inputHead);
-        
-        it("Should have values in the correct order.", () => {
+            /** Add all the nodes to listNodeDictionary.
+             * This is so that we can compare the nodes to ensure that the
+             * nodes switched, and not just the values. All nodes should still point
+             * to their original values.
+             */
+            while (current) {
+
+                listNodeDictionary[current.val] = current;
+                current = current.next;
+            }
+
+            // This mutates the list.
+            linkedList.reorderList(inputHead);
+
 
             current = inputHead;
-            
+
             s.output.forEach((n) => {
-            
-                if(current?.val) expect(current.val).toBe(n);
+
+                expect(current?.val).toBe(n);
                 current = current?.next;
             });
-        });
 
-        // Loop trough it again for the other test to avoid async issues.
-        it ("Should only re-arrange the nodes, and not the values.", () => {
+            if (current?.next) {
+                fail(`The tail of the list ( ${current.val} ) still points to another node (${current.next.val}).`);
+            }
+
+            // Check that the nodes still hold their original values.
             s.output.forEach((n) => {
 
-                expect(listNodeDictionary[n].val).toEqual(n);
+                expect(listNodeDictionary[n].val).withContext(
+                    "Nodes do not hold their original values."
+                ).toEqual(n);
             });
+
+            // Traverse the list again and look for loops.
+            const visitedSet = new Set<linkedList.ListNode>();
+            current = inputHead;
+            
+            while(current) {
+
+                if (current && visitedSet.has(current)) {
+
+                    fail("Loop detected!");
+                    current = null;
+                }
+
+                if (current) visitedSet.add(current);
+                current = current?.next;
+            }
         });
     });
 });
