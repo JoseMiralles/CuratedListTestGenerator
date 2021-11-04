@@ -192,9 +192,7 @@ class Generator {
             const indexOfFirstNewLine = s.indexOf("\n");
             const name = s.slice(0, indexOfFirstNewLine);
 
-            console.log(`NAME: ${name}`);
-
-            const endFlag = "//---END---\n";
+            const endFlag = "//---END---";
             const indexOfEndFlag = s.indexOf(endFlag);
 
             let includeMessage = `// Used by ${name}`;
@@ -232,12 +230,15 @@ class Generator {
                     "\n\n";
                 const solved = body + rest;
 
+                // console.log(`NAME:\t${name}\nEMPTY:${empty}`);
 
-                solutions[name] = {
-                    solved,
-                    empty,
-                    required
-                };
+                if (name) {
+                    solutions[name] = {
+                        solved,
+                        empty,
+                        required
+                    };
+                }
             }
         });
 
@@ -246,7 +247,7 @@ class Generator {
             
             const indexOfFirstNewLine = si.indexOf("\n");
             const name = si.slice(0, indexOfFirstNewLine);
-            const endFlag = "//---END---\n";
+            const endFlag = "//---END---";
             const indexOfEndFlag = si.indexOf(endFlag);
             const body: string = si.slice(indexOfFirstNewLine, indexOfEndFlag);
 
