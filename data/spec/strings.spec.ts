@@ -1,4 +1,4 @@
-import * as strings from "../src/string";
+import * as strings from "../src/strings";
 
 //---START---lengthOfLongestSubstring
 describe("lengthOfLongestSubstring", () => {

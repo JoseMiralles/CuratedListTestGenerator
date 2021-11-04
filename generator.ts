@@ -192,6 +192,8 @@ class Generator {
             const indexOfFirstNewLine = s.indexOf("\n");
             const name = s.slice(0, indexOfFirstNewLine);
 
+            console.log(`NAME: ${name}`);
+
             const endFlag = "//---END---\n";
             const indexOfEndFlag = s.indexOf(endFlag);
 
@@ -213,14 +215,14 @@ class Generator {
                 .split(",");
             }
 
-            required.forEach(r => console.log(`REQUIRED:\t${r}\n`));
-
             // Do not render a message if there is no extra methods.
             if (rest.replace(/[ \n]/g, "").length < 1) includeMessage = "";
 
             if (name && body) {
 
-                const content = "\tthrow new Error('Method not implemented.');"; 
+                const content = !body.includes(`export class ${name}`)
+                ? "\tthrow new Error('Method not implemented.');"
+                : "\t// Add your methods here";
                 const empty =
                     body.slice(0, body.indexOf("{\n") + 3) +
                     content +
