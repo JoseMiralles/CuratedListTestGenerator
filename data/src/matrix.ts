@@ -124,6 +124,7 @@ export function spiralOrder(matrix: number[][]): number[] {
  * the input 2D matrix directly. DO NOT allocate another 2D matrix
  * and do the rotation.
  * 
+ * LeetCode # 48
  * https://leetcode.com/problems/rotate-image/
  * 
  * Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
@@ -137,6 +138,12 @@ export function spiralOrder(matrix: number[][]): number[] {
  * 
  * Input: matrix = [[1,2],[3,4]]
  * Output: [[3,1],[4,2]]
+ * 
+ * Constraints:
+ * matrix.length == n
+ * matrix[i].length == n
+ * 1 <= n <= 20
+ * -1000 <= matrix[i][j] <= 1000
  */
 export function rotate(matrix: number[][]): void {
 

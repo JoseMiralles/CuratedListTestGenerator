@@ -162,16 +162,13 @@ describe("findMin", () => {
         { nums: [2, 1], expectedOutput: 1 }
     ];
 
-    scenarios.forEach(scenario => {
+    it (`Should return the minimum value in the array.`, () => {
+        scenarios.forEach(scenario => {
 
-        it (`Should return the minimum value in the array. \n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`, () => {
-            expect(arrays.findMin(scenario.nums)).toBe(scenario.expectedOutput);
+            expect(arrays.findMin(scenario.nums)).withContext(
+                ` \n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`
+            ).toBe(scenario.expectedOutput);
         });
-
-        // Check if it is faster than the linear approach.
-        if (scenario.compareToLinear) {
-
-        }
     });
 });
 
@@ -233,8 +230,8 @@ describe("maxArea", () => {
         { height: [1,2,1], output: 2 }
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return max area of water. \n\tInput:[${s.height}]\n\tExpected: ${s.output}`, () => {
+    it(`Should return max area of water.`, () => {
+        scenarios.forEach(s => {
             expect(arrays.maxArea(s.height)).toBe(s.output);            
         })
     });

@@ -156,6 +156,7 @@ export function missingNumber(nums: number[]): number {
 /**
  * Reverse bits of a given 32 bits unsigned integer.
  * 
+ * Leetcode # 190
  * https://leetcode.com/problems/reverse-bits/
  * 
  * Input:   43261596 (In binary: 00000010100101000001111010011100).

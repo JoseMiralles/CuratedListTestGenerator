@@ -14,4 +14,4 @@ export const problemTypes = [
 ];
 
 // Total number of problems to be generated.
-export const totalProblems = 6;
+export const totalProblems = 10;

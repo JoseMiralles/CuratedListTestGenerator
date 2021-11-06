@@ -211,9 +211,8 @@ describe("buildTree", () => {
         { preorder: [-1], inorder: [-1], output: [-1] }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("Should construct and return the binary tree.", () => {
+    it ("Should construct and return the binary tree.", () => {
+        scenarios.forEach(s => {
 
             const expectedOutput = trees.arrayToBinaryTree(s.output);
             const exerciseOutput = trees.buildTree(s.preorder, s.inorder);

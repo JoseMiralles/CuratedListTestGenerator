@@ -390,12 +390,35 @@ export function isValid(s: string): boolean {
  * s consists only of printable ASCII characters.
  */
 export function isPalindrome(s: string): boolean {
+    
+  let left = 0;
+  let right = s.length - 1;
 
-    const regex = /[\W_]/g;
-    let cleaned = s.toLowerCase().replace(regex, "");
-    let rev = cleaned.split("").reverse().join("");
-    if (rev === cleaned) return true;
-    return false;
+  // Two indices are going to move towards the center | left >> << right
+  while (left < right) {
+
+      const leftChar = s[left].toLowerCase();
+      const rightChar = s[right].toLowerCase();
+
+      // Check if the characters are alphanumberic.
+      const leftIsValid = (/[a-z0-9]/).test(leftChar);
+      const rightIsValid = (/[a-z0-9]/).test(rightChar);
+
+      // If they are both alphanumberic, compare them.
+      if (leftIsValid && rightIsValid) {
+
+          // If they aren't the same, then this is not a palindrome.
+          if (leftChar !== rightChar) return false
+          left ++, right --;
+      } else {
+          
+          // Move the indices of invalid charaters towards the center.
+          if (!leftIsValid) left++;
+          if (!rightIsValid) right--;
+      }
+  }
+
+  return true;
 };
 //---END---
 

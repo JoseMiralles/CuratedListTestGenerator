@@ -39,8 +39,8 @@ describe("coinChange", () => {
         { coins: [1], amount: 2, output: 2 },
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the fewest number of coins needed to make up the amount, or -1 if its not possibe.`, () => {
+    it(`Should return the fewest number of coins needed to make up the amount, or -1 if its not possibe.`, () => {
+        scenarios.forEach(s => {
             expect(dynamic.coinChange(s.coins, s.amount)).toEqual(s.output);
         });
     });

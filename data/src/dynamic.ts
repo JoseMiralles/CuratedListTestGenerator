@@ -48,6 +48,7 @@ export function climbStairs(n: number): number {
  * Expected TC: O(N*K)      N = Amount, K = size of coins array
  * Space SC: O(N)           N = Amount
  * 
+ * Leetcode # 322
  * https://leetcode.com/problems/coin-change/
  * 
  * Input: coins = [1,2,5], amount = 11
@@ -68,21 +69,28 @@ export function climbStairs(n: number): number {
  */
 export function coinChange(coins: number[], amount: number): number {
 
-    const dp = Array(amount + 1).fill(Infinity);
+    // Great Visual walktrough: https://www.youtube.com/watch?v=hxaTNNQmx4c
+
+    // Create an array of length n+1, with default values of MAX_SAFE_INTEGER
+    const dp: number[] = Array.from({length: amount + 1}, () => Number.MAX_SAFE_INTEGER);
     dp[0] = 0;
+    
+    coins.forEach(coin => {
 
-    for (let i = 1; i <= amount; i++) {
-        coins.forEach(coin => {
-            if (i - coin >= 0) {
-                dp[i] = Math.min(
-                    dp[i],
-                    dp[i - coin] + 1
-                );
-            }
-        });
-    }
+        // Loop from the value of coin, to the requested amount.
+        for(let i = coin; i <= amount; i++) {
 
-    return dp[amount] === Infinity ? -1 : dp[amount];
+            dp[i] = Math.min(
+                dp[i],
+                dp[i - coin] + 1
+            );
+
+            // dp[i - coin] + 1 Discounts the value of coin, and increments the count.
+        }
+    });
+
+    if (dp[amount] <= amount) return dp[amount];
+    return -1;
 }
 //---END---
 

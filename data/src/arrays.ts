@@ -221,6 +221,7 @@ export function maxProduct(nums: number[]): number {
  * 
  * You must write an algorithm that runs in O(log n) time.
  * 
+ * Leetcode # 153
  * https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
  * 
  * Input: nums = [3,4,5,1,2]
@@ -235,30 +236,29 @@ export function maxProduct(nums: number[]): number {
  * @returns The minimum value in the array.
  */
 export function findMin(nums: number[]): number {
-
-    // Edge cases.
-    if (nums.length == 0) return -1;
-    if (nums.length == 1) return nums[0];
-
+    
     let left = 0;
     let right = nums.length - 1;
-    let midPoint: number;
+    let mid = Math.floor( right / 2 );
 
     while (left < right) {
 
-        midPoint = Math.floor(left + (right - left) / 2);
+        const leftItem = nums[left];
+        const midItem = nums[mid];
+        const rightItem = nums[right];
 
-        // If the midpoint is smaller than the previous element, then it is the minimum.
-        if (midPoint > 0 && nums[midPoint] < nums[midPoint - 1]) {
-            return nums[midPoint];
+        if ( nums[mid] < nums[mid - 1] ) return nums[mid];
+ 
+        if (leftItem <= midItem && midItem > rightItem) {
 
-        // Else, check if the first element is smaller than the middle element.
-        // This would mean that the left side is sorted, and that the min is on the right side
-        // which is unsorted.
-        } else if (nums[left] <= nums[midPoint] && nums[midPoint] > nums[right]) {
-            left = midPoint + 1; // "Discard" the left side.
+            // The left side is sorted, so move to the right.
+            left = mid + 1;
+            mid = Math.floor( left  + ((right - left) / 2) );
         } else {
-            right = midPoint - 1; // "Discard" the right side.
+
+            // The right side is sorted, so move to the left.
+            right = mid - 1;
+            mid = Math.floor( left + ((right - left) / 2) );
         }
     }
 
@@ -411,7 +411,6 @@ export function threeSum(nums: number[]): number[][] {
 
 //---START---maxArea
 /**
- * 
  * Given n non-negative integers a1, a2, ..., an , where each represents a point at
  * coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the
  * line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis
@@ -419,6 +418,7 @@ export function threeSum(nums: number[]): number[][] {
  * 
  * Notice that you may not slant the container.
  * 
+ * Leetcode # 11
  * View on leetcode for image.
  * https://leetcode.com/problems/container-with-most-water/
  * 
@@ -435,25 +435,33 @@ export function threeSum(nums: number[]): number[][] {
  * 
  * Input: height = [1,2,1]
  * Output: 2
- * 
- * @param height 
- * @returns 
  */
 export function maxArea(height: number[]): number {
-    let left = 0, right = height.length - 1;
-    let max = Number.MIN_SAFE_INTEGER;
-    let width: number;
-    let shortest: number;
+    
+    let totalWater = 0;
+    let left = 0;
+    let right = height.length - 1;
 
+    /**
+     * Indexes will move inward | left >> << right
+     */
     while (left < right) {
-        width = right - left;
-        shortest = height[left] < height[right] ? height[left] : height[right];
 
-        if (max < (width * shortest)) max = width * shortest;
+        // Find out which wall is the shortest.
+        const lowestHeight = height[left] < height[right] ? height[left] : height[right];
+        const floorLength = right - left; // Find out the length of the floor between the walls.
 
-        height[left] < height[right] ? left++ : right--;
+        // See if the new area is the biggest so far, and assing it if so.
+        totalWater = Math.max(
+            totalWater,
+            lowestHeight * floorLength
+        );
+
+        // The index of the shortest wall has to move towards the center.
+        if (height[left] > height[right]) right --;
+        else left ++;
     }
 
-    return max;
+    return totalWater;
 };
 //---END---
