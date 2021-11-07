@@ -98,9 +98,13 @@ describe("productExceptSelf", () => {
         {nums: [1,-1], expectedOutput: [-1,1]}
     ];
 
-    scenarios.forEach(scenario => {
-        it(`Should return an array containing the correct products.\n\tInput [${scenario.nums}]\n\tExpected: [${scenario.expectedOutput}]`, () => {
-            expect(arrays.productExceptSelf(scenario.nums)).toEqual(scenario.expectedOutput);
+    it(`Should return an array containing the correct products.`, () => {
+        scenarios.forEach(scenario => {
+            expect(arrays.productExceptSelf(scenario.nums))
+            .withContext(
+                `\n\tInput [${scenario.nums}]\n\tExpected: [${scenario.expectedOutput}]`
+            )
+            .toEqual(scenario.expectedOutput);
         });
     });
 });
@@ -119,9 +123,11 @@ describe("maxSubArray", () => {
         {nums: [5,4,-1,7,8], expectedOutput: 23}
     ];
 
-    scenarios.forEach(scenario => {
-        it(`Should return the sum of the sub array with the largest sum.\n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`, () => {
-            expect(arrays.maxSubArray(scenario.nums)).toBe(scenario.expectedOutput);
+    it(`Should return the sum of the sub array with the largest sum.`, () => {
+        scenarios.forEach(scenario => {
+            expect(arrays.maxSubArray(scenario.nums)).withContext(
+                `\n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`
+            ).toBe(scenario.expectedOutput);
         });
     });
 });
@@ -139,9 +145,11 @@ describe("maxProduct", () => {
         {nums: [-2,0,-1], expectedOutput: 0}
     ];
 
-    scenarios.forEach(scenario => {
-        it(`Should return the product of the subarray with the largest product.\n\tInput: [${scenario.nums}]\n\tExpected Output: ${scenario.expectedOutput}`, () => {
-            expect(arrays.maxProduct(scenario.nums)).toBe(scenario.expectedOutput);
+    it(`Should return the product of the subarray with the largest product.`, () => {
+        scenarios.forEach(scenario => {
+            expect(arrays.maxProduct(scenario.nums)).withContext(
+                `\n\tInput: [${scenario.nums}]\n`
+            ).toBe(scenario.expectedOutput);
         })
     });
 });
@@ -184,12 +192,17 @@ describe("searchRotated", () => {
     const scenarios: IScenario[] = [
         { nums: [4,5,6,7,0,1,2], target: 0, expectedOutput: 4 },
         { nums: [4,5,6,7,0,1,2], target: 3, expectedOutput: -1 },
+        { nums: [4,5,6,0,1,2,3], target: 5, expectedOutput: 1 },
+        { nums: [4,5,6,0,1,2,3], target: 2, expectedOutput: 5 },
+        { nums: [4,5,6,1,2,3], target: 5, expectedOutput: 1 },
         { nums: [1], target: 0, expectedOutput: -1 }
     ];
 
-    scenarios.forEach(scenario => {
-        it (`Should return the index of the target number. \n\tInput: [${scenario.nums}]\n\tTarget: ${scenario.target}\n\tExpected Output: ${scenario.expectedOutput}`, () => {
-            expect(arrays.searchRotated(scenario.nums, scenario.target)).toBe(scenario.expectedOutput);
+    it (`Should return the index of the target number.`, () => {
+        scenarios.forEach(scenario => {
+            expect(arrays.searchRotated(scenario.nums, scenario.target))
+            .withContext(`\n\tInput: [${scenario.nums}]\n\tTarget: ${scenario.target}\n\tExpected Output: ${scenario.expectedOutput}`)
+            .toBe(scenario.expectedOutput);
         })
     });
 });

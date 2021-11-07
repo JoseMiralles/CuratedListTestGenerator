@@ -36,9 +36,8 @@ describe("spiralOrder", () => {
         { input: [[1,2,3,4],[5,6,7,8],[9,10,11,12]], output: [1,2,3,4,8,12,11,10,9,5,6,7] }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("should return the elements in spiral order as an array.", () => {
+    it ("should return the elements in spiral order as an array.", () => {
+        scenarios.forEach(s => {
             
             expect(matrix.spiralOrder(s.input)).toEqual(s.output);
         });

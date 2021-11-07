@@ -105,6 +105,7 @@ export function containsDuplicate(nums: number[]): boolean {
  * Expected TC: O(n)
  * Do not use the division operator.
  * 
+ * Leetcode # 238
  * https://leetcode.com/problems/product-of-array-except-self/
  * 
  * @param nums An array of numbers.
@@ -135,24 +136,46 @@ export function productExceptSelf(nums: number[]): number[]{
  * Given an integer array nums, find the contiguous subarray
  * (containing at least one number) which has the largest sum and return its sum.
  * 
+ * A subarray is a contiguous part of an array.
+ * 
  * Expected TC: O(n)
  * 
+ * Leetcode # 53
  * https://leetcode.com/problems/maximum-subarray/
  * 
- * @param nums An array of numbers.
- * @returns Sum of the contiguous sub-array with the largest sum.
+ * Example 1:
+ * Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+ * Output: 6
+ * Explanation: [4,-1,2,1] has the largest sum = 6.
+ * 
+ * Example 2:
+ * Input: nums = [1]
+ * Output: 1
+ * 
+ * Example 3:
+ * Input: nums = [5,4,-1,7,8]
+ * Output: 23
+ *  
+ * Constraints:
+ * 1 <= nums.length <= 105
+ * -104 <= nums[i] <= 104
  */
-export function maxSubArray(nums: number[]): number {
-    let maxSum = nums[0];
-    let maxTemp = nums[0];
+ export function maxSubArray(nums: number[]): number {
+    
+    let max = nums[0];
+    let temp = 0;
 
-    for (let i = 1; i < nums.length; i++) {
-        maxTemp = Math.max(maxTemp + nums[i], nums[i]);
-        maxSum = Math.max(maxSum, maxTemp);
-    }
+    nums.forEach(n => {
 
-    return maxSum;
-}
+        // Reset temp if it goes under zero.
+        if (temp < 0) temp = 0;
+
+        temp += n;
+        max = Math.max(max, temp);
+    });
+
+    return max;
+}; 
 //---END---
 
 //---START---maxProduct
@@ -166,6 +189,7 @@ export function maxSubArray(nums: number[]): number {
  * 
  * Expected TC: O(n)
  * 
+ * Leetcode # 152
  * https://leetcode.com/problems/maximum-product-subarray/
  * 
  * Input: nums = [2,3,-2,4]
@@ -176,32 +200,52 @@ export function maxSubArray(nums: number[]): number {
  * Output: 0
  * Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
  * 
- * @param nums An array of numbers.
- * @returns The product of the contiguous non-empty subarray with the largest product.
+ * Constraints:
+ * 1 <= nums.length <= 2 * 104
+ * -10 <= nums[i] <= 10
+ * The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
  */
 export function maxProduct(nums: number[]): number {
 
-    let result = nums[0];
-    let imax = result;
-    let imin = result;
-    for (let i = 1; i < nums.length; i++) {
+    // Great visual explanation: https://www.youtube.com/watch?v=lXVy6YWFcRM
+    // TC = O(n)
+    // SC = O(1)
 
-        /**
-         * Swap imax and imin if this is a negative number.
-         */
-        if (nums[i] < 0) {
-            const temp = imax;
-            imax = imin;
-            imin = temp;
+    // Get the largest number in the nums.
+    let res = Number.MIN_SAFE_INTEGER;
+    nums.forEach(n => { res = Math.max( res, n ) });
+
+    let curMin = 1, curMax = 1;
+
+    for ( let i = 0; i < nums.length; i++ ){
+
+        const n = nums[i];
+
+        if (n === 0) {
+            // Avoid multiplying by zero, instead reset to 1.
+            curMin = 1, curMax = 1;
+            continue; // Skip to the next iterations.
         }
 
-        imax = Math.max(nums[i], imax * nums[i]);
-        imin = Math.min(nums[i], imin * nums[i]);
+        // Need to store this to compute curMin since curMax is going to be modified.
+        const prevMax = curMax;
 
-        result = Math.max(result, imax);
+        curMax = Math.max(
+            n,
+            n * curMax,
+            n * curMin
+        );
+
+        curMin = Math.min(
+            n,
+            n * prevMax,
+            n * curMin
+        );
+
+        res = Math.max(res, curMax);
     }
 
-    return result;
+    return res;
 }
 //---END---
 
@@ -280,6 +324,7 @@ export function findMin(nums: number[]): number {
  * 
  * You must write an algorithm with O(log n) runtime complexity.
  * 
+ * Leetecode # 33
  * https://leetcode.com/problems/search-in-rotated-sorted-array/
  * 
  * Input: nums = [4,5,6,7,0,1,2], target = 0
@@ -295,45 +340,54 @@ export function findMin(nums: number[]): number {
  * @param target The target to be found.
  * @returns The index of the target, or -1 if not found.
  */
-export function searchRotated(nums: number[], target: number): number {
+ export function searchRotated(nums: number[], target: number): number {
+
+    /**
+     * The solution involves adapting binary search.
+     * 
+     * The "trick" is to see which side is sorted, and then seeing on which
+     * side the target is.
+     * 
+     * If nums[left] is smaller than nums[mid], then left side is sorted.
+     * Otherwise, the right side is sorted.
+     * 
+     * TC = O(LogN)
+     * SC = O(1)
+     */
     
     let left = 0;
     let right = nums.length - 1;
-    let middle: number;
+    let mid: number;
 
-    while (left < right) {
+    while (left <= right) {
 
-        middle = Math.floor((left + right) / 2);
-        if (nums[middle] === target) return middle;
+        mid = Math.floor( left + (right - left) / 2 );
 
-        // Check if the LEFT SIDE IS SORTED.
-        if (nums[left] <= nums[middle]) {
+        if ( nums[mid] === target ) {
+            
+            return mid;
+        }
 
-            // Check if target is on the left side.
-            if (target >= nums[left] && target < nums[middle]) {
-                right = middle - 1;
-            } else {
-                // Go to the right, it's definetly not on the left.
-                left = middle + 1;
-            }
+        if ( nums[left] <= nums[mid] ) {
 
-        // The left side is not sorted, which means that the RIGHT SIDE IS SORTED.
+            // The left side is sorted.
+
+            // Check if the target is between left and mid.
+            if (nums[left] <= target && target < nums[mid]) right = mid - 1; // Go left
+            else left = mid + 1; // Go right
+
         } else {
 
-            // Check if the element is to the right.
-            if (target > nums[middle] && target <= nums[right]) {
-                left = middle + 1;
-            } else {
-                // Go to the left, its definetly not on the right.
-                right = middle - 1;
-            }
+            // The right side is sorted.
 
+            // Check if the target is between mid and right.
+            if (nums[mid] < target && target <= nums[right]) left = mid + 1; // Go right
+            else right = mid -1; // Go right
         }
     }
 
-    // LEFT might still be the element
-    return nums[left] === target ? left : -1;
-};
+    return -1;
+}; 
 //---END---
 
 //---START---threeSum

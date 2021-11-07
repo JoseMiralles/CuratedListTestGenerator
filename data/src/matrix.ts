@@ -71,6 +71,7 @@ export function setZeroes(matrix: number[][]): void {
 /**
  * Given an m x n matrix, return all elements of the matrix in spiral order.
  * 
+ * Leetcode # 54
  * https://leetcode.com/problems/spiral-matrix/
  * 
  * Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
@@ -78,6 +79,12 @@ export function setZeroes(matrix: number[][]): void {
  * 
  * Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
  * Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+ * 
+ * Constraints:
+ * m == matrix.length
+ * n == matrix[i].length
+ * 1 <= m, n <= 10
+ * -100 <= matrix[i][j] <= 100
  */
 export function spiralOrder(matrix: number[][]): number[] {
 

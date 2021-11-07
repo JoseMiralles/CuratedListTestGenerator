@@ -230,8 +230,8 @@ describe("alienOrder", () => {
         { words: ["z","x","z"], output: "" }
     ];
 
-    scenarios.forEach(s => {
-        it ("Should return the order of letters in this language.", () => {
+    it ("Should return the order of letters in this language.", () => {
+        scenarios.forEach(s => {
             expect(graph.alienOrder(s.words)).toEqual(s.output);
         });
     });

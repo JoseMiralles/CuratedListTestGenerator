@@ -3,6 +3,7 @@
 /**
  * NOTE: View the charts and examples on leetcode.
  * 
+ * Leetcode # 133
  * https://leetcode.com/problems/clone-graph/
  * 
  * Given a reference of a node in a connected undirected graph.
@@ -11,27 +12,41 @@
  * 
  * Each node in the graph contains a value (int) and a list (List[Node]) of its
  * neighbors.
+ * 
+ * Constraints:
+ * The number of nodes in the graph is in the range [0, 100].
+ * 1 <= Node.val <= 100
+ * Node.val is unique for each node.
+ * There are no repeated edges and no self-loops in the graph.
+ * The Graph is connected and all nodes can be visited starting from the given node.
  */
 export function cloneGraph(node: cGNode | null): cGNode | null {
 
-    if (node === null) {
-        return null;
+    const oldNew = new Map<cGNode, cGNode>();
+
+    function dfs(node: cGNode): cGNode {
+
+        console.log(`NODE:\t${node.val}`);
+
+        // If it was already cloned, return the clone.
+        const existing = oldNew.get(node);
+        if (existing) return existing;
+
+        // Create a new clone.
+        const copy = new cGNode(node.val);
+        oldNew.set(node, copy);
+
+        // Itereate trough the neightbors and dfs each one.
+        node.neighbors.forEach(n => {
+
+            copy.neighbors.push( dfs(n) );
+        });
+
+        return copy;
     }
 
-    const map = new Map();
-
-    const clone = (root: cGNode): cGNode => {
-
-        if (!map.has(root.val)) {
-
-            map.set(root.val, new cGNode(root.val));
-            map.get(root.val).neighbors = root.neighbors.map(clone);
-        }
-
-        return map.get(root.val);
-    }
-
-    return clone(node);
+    if (node) return dfs(node);
+    return null;
 };
 //---END---
 
@@ -300,6 +315,7 @@ export function longestConsecutive(nums: number[]): number {
  * 4. There may be multiple valid order of letters, return the smallest in normal
  *    lexicographical order
  * 
+ * Leetcode # 269
  * (Premium)        https://leetcode.com/problems/alien-dictionary/
  * (Non-premium)    https://www.lintcode.com/problem/892/
  * 
