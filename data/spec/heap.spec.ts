@@ -48,6 +48,16 @@ describe("MedianFinder", () => {
             operations: ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"],
             args: [null,1,2,null,3,null],
             outputs: [null, null, null, 1.5, null, 2.0]
+        },
+        {
+            operations: ["MedianFinder","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian"],
+            args: [null,-1,null,-2,null,-3,null,-4,null,-5,null],
+            outputs: [null,null,-1.00000,null,-1.50000,null,-2.00000,null,-2.50000,null,-3.00000]
+        },
+        {
+            operations: ["MedianFinder","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian"],
+            args: [null,12,null,10,null,13,null,11,null,5,null,15,null,1,null,11,null,6,null,17,null,14,null,8,null,17,null,6,null,4,null,16,null,8,null,10,null,2,null,12,null,0,null],
+            outputs: [null,null,12.00000,null,11.00000,null,12.00000,null,11.50000,null,11.00000,null,11.50000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,11.00000,null,10.50000,null,10.00000,null,10.50000,null,10.00000]
         }
     ];
 

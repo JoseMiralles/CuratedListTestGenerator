@@ -193,17 +193,30 @@ function reverse(array: number[]): void {
  * where adjacent cells are horizontally or vertically neighboring.
  * The same letter cell may not be used more than once.
  * 
+ * LeetCode # 79
  * https://leetcode.com/problems/word-search/
  * 
- * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+ * Input: board = [
+ *  ["A","B","C","E"],
+ *  ["S","F","C","S"],
+ *  ["A","D","E","E"]
+ * ]
  * word = "ABCCED"
  * Output: true
  * 
- * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+ * Input: board = [
+ *  ["A","B","C","E"],
+ *  ["S","F","C","S"],
+ *  ["A","D","E","E"]
+ * ]
  * word = "SEE"
  * Output: true
  * 
- * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+ * Input: board = [
+ *  ["A","B","C","E"],
+ *  ["S","F","C","S"],
+ *  ["A","D","E","E"]
+ * ]
  * word = "ABCB"
  * Output: false
  */

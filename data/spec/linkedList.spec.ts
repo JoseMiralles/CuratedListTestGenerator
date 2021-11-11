@@ -145,14 +145,15 @@ describe("removeNthFromEnd", () => {
         { arr: [0,2,5], n: -1, output: [0,2,5] },
         { arr: [1], n: 1, output: []  },
         { arr: [1,2], n: 1, output: [1]  },
+        { arr: [1,2], n: 2, output: [2]  },
     ];
 
-    scenarios.forEach(s => {
+    it ("Should return the list with the correct element removed.", () => {
+        scenarios.forEach(s => {
 
-        const input = linkedList.arrayToList(s.arr);
-        let current = linkedList.removeNthFromEnd(input, s.n);
+            const input = linkedList.arrayToList(s.arr);
+            let current = linkedList.removeNthFromEnd(input, s.n);
         
-        it ("Should return the list with the correct element removed.", () => {
             
             s.output.forEach(n => {
 

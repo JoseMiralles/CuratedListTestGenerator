@@ -75,20 +75,33 @@ export function maxProfit (prices: number[]): number {
  * 
  * Expected TC: O(n)
  * 
+ * LeetCode # 217
  * https://leetcode.com/problems/contains-duplicate/
  * 
- * @param nums An array containing numbers.
- * @returns True if the array contains a duplicate value, false if it doesn't.
+ * Example 1:
+ * Input: nums = [1,2,3,1]
+ * Output: true
+ * 
+ * Example 2:
+ * Input: nums = [1,2,3,4]
+ * Output: false
+ * 
+ * Example 3:
+ * Input: nums = [1,1,1,3,3,4,3,2,4,2]
+ * Output: true
+ *  
+ * Constraints:
+ * 1 <= nums.length <= 105
+ * -109 <= nums[i] <= 109
  */
 export function containsDuplicate(nums: number[]): boolean {
     
     const set = new Set<number>();
 
-    let current: number;
-    for (let i = 0; i < nums.length; i++) {
-        current = nums[i];
-        if (set.has(current)) return true;
-        set.add(current);
+    for (const n of nums) {
+
+        if (set.has(n)) return true;
+        else set.add(n);
     }
 
     return false;

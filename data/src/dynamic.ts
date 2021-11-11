@@ -183,6 +183,7 @@ export function longestCommonSubsequence(text1: string, text2: string): number {
  * 
  * Note that the same word in the dictionary may be reused multiple times in the segmentation.
  * 
+ * LeetCode # 139
  * https://leetcode.com/problems/word-break/
  * 
  * Input: s = "leetcode", wordDict = ["leet","code"]
@@ -193,24 +194,34 @@ export function longestCommonSubsequence(text1: string, text2: string): number {
  * Output: false
  */
 export function wordBreak(s: string, wordDict: string[]): boolean {
+
+    // Great explanation: https://www.youtube.com/watch?v=Sx9NNgInc3A
     
-    const set = new Set(wordDict);
-    const dp = Array(s.length + 1).fill(false);
+    const dp = Array.from(
+        {length: s.length + 1},
+        () => false
+    );
+
     dp[0] = true;
 
-    for (let end = 1; end <= s.length; end++) {
-        for (let start = 0; start < end; start++) {
-            
-            const w = s.slice(start, end);
+    for (let i = 0; i < s.length; i++) {
 
-            if (dp[start] === true && set.has(w)) {
-                dp[end] = true;
-                break;
+        // Return true if words already fit into the entire string.
+        if (dp[ dp.length - 1 ]) return true;
+
+        if (dp[i]) {
+
+            for (const w of wordDict) {
+
+                if (s.slice(i, i + w.length) === w) {
+
+                    dp[i + w.length] = true;
+                }
             }
         }
     }
 
-    return dp[s.length];
+    return dp[dp.length - 1];
 };
 //---END---
 

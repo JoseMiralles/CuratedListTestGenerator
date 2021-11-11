@@ -70,18 +70,17 @@ describe("containsDuplicate", () => {
         {nums: [1,4,2,6,8,9], expectedOutput: false}
     ];
 
-    scenariosTrue.forEach(scenario => {
-        it("Should return true if there are any duplicates.\n" + "\tInput: " + scenario.nums, () => {
+    it("Should return true if there are any duplicates.", () => {
+        scenariosTrue.forEach(scenario => {
             expect(arrays.containsDuplicate(scenario.nums)).toBe(scenario.expectedOutput);
         });
     });
 
-    scenariosFalse.forEach(scenario => {
-        it("Should return false if there aren't any duplicates\n" + "\tInput: " + scenario.nums, () => {
+    it("Should return false if there aren't any duplicates.", () => {
+        scenariosFalse.forEach(scenario => {
             expect(arrays.containsDuplicate(scenario.nums)).toBe(scenario.expectedOutput);
         });
     });
-
 });
 
 //---START---productExceptSelf
@@ -167,7 +166,9 @@ describe("findMin", () => {
         { nums: [3,4,5,1,2], expectedOutput: 1, compareToLinear: true },
         { nums: [4,5,6,7,0,1,2], expectedOutput: 0, compareToLinear: true },
         { nums: [11,13,15,17], expectedOutput: 11 },
-        { nums: [2, 1], expectedOutput: 1 }
+        { nums: [2, 1], expectedOutput: 1 },
+        { nums: [1], expectedOutput: 1 },
+        { nums: [3,1,2], expectedOutput: 1 }
     ];
 
     it (`Should return the minimum value in the array.`, () => {

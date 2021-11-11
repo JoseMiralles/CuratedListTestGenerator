@@ -101,9 +101,8 @@ describe("maxPathSum", () => {
         { input: [-10,9,20,null,null,15,7], output: 42 },
     ];
 
-    scenarios.forEach(s => {
-
-        it("it should return the sum of the largest path.", () => {
+    it("it should return the sum of the largest path.", () => {
+        scenarios.forEach(s => {
             
             const inputTree = trees.arrayToBinaryTree(s.input);
             expect(trees.maxPathSum(inputTree)).toBe(s.output);
@@ -125,9 +124,8 @@ describe("levelOrder", () => {
         { input: [], output: [] }
     ];
 
-    scenarios.forEach(s => {
-
-        it("should return the level order traversal of its nodes.", () => {
+    it("should return the level order traversal of its nodes.", () => {
+        scenarios.forEach(s => {
 
             const inputRoot = trees.arrayToBinaryTree(s.input);
             expect(trees.levelOrder(inputRoot)).toEqual(s.output);
@@ -151,9 +149,8 @@ describe("serialize", () => {
     // @ts-ignore
     const deserialize = trees._deserialize ? trees._deserialize : trees.deserialize;
 
-    scenarios.forEach(s => {
-
-        it("should serialise and then deserialize the tree.", () => {
+    it("should serialise and then deserialize the tree.", () => {
+        scenarios.forEach(s => {
 
             const inputTree = trees.arrayToBinaryTree(s.input);
             const resultTree = deserialize(trees.serialize(inputTree));
@@ -183,9 +180,8 @@ describe("isSubtree", () => {
         { root: [3,4,5,1,2,null,null,null,null,0], subRoot: [4,1,2], output: false }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("Should return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.", () => {
+    it ("Should return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.", () => {
+        scenarios.forEach(s => {
 
             const rootNode = trees.arrayToBinaryTree(s.root);
             const subRootNode = trees.arrayToBinaryTree(s.subRoot);
@@ -240,15 +236,19 @@ describe("isValidBST", () => {
 
     const scenarios: IScenario[] = [
         { input: [2,1,3], output: true },
-        { input: [5,1,4,null,null,3,6], output: false }
+        { input: [5,1,4,null,null,3,6], output: false },
+        { input: [5,4,6,null,null,3,7], output: false },
+        { input: [2,2,2], output: false },
+        { input: [1,1], output: false },
     ];
 
-    scenarios.forEach(s => {
-
-        it ("Should determine if it is a valid binary search tree (BST).", () => {
+    it ("Should determine if it is a valid binary search tree (BST).", () => {
+        scenarios.forEach(s => {
             
             const inputTree = trees.arrayToBinaryTree(s.input);
-            expect(trees.isValidBST(inputTree)).toBe(s.output);
+            expect(trees.isValidBST(inputTree))
+            .withContext(`For tree: ${s.input}`)
+            .toBe(s.output);
         });
     });
 });
@@ -268,9 +268,8 @@ describe("kthSmallest", () => {
         { input: [5,3,6,2,4,null,null,1], k: 3, output: 3 }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("Should determine if it is a valid binary search tree (BST).", () => {
+    it ("Should determine if it is a valid binary search tree (BST).", () => {
+        scenarios.forEach(s => {
             
             const inputTree = trees.arrayToBinaryTree(s.input);
             expect(trees.kthSmallest(inputTree, s.k)).toBe(s.output);
@@ -294,9 +293,8 @@ describe("lowestCommonAncestor", () => {
         { input: [6,2,8,0,4,7,9,null,null,3,5], p: 2, q: 4, output: 2 },
     ];
 
-    scenarios.forEach(s => {
-
-        it ("should find the lowest common ancestor (LCA) of two given nodes in the BST.", () => {
+    it ("should find the lowest common ancestor (LCA) of two given nodes in the BST.", () => {
+        scenarios.forEach(s => {
             
             const inputTree = trees.arrayToBinaryTree(s.input);
             expect(

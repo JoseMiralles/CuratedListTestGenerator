@@ -90,19 +90,22 @@ describe("exist", () => {
             output: true
         },
         {
-            input: [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],
+            input: [
+                ["A","B","C","E"],
+                ["S","F","C","S"],
+                ["A","D","E","E"]
+            ],
             word: "ABCB",
             output: false
         }
     ];
 
-    scenarios.forEach(s => {
+    it ("should return true if the word is in the matrix, false if not.", () => {
+        scenarios.forEach(s => {
 
-        it ("should return true if the word is in the matrix, false if not.", () => {
-
-            expect(
-                matrix.exist(s.input, s.word)
-            ).toBe(s.output);
+            expect(matrix.exist(s.input, s.word))
+            .withContext(`Word:\n${s.word}\n\nBoard:\n${s.input}`)
+            .toBe(s.output);
         });
     });
 });
