@@ -26,10 +26,12 @@ class Generator {
 
     private types: string[];
     private total: number;
+    private generateEntireTest: boolean;
     // Will hold all problems, separated by type.
-    private problems: {[type: string]: IProblem[]} = {};
+    private problemsByTypeDictionary: {[type: string]: IProblem[]} = {};
     // Will hold all of the shared items for all problems.
     private sharedItems: {[name: string]: string} = {};
+    private problemsInOrder: IProblem[] = [];
     private files: IFiles = {
         tests: "",
         solutions: "",
@@ -49,6 +51,12 @@ class Generator {
     loadGeneratorSettings() {
         this.types = settings.problemTypes;
         this.total = settings.totalProblems;
+        this.generateEntireTest = process.argv.includes("-all");
+        console.log("ARGS: " + process.argv);
+
+        if (this.generateEntireTest) {
+            console.log("'-all' flag included, GENERATING ENTIRE TEST.");
+        }
     }
 
     /**
@@ -76,17 +84,20 @@ class Generator {
         console.log("Generating files strings...");
 
         // Make sure that there are enough problems to generate test.
-        let totalProblems = 0;
-        Object.keys(this.problems).forEach(type => {
+        let totalProblemsAvailable = 0;
+        Object.keys(this.problemsByTypeDictionary).forEach(type => {
             
-            totalProblems += this.problems[type].length;
+            totalProblemsAvailable += this.problemsByTypeDictionary[type].length;
         });
 
-        if (totalProblems < this.total) {
+        if (this.generateEntireTest === true) {
+
+            this.total = totalProblemsAvailable;
+        } else if (totalProblemsAvailable < this.total) {
             console.log("*** WARNING ***");
             console.log(`There are not enough problems to reach ${this.total}.`);
-            console.log(`Generating ${totalProblems} problems instead.`);
-            this.total = totalProblems;
+            console.log(`Generating ${totalProblemsAvailable} problems instead.`);
+            this.total = totalProblemsAvailable;
         }
         
         // Add imports for all types to the test file string.
@@ -94,32 +105,48 @@ class Generator {
             this.files.tests += `import * as ${t} from "../src/problems";\n`;
         });
 
-        // keep track of which problems are already included to avoid duplicates.
-        const included = new Set<string>();
-        let count = 0;
-
+        
         // Keep track of which shared items need to be included.
         const sharedItemsIncluded = new Set<string>();
+        
+        if (this.generateEntireTest === true) {
+            
+            // Generate the test with all of the problems, and in order.
+            this.problemsInOrder.forEach(problem => {
 
-        // Randomly add problems until the requested amount is fullfiled.
-        while (count < this.total) {
-            const randomTypeName = this.types[Math.floor(Math.random() * this.types.length)];
-            const randomProblemIndex = Math.floor(Math.random() * this.problems[randomTypeName].length);
-            const problem = this.problems[randomTypeName][randomProblemIndex];
-
-            // This problem hasn't been added, so it can be added.
-            if (!included.has(problem.name)) {
                 this.files.emptyMethods += problem.emptyMethod;
                 this.files.solutions += problem.solution;
                 this.files.tests += problem.test;
 
-                count++;
-                included.add(problem.name);
+                problem.required.forEach(p => sharedItemsIncluded.add(p));
+            });
+        } else {
 
-                // Add the names of the required shared items to the set.
-                problem.required.forEach(p => {
-                    sharedItemsIncluded.add(p);
-                });
+            // Randomly add problems until the requested amount is fullfiled.
+            
+            // keep track of which problems are already included to avoid duplicates.
+            const included = new Set<string>();
+            let count = 0;
+            
+            while (count < this.total) {
+                const randomTypeName = this.types[Math.floor(Math.random() * this.types.length)];
+                const randomProblemIndex = Math.floor(Math.random() * this.problemsByTypeDictionary[randomTypeName].length);
+                const problem = this.problemsByTypeDictionary[randomTypeName][randomProblemIndex];
+    
+                // This problem hasn't been added, so it can be added.
+                if (!included.has(problem.name)) {
+                    this.files.emptyMethods += problem.emptyMethod;
+                    this.files.solutions += problem.solution;
+                    this.files.tests += problem.test;
+    
+                    count++;
+                    included.add(problem.name);
+    
+                    // Add the names of the required shared items to the set.
+                    problem.required.forEach(p => {
+                        sharedItemsIncluded.add(p);
+                    });
+                }
             }
         }
 
@@ -147,19 +174,22 @@ class Generator {
 
         this.types.forEach(type => {
 
-            this.problems[type] = [];
+            this.problemsByTypeDictionary[type] = [];
             const solutions = this.getSolutions(type);
             const tests = this.getTests(type);
 
             Object.keys(solutions).forEach(name => {
 
-                this.problems[type].push({
+                const newProblem: IProblem = {
                     name,
                     solution: solutions[name].solved,
                     emptyMethod: solutions[name].empty,
                     test: tests[name],
                     required: solutions[name].required
-                });
+                };
+
+                if (this.generateEntireTest) this.problemsInOrder.push(newProblem);
+                else this.problemsByTypeDictionary[type].push(newProblem);
             });
         });
     };
