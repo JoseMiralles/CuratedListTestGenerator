@@ -18,7 +18,6 @@ describe("lengthOfLongestSubstring", () => {
     it("should return the length of the longest non-repating subsring.", () => {
         scenarios.forEach(s => {
 
-
             expect(strings.lengthOfLongestSubstring(s.input)).toBe(s.output);
         });
     });
@@ -39,8 +38,8 @@ describe("characterReplacement", () => {
     ];
 
     it("should return the length of the longest substring containing the same letter you can get after performing the above operations.", () => {
-    
         scenarios.forEach(s => {
+    
             expect(strings.characterReplacement(s.s, s.k)).toBe(s.output);
         });
     });
@@ -84,9 +83,8 @@ describe("isAnagram", () => {
         { s: "rat", t: "car", output: false },
     ];
 
-    scenarios.forEach(s => {
-
-        it ("should return true if t is an anagram of s, and false otherwise.", () => {
+    it ("should return true if t is an anagram of s, and false otherwise.", () => {
+        scenarios.forEach(s => {
 
             expect(strings.isAnagram(s.s, s.t)).toBe(s.output);
         });
@@ -183,7 +181,6 @@ describe("isPalindrome", () => {
     ];
 
     it("should return true if the string is a plaindrome, or false otherwise.", () => {
-        
         scenarios.forEach(s => {
 
             expect(strings.isPalindrome(s.s)).toBe(s.output);
@@ -207,7 +204,6 @@ describe("longestPalindrome", () => {
     ];
 
     it("should the longest palindromic substring.", () => {
-        
         scenarios.forEach(s => {
 
             expect(strings.longestPalindrome(s.s)).toBe(s.output);
@@ -229,7 +225,6 @@ describe("countSubstrings", () => {
     ];
 
     it("should the longest palindromic substring.", () => {
-        
         scenarios.forEach(s => {
 
             expect(strings.countSubstrings(s.s)).toBe(s.output);
@@ -254,7 +249,6 @@ describe("encode", () => {
     ];
 
     it("should the longest palindromic substring.", () => {
-        
         scenarios.forEach(s => {
 
             expect(

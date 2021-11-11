@@ -15,20 +15,20 @@ describe("maxDepth", () => {
         { input: [0], output: 1 }
     ];
 
-    scenarios.forEach(s => {
+    it("should return the maximum depth.", () => {
+        scenarios.forEach(s => {
 
-        if (s.input[0]) {
-            const inputTree = trees.arrayToBinaryTree(s.input);
+            if (s.input[0]) {
 
-            it("should return the maximum depth.", () => {
+                const inputTree = trees.arrayToBinaryTree(s.input);
                 if (inputTree) expect(trees.maxDepth(inputTree)).toBe(s.output);
-            });
-        } else {
+            } else {
 
-            it("should return 0 if the root is null.", () => {
-                expect(trees.maxDepth(null)).toBe(0);
-            })
-        }
+                expect(trees.maxDepth(null))
+                .withContext(`should return 0 if the head is null.`)
+                .toBe(0);
+            }
+        });
     });
 });
 
@@ -48,9 +48,8 @@ describe("isSameTree", () => {
         { p: [1,2,3,null,4,null,5], q: [1,2,3,4,null,null,5], output: false },
     ];
 
-    scenarios.forEach(s => {
-
-        it ("should return true if the trees are the same, and false if they are not the same.", () => {
+    it ("should return true if the trees are the same, and false if they are not the same.", () => {
+        scenarios.forEach(s => {
 
             const p = trees.arrayToBinaryTree(s.p);
             const q = trees.arrayToBinaryTree(s.q);
@@ -74,9 +73,8 @@ describe("invertTree", () => {
         { input: [], output: [] }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("should return an inverted tree.", () => {
+    it ("should return an inverted tree.", () => {
+        scenarios.forEach(s => {
 
             const inputRoot = trees.arrayToBinaryTree(s.input);
             const expectedOutput = trees.arrayToBinaryTree(s.output);

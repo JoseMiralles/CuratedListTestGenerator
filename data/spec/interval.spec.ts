@@ -21,8 +21,8 @@ describe("insert", () => {
         { intervals: [[1,5]], newInterval: [2,7], output: [[1,7]] }
     ];
 
-    scenarios.forEach(s => {
-        it("Should return the intervals after the insertion.", () => {
+    it("Should return the intervals after the insertion.", () => {
+        scenarios.forEach(s => {
             expect(interval.insert(s.intervals, s.newInterval)).toEqual(s.output);
         });
     });
@@ -41,8 +41,8 @@ describe("merge", () => {
         { intervals: [[1,4],[4,5]], output: [[1,5]] }
     ];
 
-    scenarios.forEach(s => {
-        it("Should return an array of the non-overlapping intervals that cover all the intervals in the input.", () => {
+    it("Should return an array of the non-overlapping intervals that cover all the intervals in the input.", () => {
+        scenarios.forEach(s => {
             expect(interval.merge(s.intervals)).toEqual(s.output);
         });
     });
@@ -62,8 +62,8 @@ describe("eraseOverlapIntervals", () => {
         { intervals: [[1,2],[2,3]], output: 0 },
     ];
 
-    scenarios.forEach(s => {
-        it("Should return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.", () => {
+    it("Should return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.", () => {
+        scenarios.forEach(s => {
             expect(interval.eraseOverlapIntervals(s.intervals)).toEqual(s.output);
         });
     });
@@ -82,8 +82,8 @@ describe("canAttendMeetings", () => {
         { intervals: [[5,8],[9,15]] , output: true },
     ];
 
-    scenarios.forEach(s => {
-        it("Should determine if a person could attend all meetings.", () => {
+    it("Should determine if a person could attend all meetings.", () => {
+        scenarios.forEach(s => {
             expect(interval.canAttendMeetings(s.intervals)).toEqual(s.output);
         });
     });
@@ -102,8 +102,8 @@ describe("minMeetingRooms", () => {
         { intervals: [[2,7]], output: 1 },
     ];
 
-    scenarios.forEach(s => {
-        it("Should return the minimum number of conference rooms required.", () => {
+    it("Should return the minimum number of conference rooms required.", () => {
+        scenarios.forEach(s => {
             expect(interval.minMeetingRooms(s.intervals)).toEqual(s.output);
         });
     });

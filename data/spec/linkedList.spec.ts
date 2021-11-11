@@ -15,25 +15,25 @@ describe("reverseList", () => {
     ];
 
     // Loop trough all of the scenarios, create each list, and then run each test.
-    scenarios.forEach(s => {
-        if (s.items.length < 1) {
+    it("Should return a reversed linked list.", () => {
+        scenarios.forEach(s => {
+            if (s.items.length < 1) {
 
-            it("Should return null if 'head' is null.", () => {
-                expect(linkedList.reverseList(s.head)).toBeNull();
-            });
-        } else {
-            // Create head of the list.
-            let current: linkedList.ListNode | null = new linkedList.ListNode(s.items[0]);
-            s.head = current;
+                expect(linkedList.reverseList(s.head))
+                .withContext(`Null heads should return null.`)
+                .toBeNull();
+            } else {
+                // Create head of the list.
+                let current: linkedList.ListNode | null = new linkedList.ListNode(s.items[0]);
+                s.head = current;
 
-            // Populate the list.
-            for (let x = 1; x < s.items.length; x++) {
+                // Populate the list.
+                for (let x = 1; x < s.items.length; x++) {
 
-                current.next = new linkedList.ListNode(s.items[x]);
-                current = current.next;
-            }
+                    current.next = new linkedList.ListNode(s.items[x]);
+                    current = current.next;
+                }
 
-            it("Should return a reversed linked list.", () => {
 
                 current = linkedList.reverseList(s.head);
 
@@ -42,8 +42,8 @@ describe("reverseList", () => {
                     expect(current?.val).toBe(s.items[r]);
                     if (current) current = current.next;
                 }
-            });
-        }
+            }
+        });
     });
 });
 
@@ -62,28 +62,28 @@ describe("mergeTwoLists", () => {
         { l1: [], l2: [0], output: [0] },
     ];
 
-    scenarios.forEach(s => {
+    it("Should return a merged list.", () => {
+        scenarios.forEach(s => {
 
-        if (s.l1.length + s.l2.length < 1) {
-            
-            it ("Should return null when both lists are empty.", () => {
-                expect(linkedList.mergeTwoLists(null, null)).toBeNull();
-            });
-        } else {
-            
-            const list1 = linkedList.arrayToList(s.l1);
-            const list2 = linkedList.arrayToList(s.l2);
-            let temp: linkedList.ListNode | null = linkedList.mergeTwoLists(list1, list2);
+            if (s.l1.length + s.l2.length < 1) {
 
-            it ("Should return a merged list.", () => {
-                
+                expect(linkedList.mergeTwoLists(null, null))
+                    .withContext(`Should return null if both heads are null.`)
+                    .toBeNull();
+            } else {
+
+                const list1 = linkedList.arrayToList(s.l1);
+                const list2 = linkedList.arrayToList(s.l2);
+                let temp: linkedList.ListNode | null = linkedList.mergeTwoLists(list1, list2);
+
+
                 s.output.forEach(n => {
-                    
+
                     expect(temp?.val).toBe(n);
                     if (temp) temp = temp.next;
                 });
-            });
-        }
+            }
+        });
     });
 });
 
@@ -101,33 +101,33 @@ describe("mergeKLists", () => {
         { lists: [[]], output: [] },
     ];
     
-    scenarios.forEach(s => {
-        
-        const listsArray: (linkedList.ListNode | null)[] = [];
-        
-        // Convert all of the arrays into lists, and add them to listsArray.
-        s.lists.forEach(l => {
-            listsArray.push( linkedList.arrayToList(l) );
-        });
-        
-        let res: linkedList.ListNode | null | undefined
-            = linkedList.mergeKLists(listsArray);
+    it("Should return a single merged list.", () => {
+        scenarios.forEach(s => {
 
-        if (s.lists.length < 1 || s.lists.every(l => l.length < 1)) {
+            const listsArray: (linkedList.ListNode | null)[] = [];
 
-            it ("Should return null if the array is empty, or if all of the lists are empty.", () => {
-                expect( linkedList.mergeKLists(listsArray) ).toBeNull();
+            // Convert all of the arrays into lists, and add them to listsArray.
+            s.lists.forEach(l => {
+                listsArray.push(linkedList.arrayToList(l));
             });
-        } else {
 
-            it("Should return a single merged list.", () => {
+            let res: linkedList.ListNode | null | undefined
+                = linkedList.mergeKLists(listsArray);
+
+            if (s.lists.length < 1 || s.lists.every(l => l.length < 1)) {
+
+                expect(linkedList.mergeKLists(listsArray))
+                    .withContext(`should return null if the array is empty or it contains only null heads.`)
+                    .toBeNull();
+            } else {
+
 
                 s.output.forEach(n => {
                     expect(res?.val).toBe(n);
                     res = res?.next;
                 });
-            });
-        }
+            }
+        });
     });
 });
 

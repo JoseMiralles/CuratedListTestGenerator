@@ -16,8 +16,8 @@ describe("twoSum", () => {
     ];
 
     
-    scenarios.forEach(scenario => {
-        it(`Should return ${scenario.acceptedOutputs[0]} or ${scenario.acceptedOutputs[1]} when nums: ${scenario.nums} and target: ${scenario.target}.`, () => {
+    it(`Should return two numbers that add up to the target.`, () => {
+        scenarios.forEach(scenario => {
             expect(scenario.acceptedOutputs).toContain(
                 arrays.twoSum(scenario.nums, scenario.target)
             );
@@ -44,8 +44,8 @@ describe("maxProfit", () => {
         expect(arrays.maxProfit([8,4,3,1])).toEqual(0);
     });
 
-    scenarios.forEach(scenario => {
-        it(`Should return ${scenario.expectedOutput} when 'prices' = [${scenario.prices}]`, () => {
+    it(`Should return the maximum profit.`, () => {
+        scenarios.forEach(scenario => {
             expect(arrays.maxProfit(scenario.prices)).toEqual(scenario.expectedOutput);
         });
     });
@@ -222,8 +222,8 @@ describe("threeSum", () => {
         { nums: [0], output: [] }
     ];
 
-    scenarios.forEach(s => {
-        it (`Should return all the triplets that add up to 0. \n\tInput:[${s.nums}]\n\tExpected Output:${s.output}`, () => {
+    it (`Should return all the triplets that add up to 0.`, () => {
+        scenarios.forEach(s => {
             expect(arrays.threeSum(s.nums)).toEqual(s.output);
         });
     });

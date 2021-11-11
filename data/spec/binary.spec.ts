@@ -14,14 +14,15 @@ describe("getSum", () => {
         { numA: 2, numB: 3, output: 5 }
     ];
 
-    scenarios.forEach(s => {
-        it(`return the sum of ${s.numA} and ${s.numB}, which is ${s.output}`, () => {
+    it(`return the sum of both numbers.`, () => {
+        scenarios.forEach(s => {
             expect(binary.getSum(s.numA, s.numB)).toBe(s.output);
         });
-        it (`should not use + or - in the function (even in the comments)`, () => {
-            expect(binary.getSum.toString().indexOf("+") === -1).toBeTrue();
-            expect(binary.getSum.toString().indexOf("-") === -1).toBeTrue();
-        });
+    });
+
+    it (`should not use + or - in the function (even in the comments)`, () => {
+        expect(binary.getSum.toString().indexOf("+") === -1).toBeTrue();
+        expect(binary.getSum.toString().indexOf("-") === -1).toBeTrue();
     });
 });
 
@@ -39,8 +40,8 @@ describe("hammingWeight", () => {
         { num: 4294967293, output: 31 } // 11111111111111111111111111111101
     ];
 
-    scenarios.forEach(s => {
-        it(`return the total number of "1"s in the binary string.`, () => {
+    it(`return the total number of "1"s in the binary string.`, () => {
+        scenarios.forEach(s => {
             expect(binary.hammingWeight(s.num)).toBe(s.output);
         });
     });
@@ -59,8 +60,8 @@ describe("countBits", () => {
         { num: 5, output: [0,1,1,2,1,2] }
     ];
 
-    scenarios.forEach(s => {
-        it(`return the total number of "1"s in the binary string.`, () => {
+    it(`return the total number of "1"s in the binary string.`, () => {
+        scenarios.forEach(s => {
             expect(binary.countBits(s.num)).toEqual(s.output);
         });
     });
@@ -81,8 +82,8 @@ describe("missingNumber", () => {
         { nums: [0], output: 1 }
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the number missing from the array.`, () => {
+    it(`Should return the number missing from the array.`, () => {
+        scenarios.forEach(s => {
             expect(binary.missingNumber(s.nums)).toEqual(s.output);
         });
     });
@@ -101,8 +102,8 @@ describe("reverseBits", () => {
         { n: 4294967293, output: 3221225471 }
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the reversed bits in decimal form.`, () => {
+    it(`Should return the reversed bits in decimal form.`, () => {
+        scenarios.forEach(s => {
             expect(binary.reverseBits(s.n)).toEqual(s.output);
         });
     });

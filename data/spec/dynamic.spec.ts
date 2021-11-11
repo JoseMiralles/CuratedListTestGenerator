@@ -84,8 +84,8 @@ describe("longestCommonSubsequence", () => {
         { text1: "abc", text2: "def", output: 0 },
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the length of the longest common subsequence.`, () => {
+    it(`Should return the length of the longest common subsequence.`, () => {
+        scenarios.forEach(s => {
             expect(dynamic.longestCommonSubsequence(s.text1, s.text2)).toEqual(s.output);
         });
     });
@@ -156,8 +156,8 @@ describe("rob", () => {
         { nums: [2,7,9,3,1], output: 12 }
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+    it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+        scenarios.forEach(s => {
             expect(dynamic.rob(s.nums)).toEqual(s.output);
         });
     });
@@ -177,8 +177,8 @@ describe("rob2", () => {
         { nums: [1,2,3], output: 3 }
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+    it(`Should return the maximum amount of money you can rob tonight without alerting the police.`, () => {
+        scenarios.forEach(s => {
             expect(dynamic.rob2(s.nums)).toEqual(s.output);
         });
     });
@@ -199,8 +199,8 @@ describe("numDecodings", () => {
         { s: "06", output: 0 },
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the number of ways to decode the string.`, () => {
+    it(`Should return the number of ways to decode the string.`, () => {
+        scenarios.forEach(s => {
             expect(dynamic.numDecodings(s.s)).toEqual(s.output);
         });
     });
@@ -221,8 +221,8 @@ describe("uniquePaths", () => {
         { m: 7, n: 3, output: 28 }
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the number of ways to decode the string.`, () => {
+    it(`Should return the number of ways to decode the string.`, () => {
+        scenarios.forEach(s => {
             expect(dynamic.uniquePaths(s.m, s.n)).toEqual(s.output);
         });
     });
@@ -241,8 +241,8 @@ describe("canJump", () => {
         { nums: [3,2,1,0,4], output: false },
     ];
 
-    scenarios.forEach(s => {
-        it(`Should return the number of ways to decode the string.`, () => {
+    it(`Should return the number of ways to decode the string.`, () => {
+        scenarios.forEach(s => {
             expect(dynamic.canJump(s.nums)).toEqual(s.output);
         });
     });

@@ -47,61 +47,57 @@ describe("cloneGraph", () => {
         return dict[list[0][0]];
     };
 
-    for (let i = 0; i < scenarios.length; i++) {
+    it("Should be properly connected and have the correct values.", () => {
+        for (let i = 0; i < scenarios.length; i++) {
 
-        const s = scenarios[i];
+            const s = scenarios[i];
 
-        const originalGraph = buildGraph(s.edges);
-        const deepDup = graph.cloneGraph(originalGraph);
+            const originalGraph = buildGraph(s.edges);
+            const deepDup = graph.cloneGraph(originalGraph);
 
-        if (originalGraph && !deepDup) {
-            // Fail if the new graph is undefined.
-            fail ("Your graph / head node is undefined.");
-            continue;
-        };
+            if (originalGraph && !deepDup) {
+                // Fail if the new graph is undefined.
+                fail("Your graph / head node is undefined.");
+                continue;
+            };
 
-        const originalQue: graph.cGNode[] = originalGraph ? [ originalGraph ] : [];
-        const dupQue: graph.cGNode[] = deepDup ? [ deepDup ] : [];
+            const originalQue: graph.cGNode[] = originalGraph ? [originalGraph] : [];
+            const dupQue: graph.cGNode[] = deepDup ? [deepDup] : [];
 
-        const originalVisited = new Set<number>();
-        const dupVisited = new Set<number>();
+            const originalVisited = new Set<number>();
+            const dupVisited = new Set<number>();
 
-        while (originalQue.length) {
+            while (originalQue.length) {
 
-            it ("Should be properly connected.", () => {
 
                 if (dupQue.length < 1) {
                     fail("Your graph seems to be improperly connected or missing nodes.");
                 }
-            });
 
-            const currentOriginal = originalQue.pop();
-            const currentDup = dupQue.pop();
+                const currentOriginal = originalQue.pop();
+                const currentDup = dupQue.pop();
 
-            if (currentOriginal) originalVisited.add(currentOriginal?.val);
-            if (currentDup) originalVisited.add(currentDup?.val);
-
-            it ("Should have the same values.", () => {
+                if (currentOriginal) originalVisited.add(currentOriginal?.val);
+                if (currentDup) originalVisited.add(currentDup?.val);
 
                 expect(currentOriginal?.val).toBe(currentDup?.val);
-            });
 
-            it ("Should contain new nodes only.", () => {
+                expect(currentOriginal)
+                .withContext(`Node: ${currentOriginal?.val} is not a clone!`)
+                .not.toBe(currentDup);
 
-                expect(currentOriginal).not.toBe(currentDup);
-            });
+                currentOriginal?.neighbors.forEach(n => {
+                    if (!originalVisited.has(n.val))
+                        originalQue.push(n);
+                });
 
-            currentOriginal?.neighbors.forEach(n => {
-                if (!originalVisited.has(n.val))
-                    originalQue.push(n);
-            });
-
-            currentDup?.neighbors.forEach(n => {
-                if (!dupVisited.has(n.val))
-                    dupQue.push(n);
-            });
-        }
-    };
+                currentDup?.neighbors.forEach(n => {
+                    if (!dupVisited.has(n.val))
+                        dupQue.push(n);
+                });
+            }
+        };
+    });
 });
 
 //---START---canFinish
@@ -121,14 +117,14 @@ describe("canFinish", () => {
         { numCourses: 2, prerequisites: [[1,0], [0,1]], output: false }
     ];
 
-    trueScenarios.forEach(s => {
-        it ("Should return TRUE if the courses CAN be completed.", () => {
+    it ("Should return TRUE if the courses CAN be completed.", () => {
+        trueScenarios.forEach(s => {
             expect(graph.canFinish(s.numCourses, s.prerequisites)).toBe(s.output);
         });
     });
 
-    falseScenarios.forEach(s => {
-        it ("Should return FALSE if the courses CANNOT be completed.", () => {
+    it ("Should return FALSE if the courses CANNOT be completed.", () => {
+        falseScenarios.forEach(s => {
             expect(graph.canFinish(s.numCourses, s.prerequisites)).toBe(s.output);
         });
     });
@@ -153,8 +149,8 @@ describe("pacificAtlantic", () => {
         }
     ];
 
-    scenarios.forEach(s => {
-        it ("Should return a 2D list of grid coordinates 'result' where 'result[i] = [ri, ci]' denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.", () => {
+    it ("Should return a 2D list of grid coordinates 'result' where 'result[i] = [ri, ci]' denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.", () => {
+        scenarios.forEach(s => {
             expect(graph.pacificAtlantic(s.heights)).toEqual(s.output);
         });
     });
@@ -189,8 +185,8 @@ describe("numIslands", () => {
         }
     ];
 
-    scenarios.forEach(s => {
-        it ("Should return the number of islands.", () => {
+    it ("Should return the number of islands.", () => {
+        scenarios.forEach(s => {
             expect(graph.numIslands(s.grid)).toEqual(s.output);
         });
     });
@@ -209,8 +205,8 @@ describe("longestConsecutive", () => {
         { nums: [0,3,7,2,5,8,4,6,0,1], output: 9 },
     ];
 
-    scenarios.forEach(s => {
-        it ("Should return the length of the longest consecutive elements sequence.", () => {
+    it ("Should return the length of the longest consecutive elements sequence.", () => {
+        scenarios.forEach(s => {
             expect(graph.longestConsecutive(s.nums)).toEqual(s.output);
         });
     });
@@ -254,14 +250,14 @@ describe("validTree", () => {
         { n: 5, edges: [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]], output: false }
     ];
 
-    trueScenarios.forEach(s => {
-        it ("Should return TRUE if the edges DO make up a valid tree.", () => {
+    it ("Should return TRUE if the edges DO make up a valid tree.", () => {
+        trueScenarios.forEach(s => {
             expect(graph.validTree(s.n, s.edges)).toEqual(s.output);
         });
     });
 
-    falseScenarios.forEach(s => {
-        it ("Should return FALSE if the edges DO NOT make up a valid tree.", () => {
+    it ("Should return FALSE if the edges DO NOT make up a valid tree.", () => {
+        falseScenarios.forEach(s => {
             expect(graph.validTree(s.n, s.edges)).toEqual(s.output);
         });
     });
@@ -281,8 +277,8 @@ describe("countComponents", () => {
         { n: 5, edges: [[0,1], [1,2], [2,3], [3,4]], output: 1 },
     ];
 
-    scenarios.forEach(s => {
-        it ("Should return the number of connected components in the undirected graph.", () => {
+    it ("Should return the number of connected components in the undirected graph.", () => {
+        scenarios.forEach(s => {
             expect(graph.countComponents(s.n, s.edges)).toEqual(s.output);
         });
     });

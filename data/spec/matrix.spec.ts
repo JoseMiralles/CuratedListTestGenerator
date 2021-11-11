@@ -13,9 +13,8 @@ describe("setZeroes", () => {
         { input: [[0,1,2,0],[3,4,5,2],[1,3,1,5]], output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]] }
     ];
 
-    scenarios.forEach(s => {
-
-        it("Should return the same matrix with rows and column correctly modified.", () => {
+    it("Should return the same matrix with rows and column correctly modified.", () => {
+        scenarios.forEach(s => {
             
             matrix.setZeroes(s.input); // Mutates the matrix.
             expect( s.input ).toEqual(s.output);
@@ -59,9 +58,8 @@ describe("rotate", () => {
         { input: [[1,2],[3,4]], output: [[3,1],[4,2]] }
     ];
 
-    scenarios.forEach(s => {
-
-        it ("should return the elements in spiral order as an array.", () => {
+    it ("should return the elements in spiral order as an array.", () => {
+        scenarios.forEach(s => {
             
             matrix.rotate(s.input); // This mutates the matrix.
             expect(s.input).toEqual(s.output);
