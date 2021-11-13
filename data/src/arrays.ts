@@ -49,10 +49,23 @@ export function twoSum(nums: number[], target: number): number[] {
  * 
  * Expected TC: O(n)
  * 
+ * Leetcode # 121
  * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
  * 
- * @param prices An array of prices.
- * @returns The maximum profit acheivablem or 0 if profits are possible.
+ * Example 1:
+ * Input: prices = [7,1,5,3,6,4]
+ * Output: 5
+ * Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+ * Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+ * 
+ * Example 2:
+ * Input: prices = [7,6,4,3,1]
+ * Output: 0
+ * Explanation: In this case, no transactions are done and the max profit = 0.
+ *  
+ * Constraints:
+ * 1 <= prices.length <= 105
+ * 0 <= prices[i] <= 104
  */
 export function maxProfit (prices: number[]): number {
     
@@ -121,8 +134,18 @@ export function containsDuplicate(nums: number[]): boolean {
  * Leetcode # 238
  * https://leetcode.com/problems/product-of-array-except-self/
  * 
- * @param nums An array of numbers.
- * @returns An array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+ * Example 1:
+ * Input: nums = [1,2,3,4]
+ * Output: [24,12,8,6]
+ * 
+ * Example 2:
+ * Input: nums = [-1,1,0,-3,3]
+ * Output: [0,0,9,0,0]
+ *  
+ * Constraints:
+ * 2 <= nums.length <= 105
+ * -30 <= nums[i] <= 30
+ * The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
  */
 export function productExceptSelf(nums: number[]): number[]{
     
