@@ -2,7 +2,7 @@ import * as dynamic from "../src/dynamic";
 
 //---START---climbStairs
 describe("climbStairs", () => {
-
+    
     interface IScenario {
         n: number;
         output: number;
@@ -10,7 +10,9 @@ describe("climbStairs", () => {
 
     const scenarios: IScenario[] = [
         { n: 2, output: 2 },
-        { n: 3, output: 3 }
+        { n: 3, output: 3 },
+        { n: 1, output: 1 },
+        { n: 5, output: 8 }
     ];
 
     scenarios.forEach(s => {

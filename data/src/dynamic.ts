@@ -6,6 +6,7 @@
  * 
  * Expected TC: O(n)
  * 
+ * LeetCode # 70
  * https://leetcode.com/problems/climbing-stairs/
  * 
  * Input: n = 2
@@ -102,8 +103,7 @@ export function coinChange(coins: number[], amount: number): number {
  * no elements without changing the order of the remaining elements.
  * For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7].
  * 
- * Expected TC: O(n log(n))
- * 
+ * LeetCode # 300
  * https://leetcode.com/problems/longest-increasing-subsequence/
  * 
  * Input: nums = [10,9,2,5,3,7,101,18]
