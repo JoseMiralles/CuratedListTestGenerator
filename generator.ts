@@ -251,13 +251,16 @@ class Generator {
                 const content = !body.includes(`export class ${name}`)
                 ? "\tthrow new Error('Method not implemented.');"
                 : "\t// Add your methods here";
+
                 const empty =
+                    `// Problem Type: ${type[0].toUpperCase()}${type.slice(1)}` +
                     body.slice(0, body.indexOf("{\n") + 3) +
                     content +
                     "\n}; \n\n" +
                     includeMessage +
                     rest +
                     "\n\n";
+
                 const solved = body + rest;
 
                 // console.log(`NAME:\t${name}\nEMPTY:${empty}`);
