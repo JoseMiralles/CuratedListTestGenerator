@@ -210,41 +210,39 @@ describe("searchRotated", () => {
 
 //---START---threeSum
 describe("threeSum", () => {
-    fdescribe("threeSum", () => {
 
-        interface IScenario {
-            nums: number[];
-            output: number[][];
-        }
-    
-        const scenarios: IScenario[] = [
-            { nums: [-1,0,1,2,-1,-4], output: [[-1,-1,2],[-1,0,1]] },
-            { nums: [], output: [] },
-            { nums: [0], output: [] }
-        ];
-    
-        it (`Should return all the triplets that add up to 0.`, () => {
-            scenarios.forEach(s => {
-    
-                const res = arrays.threeSum(s.nums);
-    
-                // Check that they are both of the same length.
-                expect(res.length)
-                .withContext(`Output is either missing items, or has extra items.`)
-                .withContext(`Output: ${res}`)
-                .withContext(`Expected: ${s.output}`)
-                .toBe(s.output.length);
-    
-                // Check that the correct arrays are included.
-                const sortedOutputStrings = s.output.map(sub => sub.sort().toString());
-                const sortedResStrings = res.map(sub => sub.sort().toString());
-    
-                sortedOutputStrings.forEach(str => {
-    
-                    if (!sortedResStrings.includes(str)) {
-                        fail (`The set ${str} is missing.`);
-                    }
-                });
+    interface IScenario {
+        nums: number[];
+        output: number[][];
+    }
+
+    const scenarios: IScenario[] = [
+        { nums: [-1,0,1,2,-1,-4], output: [[-1,-1,2],[-1,0,1]] },
+        { nums: [], output: [] },
+        { nums: [0], output: [] }
+    ];
+
+    it (`Should return all the triplets that add up to 0.`, () => {
+        scenarios.forEach(s => {
+
+            const res = arrays.threeSum(s.nums);
+
+            // Check that they are both of the same length.
+            expect(res.length)
+            .withContext(`Output is either missing items, or has extra items.`)
+            .withContext(`Output: ${res}`)
+            .withContext(`Expected: ${s.output}`)
+            .toBe(s.output.length);
+
+            // Check that the correct arrays are included.
+            const sortedOutputStrings = s.output.map(sub => sub.sort().toString());
+            const sortedResStrings = res.map(sub => sub.sort().toString());
+
+            sortedOutputStrings.forEach(str => {
+
+                if (!sortedResStrings.includes(str)) {
+                    fail (`The set ${str} is missing.`);
+                }
             });
         });
     });
