@@ -99,7 +99,11 @@ describe("productExceptSelf", () => {
 
     it(`Should return an array containing the correct products.`, () => {
         scenarios.forEach(scenario => {
-            expect(arrays.productExceptSelf(scenario.nums))
+
+            // Flip all -0 to 0. LeetCode does this as well.
+            const res = arrays.productExceptSelf(scenario.nums).map(n => n === -0 ? 0 : n);
+
+            expect(res)
             .withContext(
                 `\n\tInput [${scenario.nums}]\n\tExpected: [${scenario.expectedOutput}]`
             )

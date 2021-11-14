@@ -141,6 +141,7 @@ export function lengthOfLIS(nums: number[]): number {
  * For example, "ace" is a subsequence of "abcde".
  * A common subsequence of two strings is a subsequence that is common to both strings.
  * 
+ * LeetCode # 1143
  * https://leetcode.com/problems/longest-common-subsequence/
  * 
  * Input: text1 = "abcde", text2 = "ace" 
