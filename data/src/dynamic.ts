@@ -233,6 +233,7 @@ export function wordBreak(s: string, wordDict: string[]): boolean {
  * 
  * The answer is guaranteed to fit in a 32-bit integer.
  * 
+ * LeetCode # 377
  * https://leetcode.com/problems/combination-sum-iv/
  * 
  * Input: nums = [1,2,3], target = 4
@@ -295,6 +296,9 @@ const topDown = (target: number): number => {
  * Given an integer array nums representing the amount of money of each house,
  * return the maximum amount of money you can rob tonight without alerting the police.
  * 
+ * LeetCode # 198
+ * https://leetcode.com/problems/house-robber/
+ * 
  * Input: nums = [1,2,3,1]
  * Output: 4
  * Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
@@ -336,6 +340,7 @@ export function rob(nums: number[]): number {
  * Given an integer array nums representing the amount of money of each house, return the maximum
  * amount of money you can rob tonight without alerting the police.
  * 
+ * LeetCode # 213
  * https://leetcode.com/problems/house-robber-ii/
  * 
  * Input: nums = [2,3,2]
@@ -395,6 +400,7 @@ function rob_impl(nums: number[], start: number, end: number){
  * 
  * The answer is guaranteed to fit in a 32-bit integer.
  * 
+ * LeetCode # 91
  * https://leetcode.com/problems/decode-ways/
  * 
  * Input: s = "12"
@@ -440,6 +446,7 @@ export function numDecodings(s: string): number {
  * 
  * How many possible unique paths are there?
  * 
+ * LeetCode # 62
  * https://leetcode.com/problems/unique-paths/
  */
 export function uniquePaths(m: number, n: number): number {
@@ -465,6 +472,9 @@ export function uniquePaths(m: number, n: number): number {
  * and each element in the array represents your maximum jump length at that position.
  * 
  * Return true if you can reach the last index, or false otherwise.
+ * 
+ * LeetCode # 55
+ * https://leetcode.com/problems/jump-game/
  * 
  * Input: nums = [2,3,1,1,4]
  * Output: true
