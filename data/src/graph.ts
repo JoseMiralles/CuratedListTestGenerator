@@ -78,6 +78,7 @@ export class cGNode {
  * 
  * Return true if you can finish all courses. Otherwise, return false.
  * 
+ * # 207. Course Schedule
  * https://leetcode.com/problems/course-schedule/
  * 
  * Input: numCourses = 2, prerequisites = [[1,0]]
@@ -124,6 +125,7 @@ export function canFinish(numCourses: number, prerequisites: number[][]): boolea
 /**
  * NOTE: View description and chart on LeetCode
  * 
+ * # 417. Pacific Atlantic Water Flow
  * https://leetcode.com/problems/pacific-atlantic-water-flow/
  * 
  * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean.
@@ -208,7 +210,8 @@ const helper = function (col: number, row: number, visited: boolean[][], height:
  * An island is surrounded by water and is formed by connecting adjacent lands horizontally or
  * vertically. You may assume all four edges of the grid are all surrounded by water.
  * 
- * https://leetcode.com/problems/number-of-islands/discuss/1525633/TypeScript%3A-DFS-check-boundary-and-visited
+ * # 200. Number of Islands
+ * https://leetcode.com/problems/number-of-islands/
  * 
  * Input: grid = [
  * ["1","1","1","1","0"],
@@ -267,6 +270,7 @@ export function numIslands(grid: string[][]): number {
  * 
  * You must write an algorithm that runs in O(n) time.
  * 
+ * # 128. Longest Consecutive Sequence
  * https://leetcode.com/problems/longest-consecutive-sequence/
  * 
  * Input: nums = [100,4,200,1,3,2]
