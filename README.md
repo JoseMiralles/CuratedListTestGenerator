@@ -1,5 +1,7 @@
 # CuratedListTestGenerator
 
+![meta_image](img/meta_image.jpg)
+
 This is a test generator based on [a popular list](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU) of 75 curated LeetCode problems, which was published on Blind.
 
 From the post:
