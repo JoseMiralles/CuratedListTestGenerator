@@ -11,7 +11,7 @@ From the post:
 
 This generator creates a project containing a list of 10 problems and unit tests, which are randomly selected from a pool of 75 total problems.
 
-**Supported languages**: `TypeScript` and `JavaScript`.
+**Supported languages**: `TypeScript`
 
 <br>
 
@@ -21,27 +21,25 @@ This generator creates a project containing a list of 10 problems and unit tests
 
 2. Make sure that `NPM` and `Node` are installed in your machine.
 
-3. In the project directory, run `npm run generate`, this will create a new `./Test` folder.
+3. In the project directory, run `npm run generate-all`, this will create a new `./Test` folder.
 
-4. Open the new `./Test` folder in your IDE of choice.
+4. Open the new `./Test` folder in VSCode.
 
-## TypeScript
 - The **problems** can be found under `src/problems.ts`.
 - The **unit tests** can be seen under `spec/tests.spec.ts`.
 - The **solutions** can be seen under `solutions/solutions.ts`.
 
-## JavaScript
-- The **problems** can be found under `dist/src/problems.js`.
-- The **unit tests** can be seen under `dist/spec/tests.spec.js`.
-- The **solutions** can be seen under `dist/solutions/solutions.js`.
+5. Open a terminal window in the new `/Test` directory, and run `npm test`.
 
-**WARNING:** Make sure to use `test-js` and not `test-ts` if you are using JavaScript. Using `test-ts` will re-transpile the TS code and replace the entire `./Dist` folder, which will make you lose your progress.
+You should see many `Method not implemented` errors.
+
+- You can also press `f5` in VSCode to debug the tests.
 
 <br>
 
 # Running Specific Tests
 
-1. Open the test file (TS: `spec/tests.spec.ts`, JS: `dist/spec/tests.spec.js`).
+1. Open the test file (`spec/tests.spec.ts`).
 2. Change the name of a specific **describe** or **it** statements to **fdescribe** or **fit** respectively.
 
 `describe("maxProfit"...` >>> `fdescribe("maxProfit"...`
@@ -54,12 +52,12 @@ or
 
 <br>
 
+# Generating a specific amount of random problems
+
+Simply open `settings.ts`, set the types of problems and the total amount of problems that you want to do.
+
+Then run `npm run generate`. This will create a new `/Test` folder with random problems.
+
 # Generating a new set of problems
 
-To generate a new set of problems, simply run `npm run generate` again in the main project directory. This will replace all problems and tests with new ones.
-
-<br>
-
-# Costumizing test
-
-Modify `generator.json` and then run `npm run generate` again.
+To generate a new set of problems, simply run `npm run generate` or `npm run generate-all` again in the main project directory. This will replace all problems and tests with new ones.
