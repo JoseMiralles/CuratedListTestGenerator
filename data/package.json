@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jasmine-ts",
+    "tsc": "tsc",
     "test-ts": "tsc && jasmine",
-    "test-js": "jasmine",
-    "tsc": "tsc"
+    "test-js": "jasmine"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "@types/jasmine": "^3.7.7",
     "@types/node": "^15.12.4",
     "jasmine": "^3.7.0",
+    "jasmine-ts": "^0.4.0",
     "jasmine-ts-console-reporter": "^3.1.1"
   }
 }

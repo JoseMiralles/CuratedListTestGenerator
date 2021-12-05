@@ -69,11 +69,14 @@ class Generator {
         if (!fs.existsSync("Test/spec/support")) fs.mkdirSync("Test/spec/support");
         if (!fs.existsSync("Test/src")) fs.mkdirSync("Test/src");
         if (!fs.existsSync("Test/solutions")) fs.mkdirSync("Test/solutions");
+        if (!fs.existsSync("Test/.vscode")) fs.mkdirSync("Test/.vscode");
         fs.writeFileSync("Test/src/problems.ts", this.files.emptyMethods);
         fs.writeFileSync("Test/spec/tests.spec.ts", this.files.tests);
         fs.writeFileSync("Test/solutions/solutions.ts", this.files.solutions);
         fs.writeFileSync("Test/package.json", fs.readFileSync("data/package.json", {encoding: "utf8"}));
         fs.writeFileSync("Test/tsconfig.json", fs.readFileSync("data/tsconfig.json", {encoding: "utf8"}));
+        fs.writeFileSync("Test/jasmine.json", fs.readFileSync("data/jasmine.json", {encoding: "utf8"}));
+        fs.writeFileSync("Test/.vscode/launch.json", fs.readFileSync("data/.vscode/launch.json", {encoding: "utf8"}));
         fs.writeFileSync("Test/spec/support/jasmine.json", fs.readFileSync("data/spec/support/jasmine.json", {encoding: "utf8"}));
     }
 

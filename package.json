@@ -5,8 +5,8 @@
   "main": "generator.js",
   "scripts": {
     "dev-setup": "npm install && npm --prefix ./data install ./data",
-    "generate-all": "npm install && tsc generator.ts && node generator.js -all && npm --prefix ./Test install ./Test && npm --prefix ./Test run tsc",
-    "generate": "npm install && tsc generator.ts && node generator.js && npm --prefix ./Test install ./Test && npm --prefix ./Test run tsc"
+    "generate-all": "npm install && tsc generator.ts && node generator.js -all && npm --prefix ./Test install ./Test",
+    "generate": "npm install && tsc generator.ts && node generator.js && npm --prefix ./Test install ./Test"
   },
   "repository": {
     "type": "git",
