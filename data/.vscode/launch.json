@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/node_modules/jasmine-ts/lib/index",
             "args": [
                 "--config=jasmine.json",
-                "${file}"
+                "${workspaceRoot}/spec/tests.spec.ts"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
