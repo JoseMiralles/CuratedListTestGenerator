@@ -5,13 +5,12 @@ describe("bubbleSort", () => {
 
     interface IScenario {
         nums: number[];
-        res: number[];
     }
 
     const scenarios: IScenario[] = [
-        {nums: [4,5,7,2,3,4], res: [2,3,4,4,5,7]},
-        {nums: [3,2,1], res: [1,2,3]},
-        {nums: [3,1,5,2,4], res: [1,2,3,4,5]}
+        {nums: [4,5,7,2,3,4]},
+        {nums: [3,2,1]},
+        {nums: [3,1,5,2,4]}
     ];
 
     it (`Should not modify the original array.`, () => {
@@ -30,10 +29,19 @@ describe("bubbleSort", () => {
 
     it ("Should return a sorted array.", () => {
         scenarios.forEach(s => {
+
             const res = sorting.bubbleSort(s.nums);
-            res.forEach((n ,i) => {
-                expect(n).toBe(s.res[i]);
-            });
+            const expected = s.nums.sort();
+
+            for (let i = 0; i < res.length; i ++) {
+
+                const n = res[i];
+
+                if (n !== expected[i]) {
+                    fail(`\nExpected result: ${expected}\nActual Result: ${res}`);
+                    break;
+                }
+            };
         });
     });
 });

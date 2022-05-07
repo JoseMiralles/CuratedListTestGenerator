@@ -17,7 +17,7 @@ export function bubbleSort(nums: number[]): number[] {
             let current = res[i];
             let next = res[i + 1];
 
-            if (current < next) {
+            if (current > next) {
 
                 res[i] = next;
                 res[i + 1] = current;
