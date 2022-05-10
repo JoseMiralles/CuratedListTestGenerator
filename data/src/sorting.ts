@@ -29,3 +29,24 @@ export function bubbleSort(nums: number[]): number[] {
 
     return res;
 }
+//---END---
+
+//---START---insertionSort
+/**
+ * Sort the array using insertion sort.
+ * Mutate the array.
+ */
+export function insertionSort(nums: number[]): void {
+
+    for (let i = 1; i < nums.length; i++) {
+
+        let j = i;
+        while (j >= 0 && nums[j] < nums[j - 1]) {
+            const temp = nums[j];
+            nums[j] = nums[j-1];
+            nums[j-1] = temp;
+            j--;
+        }
+    }
+}
+//---END---
