@@ -19,7 +19,7 @@
     "url": "https://github.com/JoseMiralles/CuratedListTestGenerator/issues"
   },
   "homepage": "https://github.com/JoseMiralles/CuratedListTestGenerator#readme",
-  "devDependencies": {
-    "@types/node": "^15.12.4"
+  "dependencies": {
+    "@types/node": "^20.10.7"
   }
 }

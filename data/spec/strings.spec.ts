@@ -111,7 +111,7 @@ describe("groupAnagrams", () => {
 
             const res = strings.groupAnagrams(s.strs);
 
-            if (s.strs === [""] || (s.strs.length === 1)) {
+            if (s.strs[0] === "" && s.strs.length === 1 || (s.strs.length === 1)) {
                 expect(res).toEqual(s.output);
             }
 
